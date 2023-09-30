@@ -37,7 +37,14 @@ body {
     width: 100px;
 }
 
-/* Navbar */
+.main-content {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px 0;
+    text-align: center;
+}
+
 .navbar ul {
     list-style-type: none;
     margin: 0;
@@ -58,7 +65,6 @@ body {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Main Content */
 .landing-page {
     background-color: #4d749c;
     color: white;
@@ -75,9 +81,11 @@ h1 {
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     font-size: 3em;
+    text-align: center;
+    margin: 0 auto;
+    padding-bottom: 20px;
 }
 
-/* Global Stylings */
 ul {
     list-style-type: none;
     padding: 0;
@@ -105,4 +113,73 @@ a:hover {
 
 .back-link:hover {
     text-decoration: underline;
+}
+
+.custom-select {
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid #4d749c;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    color: #333;
+}
+
+.custom-select option {
+    color: #333;
+}
+
+.custom-select:focus,
+.custom-select:active {
+    color: #333;
+}
+
+.custom-select:hover {
+    background-color: #f5f5f5;
+}
+
+
+.btn.multiselect {
+    background-color: #fff;
+    border: 1px solid #4d749c;
+    border-radius: 5px;
+    color: #333;
+}
+
+.btn.multiselect:hover {
+    background-color: #f5f5f5;
+}
+
+.multiselect-container li a {
+    color: #333;
+}
+
+
+.multiselect-container li a:hover,
+.multiselect-container li.active a {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.dropdowns-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.dropdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
 }
