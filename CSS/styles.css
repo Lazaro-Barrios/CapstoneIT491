@@ -118,3 +118,52 @@ a {
 .close-btn:hover {
     background-color: #3a5a7c;
 }
+
+.logo-text {
+    margin-left: 10px;
+    position: relative;
+    bottom: 35px;
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.year-filter, .another-filter {
+    padding: 10px 30px 10px 10px;
+    font-size: 16px;
+    font-family: 'Ubuntu', sans-serif;
+    border: none;
+    appearance: none;
+    background: white;
+    color: #333;
+    outline: none;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="%23333" d="M3.646 6.646a.5.5 0 0 1 .708 0L8 10.293l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708z"></path></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    cursor: pointer;
+}
+
+.year-filter {
+    width: 100px;
+    margin-right: 20px;
+}
+
+.another-filter {
+    width: 180px;
+}
+
+.year-filter:hover, .another-filter:hover {
+    background: white;
+    cursor: pointer;
+}
+
+.year-filter:hover, .another-filter:hover {
+    background: white;
+}
+
+.another-filter {
+    width: 250px;
+}
+

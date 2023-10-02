@@ -2,6 +2,7 @@
     <div class="logo">
         <a href="https://rde.org/index.html" target="_blank">
             <img src="/CapstoneIT491/images/lightLogo-removebg-preview.png" alt="Logo">
+            <span class="logo-text">RDE Systems</span>
         </a>
     </div>
     <div class="menu">

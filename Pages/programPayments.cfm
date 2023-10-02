@@ -11,7 +11,24 @@
     <cfinclude template="/CapstoneIT491/features/navbar.cfm">
 
     <h1>Program Payments</h1>
-    
+    <select class="year-filter">
+        <option value="2015">2015</option>
+        <option value="2016">2016</option>
+        <option value="2017">2017</option>
+        <option value="2018">2018</option>
+        <option value="2019">2019</option>
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+    </select>
+    <select class="another-filter">
+        <option value="option1">Routine Home Care</option>
+        <option value="option2">Continuous Home Care</option>
+        <option value="option3">Inpatient Home Care</option>
+        <option value="option4">General Inpatient Care</option>
+        <option value="option5">Other Hospice Services</option>
+        <option value="option6">Not Elsewhere Classified</option>
+    </select><br><br><br>
+
     <a href="index.cfm" class="back-link">Back to Landing Page</a>
     <script src="/CapstoneIT491/JavaScript/script.js"></script>
 </body>
