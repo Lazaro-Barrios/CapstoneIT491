@@ -193,4 +193,10 @@ a {
 
 .select2-container--default .select2-selection--multiple:focus {
     outline: none;
+}
+
+.select2-selection__rendered {
+    padding-left: 10px !important; /* !important not recommended */
+    color: grey;
+}
 

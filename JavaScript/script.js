@@ -42,11 +42,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }).on('select2:close', function() {
         // Remove click event listener when dropdown is closed
         $(document).off('click.select2');
+        // Ensure the placeholder is updated when the dropdown is closed
+        updatePlaceholder($anotherFilter);
     });
 
     function updatePlaceholder($selectElement) {
         // Manually insert a placeholder
-        if ($selectElement.val().length === 0) {
+        if (!$selectElement.val() || $selectElement.val().length === 0) {
             $(".select2-selection__rendered").attr("title","Level of Care").text("Level of Care");
         }
     }
