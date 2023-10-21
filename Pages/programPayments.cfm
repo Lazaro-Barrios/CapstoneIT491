@@ -3,10 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
     <link rel="stylesheet" href="/CapstoneIT491/CSS/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -26,15 +22,16 @@
         <option value="2020">2020</option>
         <option value="2021">2021</option>
     </select>
-    <select class="another-filter" multiple="multiple">
+    <select class="another-filter">
         <option value="selectAll">Select All</option>
         <option value="option1">Routine Home Care</option>
         <option value="option2">Continuous Home Care</option>
         <option value="option3">Inpatient Home Care</option>
         <option value="option4">General Inpatient Care</option>
-        <option value="option5">Other Hospice Services</option>
-        <option value="option6">Not Elsewhere Classified</option>
-    </select><br><br><br>
+    </select>
+    <button id="fetchDataButton">Update Results</button><br><br><br>
+
+    <div id="dataTable"></div>
 
     <a href="index.cfm" class="back-link">Back to Landing Page</a>
     <script src="/CapstoneIT491/JavaScript/script.js"></script>
