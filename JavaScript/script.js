@@ -76,6 +76,26 @@ function fetchData(yearFilter, careFilter) {
     })
     .then(response => response.json())
     .then(data => {
+        // If the selected care type is "Continuous Home Care", filter the data
+        if (selectedCare === "1") {
+            data.COLUMNS = ["siteOfServiceType", "Continuous Home Care"];
+            data.DATA = data.DATA.map(row => [row[0], row[1]]);
+        }
+        // If the selected care type is "General Inpatient Care", filter the data
+        else if (selectedCare === "2") {
+            data.COLUMNS = ["siteOfServiceType", "General Inpatient Care"];
+            data.DATA = data.DATA.map(row => [row[0], row[2]]);
+        }
+        // If the selected care type is "Inpatient Respite Care", filter the data
+        else if (selectedCare === "3") {
+            data.COLUMNS = ["siteOfServiceType", "Inpatient Respite Care"];
+            data.DATA = data.DATA.map(row => [row[0], row[3]]);
+        }
+        // If the selected care type is "Routine Home Care", filter the data
+        else if (selectedCare === "4") {
+            data.COLUMNS = ["siteOfServiceType", "Routine Home Care"];
+            data.DATA = data.DATA.map(row => [row[0], row[4]]);
+        }
         // Render the fetched data in a table format
         renderTable(data);
     });
@@ -89,7 +109,11 @@ function renderTable(data) {
     // Add table headers
     tableHTML += '<thead><tr>';
     data.COLUMNS.forEach(column => {
-        tableHTML += `<th>${column}</th>`;
+        if (column === "siteOfServiceType") {
+            tableHTML += `<th>Site of Service</th>`;
+        } else {
+            tableHTML += `<th>${column}</th>`;
+        }
     });
     tableHTML += '</tr></thead>';
 
