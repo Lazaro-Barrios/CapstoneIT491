@@ -131,3 +131,10 @@ a {
     font-size: 30px;
     font-weight: bold;
 }
+
+/* Define the width of the container and center it */
+.chart-container {
+    width: 50%;
+    margin: 0 auto;
+}
+

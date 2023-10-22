@@ -6,6 +6,7 @@
 
     <link rel="stylesheet" href="/CapstoneIT491/CSS/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Program Payments</title>
 </head>
 <body>
@@ -32,7 +33,9 @@
     <button id="fetchDataButton">Update Results</button><br><br><br>
 
     <div id="dataTable"></div>
-
+    <div class="chart-container">
+        <canvas id="multiBarChart"></canvas>
+    </div>
     <a href="index.cfm" class="back-link">Back to Landing Page</a>
     <script src="/CapstoneIT491/JavaScript/script.js"></script>
 </body>

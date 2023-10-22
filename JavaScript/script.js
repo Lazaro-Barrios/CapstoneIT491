@@ -99,8 +99,16 @@ function fetchData(yearFilter, careFilter) {
 
         // Render the fetched data in a table format
         renderTable(data);
+
+        // Fetch data for all years
+        fetch('/CapstoneIT491/api/fetchAllYearsData.cfm')
+        .then(response => response.json())
+        .then(allYearsData => {
+            renderMultiBarGraph(allYearsData);
+        });
     });
 }
+
 
 // Function to render the fetched data in a table format
 function renderTable(data) {
@@ -127,10 +135,66 @@ function renderTable(data) {
         });
         tableHTML += '</tr>';
     });
+
+    // Calculate and add the totals row
+    const totals = [];
+    for (let i = 0; i < data.COLUMNS.length; i++) {
+        let sum = 0;
+        for (let j = 0; j < data.DATA.length; j++) {
+            sum += data.DATA[j][i];
+        }
+        totals.push(sum);
+    }
+    tableHTML += '<tr>';
+    tableHTML += `<td>Total</td>`; // Display "Total" in the "Site of Service" column
+    for (let i = 1; i < totals.length; i++) { // Start from 1 to skip the "Site of Service" column
+        tableHTML += `<td>${totals[i]}</td>`;
+    }
+    tableHTML += '</tr>';
+
     tableHTML += '</tbody>';
 
     tableHTML += '</table>';
 
     // Update the DOM with the generated table
     dataTable.innerHTML = tableHTML;
+}
+
+function renderMultiBarGraph(allYearsData) {
+    const ctx = document.getElementById('multiBarChart').getContext('2d');
+    
+    const years = allYearsData.DATA.map(row => row[0]); // Extract years from the data
+    const datasets = [];
+
+    allYearsData.COLUMNS.slice(1).forEach((column, columnIndex) => {
+        const dataForColumn = allYearsData.DATA.map(row => row[columnIndex + 1]);
+        datasets.push({
+            label: column,
+            data: dataForColumn,
+            backgroundColor: `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.2)`,
+            borderColor: `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 1)`,
+            borderWidth: 1
+        });
+    });
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: years,
+            datasets: datasets
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value, index, values) {
+                            return '$' + value / 1000000000 + 'B';
+                        }
+                    }
+                }
+            }
+        }
+    });
 }

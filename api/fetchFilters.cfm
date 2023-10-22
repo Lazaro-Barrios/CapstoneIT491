@@ -11,7 +11,7 @@
 
 <!--- Query the database to fetch distinct years from the payments table --->
 <cfquery name="getYears" datasource="MedicareData">
-    SELECT DISTINCT year FROM payments ORDER BY year DESC;
+    SELECT DISTINCT year FROM payments ORDER BY year ASC;
 </cfquery>
 
 <!--- Query the database to fetch distinct care types from the levelOfCare table --->
