@@ -129,3 +129,50 @@ a {
 .close-btn:hover {
     background-color: #3a5a7c;
 }
+
+/*CSS for Spending by Year*/
+/* External CSS file */
+
+/* Styles for the dropdown with id="SpendingYear" */
+#SpendingYear {
+    display: block;
+    width: 300px;
+    height: 40px;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Styles for the search bar with id="spendingSearch" */
+#spendingSearch {
+    display: block;
+    width: 300px;
+    height: 40px;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Styles for the label containing the checkbox */
+label[for="spendingGeneric"] {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    height: 40px;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #cccccc;
+    /*color: #cccccc;*/
+}
+
+/* Styles for the checkbox with id="spendingGeneric" */
+#spendingGeneric {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
