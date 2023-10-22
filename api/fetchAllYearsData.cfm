@@ -9,7 +9,7 @@
 <cfheader name="Pragma" value="no-cache">
 <cfheader name="Expires" value="-1">
 
-<!--- Your provided query goes here --->
+<!--- Query goes here --->
 <cfquery name="getAllYearsData" datasource="MedicareData">
 SELECT 
     p.year AS Year,
@@ -23,7 +23,6 @@ JOIN levelOfCare l ON p.levelOfCareID = l.ID
 WHERE l.ID IN (1, 2, 3, 4)
 GROUP BY p.year
 ORDER BY p.year;
-
 </cfquery>
 
 <!--- Convert the query result to JSON format and output it --->

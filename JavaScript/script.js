@@ -54,6 +54,10 @@ function populateDropdown(dropdown, data, isCareType = false) {
     dropdown.innerHTML += optionsHTML;
 }
 
+function toTitleCase(str) {
+    return str.toLowerCase().replace(/\b(\w)/g, s => s.toUpperCase());
+}
+
 // Function to fetch data based on selected year and care type
 function fetchData(yearFilter, careFilter) {
     const selectedYear = yearFilter.value;
@@ -62,6 +66,7 @@ function fetchData(yearFilter, careFilter) {
     // Log the selected values for debugging purposes
     console.log("Selected Year:", selectedYear);
     console.log("Selected Cares:", selectedCares);
+    console.log("Dropdown Selection:", careFilter.selectedOptions); // Debug log for dropdown selection
 
     // Fetch data from the server based on the selected filters
     fetch('/CapstoneIT491/api/fetchData.cfm', {
@@ -76,26 +81,33 @@ function fetchData(yearFilter, careFilter) {
     })
     .then(response => response.json())
     .then(data => {
+
+        console.log("Initial Data:", JSON.parse(JSON.stringify(data))); // Debug log for initial data
+
         // Filter the columns based on the selected care types
-        const filteredColumns = ["siteOfServiceType"];
+        const filteredColumns = ["SITEOFSERVICETYPE"];
         const careTypeMapping = {
-            "1": "Continuous Home Care",
-            "2": "General Inpatient Care",
-            "3": "Inpatient Respite Care",
-            "4": "Routine Home Care"
+            "1": "CONTINUOUS HOME CARE",
+            "2": "GENERAL INPATIENT CARE",
+            "3": "INPATIENT RESPITE CARE",
+            "4": "ROUTINE HOME CARE"
         };
         selectedCares.forEach(care => {
             if (careTypeMapping[care]) {
                 filteredColumns.push(careTypeMapping[care]);
             }
         });
+
+        const originalColumns = data.COLUMNS; // Store the original columns
         data.COLUMNS = filteredColumns;
         data.DATA = data.DATA.map(row => {
             return filteredColumns.map(column => {
-                const columnIndex = data.COLUMNS.indexOf(column);
+                const columnIndex = originalColumns.indexOf(column);
                 return row[columnIndex];
             });
         });
+
+        console.log("Filtered Data:", data); // Debug log for filtered data
 
         // Render the fetched data in a table format
         renderTable(data);
@@ -109,7 +121,6 @@ function fetchData(yearFilter, careFilter) {
     });
 }
 
-
 // Function to render the fetched data in a table format
 function renderTable(data) {
     const dataTable = document.getElementById('dataTable');
@@ -118,12 +129,14 @@ function renderTable(data) {
     // Add table headers
     tableHTML += '<thead><tr>';
     data.COLUMNS.forEach(column => {
-        if (column === "siteOfServiceType") {
+        if (column === "SITEOFSERVICETYPE") {
             tableHTML += `<th>Site of Service</th>`;
-        } else {
-            tableHTML += `<th>${column}</th>`;
+        } 
+        else {
+            tableHTML += `<th>${toTitleCase(column.replace(/_/g, ' '))}</th>`;
         }
     });
+    
     tableHTML += '</tr></thead>';
 
     // Add table rows for each data entry
