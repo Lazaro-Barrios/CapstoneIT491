@@ -202,8 +202,19 @@ function renderMultiBarGraph(allYearsData) {
                 y: {
                     beginAtZero: true,
                     ticks: {
+                        min: 0,
+                        max: 25000000000, // 25 billion
+                        stepSize: 50000000, // 5 million (smallest increment)
                         callback: function(value, index, values) {
-                            return '$' + value / 1000000000 + 'B';
+                            if (value >= 1000000000) { // if value is greater than or equal to one billion
+                                return '$' + value / 1000000000 + ' Billion';
+                            } 
+                            else if (value >= 1000000) { // if value is greater than or equal to one million
+                                return '$' + value / 1000000 + ' Million';
+                            } 
+                            else {
+                                return '$' + value;
+                            }
                         }
                     }
                 }
