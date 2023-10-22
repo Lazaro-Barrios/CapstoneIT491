@@ -22,13 +22,13 @@
         <option value="2020">2020</option>
         <option value="2021">2021</option>
     </select>
-    <select class="another-filter">
-        <option value="selectAll">Select All</option>
-        <option value="option1">Routine Home Care</option>
-        <option value="option2">Continuous Home Care</option>
-        <option value="option3">Inpatient Home Care</option>
-        <option value="option4">General Inpatient Care</option>
-    </select>
+    <select class="another-filter" multiple>
+    <option value="selectAll">Select All</option>
+    <option value="1">Routine Home Care</option>
+    <option value="2">Continuous Home Care</option>
+    <option value="3">Inpatient Home Care</option>
+    <option value="4">General Inpatient Care</option>
+</select>  
     <button id="fetchDataButton">Update Results</button><br><br><br>
 
     <div id="dataTable"></div>

@@ -57,11 +57,11 @@ function populateDropdown(dropdown, data, isCareType = false) {
 // Function to fetch data based on selected year and care type
 function fetchData(yearFilter, careFilter) {
     const selectedYear = yearFilter.value;
-    const selectedCare = careFilter.value;
+    const selectedCares = Array.from(careFilter.selectedOptions).map(option => option.value);
 
     // Log the selected values for debugging purposes
     console.log("Selected Year:", selectedYear);
-    console.log("Selected Care:", selectedCare);
+    console.log("Selected Cares:", selectedCares);
 
     // Fetch data from the server based on the selected filters
     fetch('/CapstoneIT491/api/fetchData.cfm', {
@@ -71,31 +71,32 @@ function fetchData(yearFilter, careFilter) {
         },
         body: JSON.stringify({
             year: selectedYear,
-            careType: selectedCare
+            careTypes: selectedCares
         })
     })
     .then(response => response.json())
     .then(data => {
-        // If the selected care type is "Continuous Home Care", filter the data
-        if (selectedCare === "1") {
-            data.COLUMNS = ["siteOfServiceType", "Continuous Home Care"];
-            data.DATA = data.DATA.map(row => [row[0], row[1]]);
-        }
-        // If the selected care type is "General Inpatient Care", filter the data
-        else if (selectedCare === "2") {
-            data.COLUMNS = ["siteOfServiceType", "General Inpatient Care"];
-            data.DATA = data.DATA.map(row => [row[0], row[2]]);
-        }
-        // If the selected care type is "Inpatient Respite Care", filter the data
-        else if (selectedCare === "3") {
-            data.COLUMNS = ["siteOfServiceType", "Inpatient Respite Care"];
-            data.DATA = data.DATA.map(row => [row[0], row[3]]);
-        }
-        // If the selected care type is "Routine Home Care", filter the data
-        else if (selectedCare === "4") {
-            data.COLUMNS = ["siteOfServiceType", "Routine Home Care"];
-            data.DATA = data.DATA.map(row => [row[0], row[4]]);
-        }
+        // Filter the columns based on the selected care types
+        const filteredColumns = ["siteOfServiceType"];
+        const careTypeMapping = {
+            "1": "Continuous Home Care",
+            "2": "General Inpatient Care",
+            "3": "Inpatient Respite Care",
+            "4": "Routine Home Care"
+        };
+        selectedCares.forEach(care => {
+            if (careTypeMapping[care]) {
+                filteredColumns.push(careTypeMapping[care]);
+            }
+        });
+        data.COLUMNS = filteredColumns;
+        data.DATA = data.DATA.map(row => {
+            return filteredColumns.map(column => {
+                const columnIndex = data.COLUMNS.indexOf(column);
+                return row[columnIndex];
+            });
+        });
+
         // Render the fetched data in a table format
         renderTable(data);
     });
