@@ -57,10 +57,10 @@
         <cfif isNumeric(URL.page) AND val(URL.page) GT 0>
                 <!-- Now it's safe to perform operations on URL.page -->
         </cfif>
-        <!---<cfset itemsPerPage = 100>--->
+
         <cfparam name="URL.itemsPerPage" default="100">
-        <cfset itemsPerPage = URL.itemsPerPage>
-        <!---<cfset startRow = (URL.page - 1) * itemsPerPage + 1>--->
+        <!---<cfset itemsPerPage = URL.itemsPerPage>--->
+
         <cfif isNumeric(URL.page) AND val(URL.page) GT 0>
             <cfset startRow = (URL.page - 1) * itemsPerPage + 1>
         <cfelse>
@@ -118,64 +118,49 @@
             </table>
 
 
-         <!---Navigation Links & Advanced Pagination Logic--->
+        <!---Navigation Links & Advanced Pagination Logic--->
         <br>
         <div>
             <cfset maxPageLinks = 3> <!--- Number of page links to show around the current page --->
 
             <!--- START Link --->
             <cfif URL.page NEQ 1>
-                    <a href="?page=1">START</a>
+                    <a href="?page=1&itemsPerPage=<cfoutput>#URL.itemsPerPage#</cfoutput>">START</a>
             </cfif>
 
             <!--- PREV Link --->
             <cfif isNumeric(URL.page) AND val(URL.page) GT 1>
-                    <a href="?page=<cfoutput>#val(URL.page)-1#</cfoutput>">PREV</a>
+                    <a href="?page=<cfoutput>#val(URL.page)-1#</cfoutput>&itemsPerPage=<cfoutput>#URL.itemsPerPage#</cfoutput>">PREV</a>
             </cfif>
 
             <!--- Page Numbers, Showing a Limited Set --->
             <cfoutput>
-                <!--- Start page --->
+            <!--- Start page --->
                 <cfset startPage = max(1, URL.page - maxPageLinks)>
-                <!--- End page --->
+            <!--- End page --->
                 <cfset endPage = min(totalPages, URL.page + maxPageLinks)>
-
-                <cfif startPage GT 1>
-                        ...
-                </cfif>
 
                 <cfloop from="#startPage#" to="#endPage#" index="i">
                     <cfif i EQ URL.page>
                             <strong>#i#</strong>
                     <cfelse>
-                            <a href="?page=#i#">#i#</a>
+                            <a href="?page=#i#&itemsPerPage=<cfoutput>#URL.itemsPerPage#</cfoutput>">#i#</a>
                     </cfif>
                 </cfloop>
-
-                <cfif endPage LT totalPages>
-                        ...
-                </cfif>
             </cfoutput>
 
             <!--- NEXT Link --->
             <cfif isNumeric(URL.page) AND val(URL.page) LT totalPages>
-                    <a href="?page=<cfoutput>#val(URL.page)+1#</cfoutput>">NEXT</a>
+                    <a href="?page=<cfoutput>#val(URL.page)+1#</cfoutput>&itemsPerPage=<cfoutput>#URL.itemsPerPage#</cfoutput>">NEXT</a>
             </cfif>
 
             <!--- END Link --->
             <cfif isNumeric(URL.page) AND val(URL.page) NEQ totalPages>
-                    <a href="?page=<cfoutput>#totalPages#</cfoutput>">END</a>
+                    <a href="?page=<cfoutput>#totalPages#</cfoutput>&itemsPerPage=<cfoutput>#URL.itemsPerPage#</cfoutput>">END</a>
             </cfif>
 
-        </div>
 
-        <!--- Debugging Info --->
-        <cfoutput>
-            URL.page: #URL.page# <br>
-            Is Numeric: #isNumeric(URL.page)# <br>
-            Converted Value: #val(URL.page)# <br>
-            Total Pages: #totalPages# <br>
-        </cfoutput>
+        </div>
 
     </div>
 
