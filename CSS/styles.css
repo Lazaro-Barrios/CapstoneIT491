@@ -176,3 +176,36 @@ label[for="spendingGeneric"] {
     margin-right: 10px;
     vertical-align: middle;
 }
+
+/*Adding width and wrapping options for table*/
+.wrap-text {
+    word-wrap: break-word;  /* This will break the text onto the next line */
+    max-width: 150px;      /* This limits the maximum width of the cell. Adjust as needed */
+}
+
+/* Optional: Set a fixed width for the table to make sure it doesn't stretch too much */
+table {
+    width: 50%;
+    table-layout: fixed;  /* This makes sure the table respects the width of the columns */
+}
+
+/*Sorting arrow styling*/
+.sortable {
+    cursor: pointer;
+}
+
+.sortable:after {
+    content: " ⇵";
+    font-size: 0.8em;
+    color: #777;
+}
+
+.sort-asc:after {
+    content: " ⇧";
+    color: #000;
+}
+
+.sort-desc:after {
+    content: " ⇩";
+    color: #000;
+}
