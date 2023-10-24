@@ -19,7 +19,7 @@
 
     <div id="tableSettings">
         <!-- Dropdown for "Select Year" -->
-        <select id="SpendingYear" name="year">
+        <select id="SpendingYear" name="year" onChange="filterDataByYear();">
             <option value="" disabled selected>Select Year</option>
             <option value="2017">2017</option>
             <option value="2018">2018</option>
@@ -67,14 +67,32 @@
             <cfset startRow = 1>
         </cfif>
 
-        <cfquery datasource="MedicareData" name="getData">
+
+        <cfparam name="URL.selectedYear" default="">
+
+        <!-- Only apply the filter if selectedYear is not empty -->
+        <cfif URL.selectedYear NEQ "">
+            <cfquery datasource="MedicareData" name="getData">
+                    SELECT y.*, d.Brnd_Name, d.Gnrc_Name
+                    FROM MedicarePartD.FinalYearlyData y
+                    INNER JOIN MedicarePartD.DrugData d ON y.YearlyData_ID = d.Drug_ID
+                    WHERE y.Year = <cfqueryparam value="#URL.selectedYear#" cfsqltype="cf_sql_integer">
+                    ORDER BY y.YearlyData_ID
+                    OFFSET <cfqueryparam value="#startRow - 1#" cfsqltype="cf_sql_integer"> ROWS
+                FETCH NEXT <cfqueryparam value="#itemsPerPage#" cfsqltype="cf_sql_integer"> ROWS ONLY;
+            </cfquery>
+        <cfelse>
+        <!-- If no year is selected, the original query can remain as is. -->
+            <cfquery datasource="MedicareData" name="getData">
                 SELECT y.*, d.Brnd_Name, d.Gnrc_Name
                 FROM MedicarePartD.FinalYearlyData y
                 INNER JOIN MedicarePartD.DrugData d ON y.YearlyData_ID = d.Drug_ID
                 ORDER BY y.YearlyData_ID
                 OFFSET <cfqueryparam value="#startRow - 1#" cfsqltype="cf_sql_integer"> ROWS
-            FETCH NEXT <cfqueryparam value="#itemsPerPage#" cfsqltype="cf_sql_integer"> ROWS ONLY;
-        </cfquery>
+                FETCH NEXT <cfqueryparam value="#itemsPerPage#" cfsqltype="cf_sql_integer"> ROWS ONLY;
+            </cfquery>
+        </cfif>
+
 
         <!--- Get Total Records for Pagination (this remains unchanged) --->
         <cfquery datasource="MedicareData" name="totalRecords">
@@ -203,5 +221,14 @@
             });
         });
     </script>
-</body>
+    <script type="text/javascript">
+        function filterDataByYear() {
+            var yearSelected = document.getElementById('SpendingYear').value;
+            if (yearSelected) {
+                window.location.href = window.location.pathname + "?selectedYear=" + yearSelected;
+            }
+        }
+    </script>
+
+        </body>
 </html>
