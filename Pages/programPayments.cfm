@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <title>Program Payments</title>
     <link rel="stylesheet" href="/CapstoneIT491/CSS/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <title>Program Payments</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css">
 </head>
 <body>
     <cfinclude template="/CapstoneIT491/features/navbar.cfm">
-
         <h1>Program Payments</h1>
-        <select class="year-filter">
-            <option value="" disabled selected>Year</option>
+        <select class="year-filter" style="display: none;"">
+            <option disabled selected value=""> Select a Year</option>            
             <option value="2015">2015</option>
             <option value="2016">2016</option>
             <option value="2017">2017</option>
@@ -23,7 +23,7 @@
             <option value="2020">2020</option>
             <option value="2021">2021</option>
         </select>
-        <select class="another-filter" multiple>
+        <select class="care-filter" multiple>
             <option value="selectAll">Select All</option>
             <option value="1">Routine Home Care</option>
             <option value="2">Continuous Home Care</option>
@@ -37,6 +37,10 @@
         <canvas id="multiBarChart"></canvas>
     </div>
     <a href="index.cfm" class="back-link">Back to Landing Page</a>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/CapstoneIT491/JavaScript/script.js"></script>
 </body>
 </html>

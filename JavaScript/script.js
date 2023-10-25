@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // References to DOM elements for the filters and button
     const yearFilter = document.querySelector('.year-filter');
-    const careFilter = document.querySelector('.another-filter');
+    const careFilter = document.querySelector('.care-filter');
     const fetchDataButton = document.getElementById('fetchDataButton');
 
     // Toggle the dropdown menu when the menu button is clicked
@@ -36,6 +36,18 @@ function fetchYearsAndCareTypes(yearFilter, careFilter) {
         // Populate the year and care type dropdowns with the fetched data
         populateDropdown(yearFilter, data.years.DATA);
         populateDropdown(careFilter, data.careTypes.DATA, true);
+
+        // Initialize the Select2 components
+        $(yearFilter).select2({
+            theme: "bootstrap-5",
+            placeholder: "Select a Year",
+            minimumResultsForSearch: Infinity,
+            width: "12%",
+        }).val(null).trigger('change').show; // Had to add this due to FOUC 'flash of unstyled content' bug
+
+        $(careFilter).select2({
+            theme: 'bootstrap-5'
+        });
     });
 }
 
@@ -124,7 +136,7 @@ function fetchData(yearFilter, careFilter) {
 // Function to render the fetched data in a table format
 function renderTable(data) {
     const dataTable = document.getElementById('dataTable');
-    let tableHTML = '<table border="1">';
+    let tableHTML = '<table border="1" class="custom-table">';
 
     // Add table headers
     tableHTML += '<thead><tr>';
