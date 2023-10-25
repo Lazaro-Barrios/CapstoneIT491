@@ -15,6 +15,8 @@
     <cfinclude template="/CapstoneIT491/features/navbar.cfm">
     
     <script src="/CapstoneIT491/JavaScript/script.js"></script>
+    <script src="/CapstoneIT491/JavaScript/Spending.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <h1>MedicareSpending</h1>
 
     <div id="tableSettings">
@@ -31,7 +33,7 @@
         <br>
 
         <!-- Search bar for "Search for a drug by name" -->
-        <input type="text" id="spendingSearch" name="drugSearch" placeholder="Search for a drug by name...">
+        <input type="text" id="spendingSearch" name="drugSearch" placeholder="Search for a drug by name..." onkeyup="checkForEnter(event);">
 
         <br>
 
@@ -69,20 +71,30 @@
 
 
         <cfparam name="URL.selectedYear" default="">
+        <cfparam name="URL.drugSearch" default="">
+
 
         <!-- Only apply the filter if selectedYear is not empty -->
-        <cfif URL.selectedYear NEQ "">
+
+        <cfif URL.selectedYear NEQ "" OR URL.drugSearch NEQ "">
             <cfquery datasource="MedicareData" name="getData">
                     SELECT y.*, d.Brnd_Name, d.Gnrc_Name
                     FROM MedicarePartD.FinalYearlyData y
                     INNER JOIN MedicarePartD.DrugData d ON y.YearlyData_ID = d.Drug_ID
-                    WHERE y.Year = <cfqueryparam value="#URL.selectedYear#" cfsqltype="cf_sql_integer">
+                    WHERE 1=1
+                <cfif URL.selectedYear NEQ "">
+                        AND y.Year = <cfqueryparam value="#URL.selectedYear#" cfsqltype="cf_sql_integer">
+                </cfif>
+                <cfif URL.drugSearch NEQ "">
+                        AND (d.Brnd_Name LIKE <cfqueryparam value="%#URL.drugSearch#%" cfsqltype="cf_sql_varchar">
+                        OR d.Gnrc_Name LIKE <cfqueryparam value="%#URL.drugSearch#%" cfsqltype="cf_sql_varchar">)
+                </cfif>
                     ORDER BY y.YearlyData_ID
                     OFFSET <cfqueryparam value="#startRow - 1#" cfsqltype="cf_sql_integer"> ROWS
                 FETCH NEXT <cfqueryparam value="#itemsPerPage#" cfsqltype="cf_sql_integer"> ROWS ONLY;
             </cfquery>
         <cfelse>
-        <!-- If no year is selected, the original query can remain as is. -->
+            <!-- Original query for when no filter is applied -->
             <cfquery datasource="MedicareData" name="getData">
                 SELECT y.*, d.Brnd_Name, d.Gnrc_Name
                 FROM MedicarePartD.FinalYearlyData y
@@ -101,7 +113,8 @@
         </cfquery>
         <cfset totalPages = ceiling(totalRecords.cnt/itemsPerPage)>
 
-        <!--- Displaying the Table --->
+
+        <!--- Displaying the Default Table --->
             <table border="1">
             <!--- Updated Table headers to include Brnd_Name --->
                 <thead>
@@ -117,24 +130,23 @@
                 </tr>
                 </thead>
 
-            <!--- Updated Table data to include Brnd_Name --->
-            <tbody>
-            <cfoutput query="getData">
-            <tr>
-             <td class="wrap-text">#getData.Brnd_Name#</td>
-             <td class="wrap-text">#getData.Gnrc_Name#</td>
-             <td>#getData.Year#</td>
-             <td class="wrap-text">#getData.TotalSpending#</td>
-             <td class="wrap-text">#getData.TotalDosageUnits#</td>
-             <td class="wrap-text">#getData.TotalBeneficiaries#</td>
-             <td class="wrap-text">#getData.AverageTotalSpendingPerDosageUnitWeighted#</td>
-             <td class="wrap-text">#getData.AverageSpendingPerBeneficiary#</td>
-             <!--- New cell for Brnd_Name --->
-                </tr>
-            </cfoutput>
-            </tbody>
+                <!--- Updated Table data to include Brnd_Name --->
+                <tbody>
+                    <cfoutput query="getData">
+                        <tr>
+                            <td class="wrap-text">#getData.Brnd_Name#</td>
+                            <td class="wrap-text">#getData.Gnrc_Name#</td>
+                            <td>#getData.Year#</td>
+                            <td class="wrap-text">#getData.TotalSpending#</td>
+                            <td class="wrap-text">#getData.TotalDosageUnits#</td>
+                            <td class="wrap-text">#getData.TotalBeneficiaries#</td>
+                            <td class="wrap-text">#getData.AverageTotalSpendingPerDosageUnitWeighted#</td>
+                            <td class="wrap-text">#getData.AverageSpendingPerBeneficiary#</td>
+                        </tr>
+                    </cfoutput>
+                </tbody>
             </table>
-
+<!---</cfif>--->
 
         <!---Navigation Links & Advanced Pagination Logic--->
         <br>
@@ -186,49 +198,5 @@
     <br>
     <a href="index.cfm" class="back-link">Back to Landing Page</a>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $("th.sortable").click(function(){
-                var table = $(this).parents("table").eq(0);
-                var rows = table.find("tr:gt(0)").toArray().sort(comparer($(this).index()));
-                this.asc = !this.asc;
-                if (!this.asc) { rows = rows.reverse(); }
-                for (var i = 0; i < rows.length; i++) { table.append(rows[i]); }
-
-                // Remove any previous arrow classes and add the current sort direction
-                $("th.sortable").removeClass("sort-asc sort-desc");
-                if (this.asc) {
-                    $(this).addClass("sort-asc");
-                } else {
-                    $(this).addClass("sort-desc");
-                }
-            });
-
-            function comparer(index) {
-                return function(a, b) {
-                    var valA = getCellValue(a, index), valB = getCellValue(b, index);
-                    return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB);
-                };
-            }
-
-            function getCellValue(row, index) { return $(row).children("td").eq(index).text(); }
-
-            // Listen for changes on the pageSize dropdown
-            $("#pageSize").change(function() {
-                // Reload the page with the new itemsPerPage value
-                location.search = $.param({ itemsPerPage: $(this).val() });
-            });
-        });
-    </script>
-    <script type="text/javascript">
-        function filterDataByYear() {
-            var yearSelected = document.getElementById('SpendingYear').value;
-            if (yearSelected) {
-                window.location.href = window.location.pathname + "?selectedYear=" + yearSelected;
-            }
-        }
-    </script>
-
-        </body>
+    </body>
 </html>
