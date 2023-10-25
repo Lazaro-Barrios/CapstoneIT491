@@ -133,7 +133,41 @@ a {
 }
 
 .chart-container {
-    width: 60%;
+    width: 80%;
     height: 800px;
     position: relative;
+}
+
+.filters-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.year-filter, .another-filter {
+    width: 6.875rem;
+    padding: 0.625rem;
+    border-radius: 0.3125rem;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+#fetchDataButton {
+    background-color: #4d749c;
+    color: white;
+    border: none;
+    padding: 0.625rem 1rem;
+    border-radius: 0.3125rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#fetchDataButton:hover {
+    background-color: #0056b3;
+}
+
+
+.another-filter {
+    width: 15rem;
 }
