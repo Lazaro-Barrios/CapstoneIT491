@@ -1,6 +1,4 @@
-*,
-*::before,
-*::after {
+*, *::before, *::after {
     box-sizing: border-box;
 }
 
@@ -70,13 +68,10 @@ a {
     cursor: pointer;
     position: relative;
 }
-
-/* Active link styling */
 .menu-links a.active {
-    color: white; /* or any other color to indicate active page */
-    border-bottom: 2px solid white; /* underline for active link */
+    color: white;
+    border-bottom: 2px solid white;
 }
-
 
 .dropdown-content {
     display: none;
@@ -141,16 +136,7 @@ a {
 .filters-container {
     display: flex;
     align-items: center;
-    gap: 1rem;
-}
-
-.year-filter, .another-filter {
-    width: 6.875rem;
-    padding: 0.625rem;
-    border-radius: 0.3125rem;
-    background: #FFF;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
+    gap: 10px;
 }
 
 #fetchDataButton {
@@ -161,10 +147,17 @@ a {
     border-radius: 0.3125rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: 10rem;
+    height: 2.35rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.35);
 }
 
 #fetchDataButton:hover {
     background-color: #0056b3;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.4);
 }
 
 
@@ -173,7 +166,6 @@ a {
 }
 
 .custom-table {
-    /* Add your custom styles here */
     width: 100%;
     border-collapse: collapse;
 }
@@ -186,4 +178,33 @@ a {
 
 .custom-table th {
     background-color: #f2f2f2;
+}
+
+.hide-dropdown {
+    display: none !important; // Added to fix FOUC
+}
+
+.select2-container--bootstrap-5 .select2-selection {
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.select2-container--bootstrap-5 .select2-selection:hover {
+    box-shadow: 0px 5px 7px rgba(0, 0, 0, 0.35);
+}
+
+.select2-selection__choice {
+    font-size: 8px; /* or whatever size you prefer */
+}
+
+.care-filter .select2-selection__choice {
+    font-size: 8px; /* or whatever size you prefer */
+}
+
+body .select2-container--bootstrap-5 .select2-selection__choice {
+    font-size: 13px !important;
+}
+
+#dataTable .custom-table thead th {
+    background-color: #4d749c !important;
+    color: white !important;
 }

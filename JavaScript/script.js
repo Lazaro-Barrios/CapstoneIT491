@@ -43,10 +43,15 @@ function fetchYearsAndCareTypes(yearFilter, careFilter) {
             placeholder: "Select a Year",
             minimumResultsForSearch: Infinity,
             width: "12%",
-        }).val(null).trigger('change').show; // Had to add this due to FOUC 'flash of unstyled content' bug
+        }).val(null).trigger('change').show; // Had to add this due to FOUC 'flash of unstyled content' bug and to display placeholder
 
         $(careFilter).select2({
-            theme: 'bootstrap-5'
+            theme: 'bootstrap-5',
+            placeholder: "Select Level of Care",
+            allowClear: true,
+            minimumResultsForSearch: -1,
+            width: "50%",
+            closeOnSelect: false,
         });
     });
 }

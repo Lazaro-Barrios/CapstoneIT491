@@ -13,25 +13,27 @@
 <body>
     <cfinclude template="/CapstoneIT491/features/navbar.cfm">
         <h1>Program Payments</h1>
-        <select class="year-filter" style="display: none;"">
-            <option disabled selected value=""> Select a Year</option>            
-            <option value="2015">2015</option>
-            <option value="2016">2016</option>
-            <option value="2017">2017</option>
-            <option value="2018">2018</option>
-            <option value="2019">2019</option>
-            <option value="2020">2020</option>
-            <option value="2021">2021</option>
-        </select>
-        <select class="care-filter" multiple>
-            <option value="selectAll">Select All</option>
-            <option value="1">Routine Home Care</option>
-            <option value="2">Continuous Home Care</option>
-            <option value="3">Inpatient Home Care</option>
-            <option value="4">General Inpatient Care</option>
-        </select>  
-    <button id="fetchDataButton">Update Results</button><br><br><br>
-
+        <div class="filters-container">
+            <select class="year-filter" style="display: none;">
+                <option disabled selected value="">Select a Year</option>            
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+            </select>
+            <select class="care-filter hide-dropdown select2-no-search" multiple>
+                <option value="selectAll">Select All</option>
+                <option value="1">Routine Home Care</option>
+                <option value="2">Continuous Home Care</option>
+                <option value="3">Inpatient Home Care</option>
+                <option value="4">General Inpatient Care</option>
+            </select>
+            <button id="fetchDataButton">Update Results</button>
+        </div>
+        
     <div id="dataTable"></div>
     <div class="chart-container">
         <canvas id="multiBarChart"></canvas>
