@@ -12,7 +12,6 @@
 </head>
 <body>
     <cfinclude template="/CapstoneIT491/features/navbar.cfm">
-        <h1>Program Payments</h1>
         <div class="filters-container">
             <select class="year-filter" style="display: none;">
                 <option disabled selected value="">Select a Year</option>            
@@ -33,8 +32,12 @@
             </select>
             <button id="fetchDataButton">Update Results</button>
         </div>
-        
-    <div id="dataTable"></div>
+    <div class="widget-container">
+        <div class="widget-header">
+            <h2>Program Payments Table</h2>
+        </div>   
+        <div id="dataTable"></div>
+    </div>
     <div class="chart-container">
         <canvas id="multiBarChart"></canvas>
     </div>
