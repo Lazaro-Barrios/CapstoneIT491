@@ -23,8 +23,7 @@
                 <option value="2020">2020</option>
                 <option value="2021">2021</option>
             </select>
-            <select class="care-filter hide-dropdown select2-no-search" multiple>
-                <option value="selectAll">Select All</option>
+            <select class="care-filter hide-dropdown" multiple>
                 <option value="1">Routine Home Care</option>
                 <option value="2">Continuous Home Care</option>
                 <option value="3">Inpatient Home Care</option>
@@ -38,9 +37,15 @@
         </div>   
         <div id="dataTable"></div>
     </div>
-    <div class="chart-container">
-        <canvas id="multiBarChart"></canvas>
+    <div class="widget-container2">
+        <div class="widget-header">
+            <h2>Program Payments Multi-Bar Graph</h2>
+        </div>
+        <div class="chart-container">
+            <canvas id="multiBarChart"></canvas>
+        </div>
     </div>
+
     <a href="index.cfm" class="back-link">Back to Landing Page</a>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

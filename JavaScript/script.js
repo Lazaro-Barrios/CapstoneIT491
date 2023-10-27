@@ -42,15 +42,15 @@ function fetchYearsAndCareTypes(yearFilter, careFilter) {
             theme: "bootstrap-5",
             placeholder: "Select a Year",
             minimumResultsForSearch: Infinity,
-            width: "12%",
+            //width: "12%",
         }).val(null).trigger('change').show; // Had to add this due to FOUC 'flash of unstyled content' bug and to display placeholder
 
         $(careFilter).select2({
             theme: 'bootstrap-5',
             placeholder: "Select Level of Care",
             allowClear: true,
-            minimumResultsForSearch: -1,
-            width: "50%",
+            minimumResultsForSearch: Infinity,
+            //width: "50%",
             closeOnSelect: false,
         });
     });
@@ -128,6 +128,8 @@ function fetchData(yearFilter, careFilter) {
 
         // Render the fetched data in a table format
         renderTable(data);
+        document.querySelector('.widget-container').style.display = 'block';
+        document.querySelector('.widget-container2').style.display = 'block';
 
         // Fetch data for all years
         fetch('/CapstoneIT491/api/fetchAllYearsData.cfm')
@@ -192,17 +194,24 @@ function renderTable(data) {
 
 function renderMultiBarGraph(allYearsData) {
     const ctx = document.getElementById('multiBarChart').getContext('2d');
-    
-    const years = allYearsData.DATA.map(row => row[0]); // Extract years from the data
-    const datasets = [];
 
+    const years = allYearsData.DATA.map(row => row[0]);
+    const datasets = [];
+    
+    const colors = [
+        { bg: 'rgb(0, 123, 255)', border: 'rgb(0, 123, 255)' }, // Blue
+        { bg: 'rgb(220, 53, 69)', border: 'rgb(220, 53, 69)' }, // Red
+        { bg: 'rgb(40, 167, 69)', border: 'rgb(40, 167, 69)' }, // Green
+        { bg: 'rgb(255, 193, 7)', border: 'rgb(255, 193, 7)' }  // Yellow
+    ];
+    
     allYearsData.COLUMNS.slice(1).forEach((column, columnIndex) => {
         const dataForColumn = allYearsData.DATA.map(row => row[columnIndex + 1]);
         datasets.push({
             label: column,
             data: dataForColumn,
-            backgroundColor: `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.2)`,
-            borderColor: `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 1)`,
+            backgroundColor: colors[columnIndex].bg,
+            borderColor: colors[columnIndex].border,
             borderWidth: 1
         });
     });
@@ -221,7 +230,7 @@ function renderMultiBarGraph(allYearsData) {
                     ticks: {
                         min: 0,
                         max: 25000000000, // 25 billion
-                        stepSize: 50000000, // 5 million (smallest increment)
+                        stepSize: 50000000, // 5 million
                         callback: function(value, index, values) {
                             if (value >= 1000000000) { // if value is greater than or equal to one billion
                                 return '$' + value / 1000000000 + ' Billion';
@@ -232,6 +241,33 @@ function renderMultiBarGraph(allYearsData) {
                             else {
                                 return '$' + value;
                             }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Total Program Payments',
+                        color: '#000',
+                        font: {
+                            size: 20
+                        },
+                        padding: {
+                            top: 20,
+                            bottom: 20
+                        }
+                    }
+                },
+                x: {
+                    barPercentage: 1.2,
+                    title: {
+                        display: true,
+                        text: 'Years',
+                        color: '#000',
+                        font: {
+                            size: 20
+                        },
+                        padding: {
+                            top: 20,
+                            bottom: 20
                         }
                     }
                 }
