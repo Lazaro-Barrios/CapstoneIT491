@@ -8,6 +8,7 @@ $(document).ready(function() {
             method: 'POST',
             data: function(d) {
                 d.year = $('#SpendingYear').val();
+                d.searchValue = d.search.value; // explicitly send the search value
             }
         },
         columns: [
