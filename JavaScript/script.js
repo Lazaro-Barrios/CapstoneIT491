@@ -276,7 +276,7 @@ function renderMultiBarGraph(allYearsData) {
                     ticks: {
                         min: 0,
                         max: 25000000000, // 25 billion
-                        stepSize: 50000000, // 5 million
+                        stepSize: 200000000, // 20 million
                         callback: function(value, index, values) {
                             if (value >= 1000000000) { // if value is greater than or equal to one billion
                                 return '$' + value / 1000000000 + ' Billion';
