@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -145,15 +150,35 @@ a {
 }
 
 /* Styles for the search bar with id="spendingSearch" */
-#spendingSearch {
-    display: block;
+.dataTables_wrapper .dataTables_filter input {
+    border: none !important;
+}
+.dataTables_filter {
     width: 300px;
     height: 40px;
     margin: 10px 0;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background-color: #cccccc;
+    display: flex;           /* Use flex for easier centering */
+    align-items: center;     /* Vertically centers children */
 }
+
+/* Style for the input box */
+.dataTables_filter input[type="search"] {
+    border: none;            /* Removes the border */
+    outline: none;           /* Removes the focus border */
+    background: transparent; /* Makes the input background transparent */
+    width: 75%;             /* Takes the full width available */
+    margin-left: 10px;       /* Space between the label and the input */
+}
+
+/* Optional: Style for the label for additional clarity */
+.dataTables_filter label {
+    margin: 0;               /* Removes any default margin */
+}
+
 
 /* Styles for the label containing the checkbox */
 label[for="spendingGeneric"] {
