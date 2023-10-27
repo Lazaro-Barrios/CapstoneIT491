@@ -26,7 +26,7 @@
 <div id="tableSettings">
     <select id="SpendingYear" name="year">
         <option value="" disabled selected>Select Year</option>
-        <option value="All Years">All Years</option>
+        <option value="">All Years</option>
         <option value="2017">2017</option>
         <option value="2018">2018</option>
         <option value="2019">2019</option>
