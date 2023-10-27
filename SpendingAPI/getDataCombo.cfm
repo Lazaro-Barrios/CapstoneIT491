@@ -1,10 +1,29 @@
-<!--- Set content type to JSON --->
+<<!--- Set content type to JSON --->
 <cfcontent type="application/json">
 
-<!--- Get the year and DataTables specific parameters from POST request --->
+<!--- Parameters and Initial Setup --->
 <cfparam name="form.year" default="">
 <cfparam name="form.start" default="0">
 <cfparam name="form.length" default="10">
+<cfparam name="form.order[0][column]" default="0">
+<cfparam name="form.order[0][dir]" default="asc">
+
+<cfset columns = ["Brnd_Name", "Gnrc_Name", "Year", "TotalSpending", "TotalDosageUnits", "TotalBeneficiaries", "AverageTotalSpendingPerDosageUnitWeighted", "AverageSpendingPerBeneficiary"]>
+
+<cfif structKeyExists(form, "order[0][column]")>
+    <cfset orderColumnIndex = form["order[0][column]"]>
+    <cfset orderByDirection = form["order[0][dir]"]>
+<cfelse>
+    <cfset orderColumnIndex = 0>
+    <cfset orderByDirection = "asc">
+</cfif>
+
+<cfset orderByColumn = columns[orderColumnIndex + 1]>
+
+
+<cfset columns = ["Brnd_Name", "Gnrc_Name", "Year", "TotalSpending", "TotalDosageUnits", "TotalBeneficiaries", "AverageTotalSpendingPerDosageUnitWeighted", "AverageSpendingPerBeneficiary"]>
+<cfset orderByColumn = columns[val(form["order[0][column]"]) + 1]>
+
 
 <!--- Check for the existence of searchValue --->
 <cfif structKeyExists(form, "searchValue")>
@@ -31,8 +50,8 @@
     ydn.TotalBeneficiaries,
     ydn.AverageTotalSpendingPerDosageUnitWeighted,
     ydn.AverageSpendingPerBeneficiary,
-    ROW_NUMBER() OVER (ORDER BY dd.Brnd_Name) AS RowNum
-    FROM MedicarePartD.FinalYearlyData ydn
+    ROW_NUMBER() OVER (ORDER BY #orderByColumn# #orderByDirection#) AS RowNum
+FROM MedicarePartD.FinalYearlyData ydn
     INNER JOIN MedicarePartD.DrugData dd ON ydn.YearlyData_ID = dd.Drug_ID
     WHERE 1=1
     <cfif IsDefined("form.year") AND len(trim(form.year)) GT 0>
@@ -44,7 +63,7 @@
     </cfif>
     )
     SELECT * FROM FilteredData
-    ORDER BY Brnd_Name
+    ORDER BY #orderByColumn# #orderByDirection#
     OFFSET <cfqueryparam value="#form.start#" cfsqltype="cf_sql_integer"> ROWS
 FETCH NEXT <cfqueryparam value="#form.length#" cfsqltype="cf_sql_integer"> ROWS ONLY
 </cfquery>
