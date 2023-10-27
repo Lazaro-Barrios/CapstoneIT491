@@ -57,6 +57,7 @@
             <canvas id="multiBarChart"></canvas>
         </div>
     </div>
+    <br><br><br>
 
     <a href="index.cfm" class="back-link">Back to Landing Page</a>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
@@ -66,5 +67,9 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/CapstoneIT491/JavaScript/script.js"></script>
+    <script src="/CapstoneIT491/JavaScript/utils.js"></script>
+    <script src="/CapstoneIT491/JavaScript/dataFetch.js"></script>
+    <script src="/CapstoneIT491/JavaScript/tableRender.js"></script>
+    <script src="/CapstoneIT491/JavaScript/chartRender.js"></script>
 </body>
 </html>
