@@ -168,21 +168,6 @@ a {
     width: 15rem;
 }
 
-.custom-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.custom-table th, .custom-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-.custom-table th {
-    background-color: #f2f2f2;
-}
-
 .hide-dropdown {
     display: none !important; // Added to fix FOUC
 }
@@ -199,12 +184,6 @@ body .select2-container--bootstrap-5 .select2-selection__choice {
     font-size: 13px !important;
 }
 
-#dataTable .custom-table thead th {
-    background-color: #4d749c;
-    color: white;
-    font-size: 15px;
-    font-weight: normal;
-}
 
 .widget-container, .widget-container2 {
     border: 1px solid #ddd;

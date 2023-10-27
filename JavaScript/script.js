@@ -128,6 +128,7 @@ function fetchData(yearFilter, careFilter) {
 
         // Render the fetched data in a table format
         renderTable(data);
+
         document.querySelector('.widget-container').style.display = 'block';
         document.querySelector('.widget-container2').style.display = 'block';
 
@@ -140,13 +141,18 @@ function fetchData(yearFilter, careFilter) {
     });
 }
 
-// Function to render the fetched data in a table format
+// Function for a data table using DataTables, populates it with provided data, and sets up event listeners for row selection and hiding unselected rows.
 function renderTable(data) {
-    const dataTable = document.getElementById('dataTable');
-    let tableHTML = '<table border="1" class="custom-table">';
 
-    // Add table headers
-    tableHTML += '<thead><tr>';
+    // Clear previous table if it exists
+    if ($.fn.DataTable.isDataTable('#dataTable')) {
+        $('#dataTable').DataTable().clear().destroy();
+    }
+    
+    $('#dataTable').empty();
+
+    // Create table headers
+    let tableHTML = '<thead><tr>';
     data.COLUMNS.forEach(column => {
         if (column === "SITEOFSERVICETYPE") {
             tableHTML += `<th>Site of Service</th>`;
@@ -155,45 +161,85 @@ function renderTable(data) {
             tableHTML += `<th>${toTitleCase(column.replace(/_/g, ' '))}</th>`;
         }
     });
-    
     tableHTML += '</tr></thead>';
 
     // Add table rows for each data entry
     tableHTML += '<tbody>';
+    const totals = new Array(data.COLUMNS.length).fill(0);
     data.DATA.forEach(row => {
         tableHTML += '<tr>';
-        row.forEach(cell => {
-            tableHTML += `<td>${cell}</td>`;
+        row.forEach((cell, index) => {
+            if (index > 0 && !isNaN(cell) && parseFloat(cell) !== 0) {
+                tableHTML += `<td>$${parseFloat(cell).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>`;
+                totals[index] += parseFloat(cell);
+            } else {
+                tableHTML += `<td>${cell}</td>`;
+            }
         });
         tableHTML += '</tr>';
     });
-
-    // Calculate and add the totals row
-    const totals = [];
-    for (let i = 0; i < data.COLUMNS.length; i++) {
-        let sum = 0;
-        for (let j = 0; j < data.DATA.length; j++) {
-            sum += data.DATA[j][i];
-        }
-        totals.push(sum);
-    }
-    tableHTML += '<tr>';
-    tableHTML += `<td>Total</td>`; // Display "Total" in the "Site of Service" column
-    for (let i = 1; i < totals.length; i++) { // Start from 1 to skip the "Site of Service" column
-        tableHTML += `<td>${totals[i]}</td>`;
-    }
-    tableHTML += '</tr>';
-
     tableHTML += '</tbody>';
 
-    tableHTML += '</table>';
+    // Calculate and add the totals row
+    tableHTML += '<tfoot><tr>';
+    totals.forEach((total, index) => {
+        if (index === 0) {
+            tableHTML += `<td>Total</td>`;
+        } 
+        else if (total !== 0) {
+            tableHTML += `<td>$${total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>`;
+        } 
+        else {
+            tableHTML += `<td>${total}</td>`;
+        }
+    });
+    tableHTML += '</tr></tfoot>';
 
-    // Update the DOM with the generated table
-    dataTable.innerHTML = tableHTML;
+    // Update the DOM with the generated table structure
+    const dataTableElement = document.getElementById('dataTable');
+    dataTableElement.innerHTML = tableHTML;
+
+    // Initialize DataTables on the generated table
+    const dataTable = $(dataTableElement).DataTable({
+        responsive: true,
+        autoWidth: false,
+        select: {
+            style: 'multi',
+            selector: 'td:first-child'
+        }
+    });
+
+    // Event listener for row selection
+    dataTable.on('select', function (e, dt, type, indexes) {
+        if (type === 'row') {
+            const selectedRows = dataTable.rows({ selected: true }).data().toArray();
+            console.log('Selected Rows:', selectedRows);
+        }
+    });
+
+    // Event listener for row deselection
+    dataTable.on('deselect', function (e, dt, type, indexes) {
+        if (type === 'row') {
+            const selectedRows = dataTable.rows({ selected: true }).data().toArray();
+            console.log('Selected Rows:', selectedRows);
+        }
+    });
+
+    // Event listener for hiding unselected rows
+    document.getElementById('hideUnselectedRowsButton').addEventListener('click', function () {
+        dataTable.rows({ selected: false }).nodes().to$().hide();  // Hide unselected rows
+    });
 }
 
+let multiBarChart;
+
+// Function for a multi-bar chart visualizing program payments across different years using Chart.js and the provided data.
 function renderMultiBarGraph(allYearsData) {
     const ctx = document.getElementById('multiBarChart').getContext('2d');
+
+    if(multiBarChart) {
+        multiBarChart.destroy();
+    }
 
     const years = allYearsData.DATA.map(row => row[0]);
     const datasets = [];
@@ -216,7 +262,7 @@ function renderMultiBarGraph(allYearsData) {
         });
     });
 
-    new Chart(ctx, {
+    multiBarChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: years,

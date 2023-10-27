@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
 </head>
 <body>
     <cfinclude template="/CapstoneIT491/features/navbar.cfm">
@@ -30,12 +32,22 @@
                 <option value="4">General Inpatient Care</option>
             </select>
             <button id="fetchDataButton">Update Results</button>
+            <button id="hideUnselectedRowsButton" class="btn btn-secondary">Hide Unselected Rows</button>
         </div>
     <div class="widget-container">
         <div class="widget-header">
             <h2>Program Payments Table</h2>
         </div>   
-        <div id="dataTable"></div>
+        <table id="dataTable" class="display" style="width:100%">
+            <thead>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+                <tr>
+                </tr>
+            </tfoot>
+        </table>
     </div>
     <div class="widget-container2">
         <div class="widget-header">
@@ -48,6 +60,8 @@
 
     <a href="index.cfm" class="back-link">Back to Landing Page</a>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
