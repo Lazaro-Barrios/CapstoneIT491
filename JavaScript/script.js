@@ -260,7 +260,7 @@ function renderMultiBarGraph(allYearsData) {
                     barPercentage: 1.2,
                     title: {
                         display: true,
-                        text: 'Years',
+                        text: 'Year',
                         color: '#000',
                         font: {
                             size: 20
