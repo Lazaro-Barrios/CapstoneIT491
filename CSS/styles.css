@@ -1,85 +1,236 @@
-body, html {
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body {
     margin: 0;
     padding: 0;
-    height: 100%;
-    font-family: Arial, sans-serif;
-}
-
-.main-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #4d749c;
-}
-
-.company-logo {
-    width: 100px;
-}
-
-.navbar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 20px;
-}
-
-.navbar ul li a {
-    text-decoration: none;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.navbar ul li a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-.landing-page {
-    background-color: #4d749c;
-    color: white;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-}
-
-h1 {
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    font-size: 3em;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    margin: 10px 0;
+    background-color: white;
+    font-family: "Ubuntu", sans-serif;
 }
 
 a {
+    text-decoration: none;
+}
+
+.navbar {
+    height: auto;
+    padding: 30px 40px;
+    background-color: #4d749c;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.menu-links {
+    display: flex;
+    gap: 24px;
+}
+
+.menu-links a {
+    font-weight: 500;
     color: white;
-    text-decoration: none;
-    font-weight: bold;
+    position: relative;
+    padding: 8px 16px;
 }
 
-a:hover {
-    text-decoration: underline;
+.menu-links a::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: white;
+    transition: width 0.3s;
 }
 
-.back-link {
-    color: #4d749c; /* Change this to any color you prefer */
-    font-weight: bold;
-    text-decoration: none;
+.menu-links a:hover::before,
+.menu-links a:focus::before {
+    width: 100%;
 }
 
-.back-link:hover {
-    text-decoration: underline;
+.menu-btn {
+    display: none;
+    cursor: pointer;
+    color: white;
+}
+
+.menu-btn {
+    display: none;
+    cursor: pointer;
+    position: relative;
+}
+
+/* Active link styling */
+.menu-links a.active {
+    color: white; /* or any other color to indicate active page */
+    border-bottom: 2px solid white; /* underline for active link */
+}
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #4d749c;
+    min-width: 160px;
+    z-index: 1;
+    flex-direction: column;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    padding: 12px 16px;
+    display: block;
+    color: white;
+}
+
+.dropdown-content a:hover {
+    background-color: #3e5f7c;
+}
+
+.show {
+    display: flex;
+}
+
+@media (max-width: 53rem) {
+    .menu {
+        display: none;
+    }
+
+    .menu-btn {
+        display: flex;
+    }
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    background-color: #4d749c;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 50%;
+    color: white;
+}
+.close-btn:hover {
+    background-color: #3a5a7c;
+}
+
+/*CSS for Spending by Year*/
+/* External CSS file */
+
+/* Styles for the dropdown with id="SpendingYear" */
+#SpendingYear {
+    display: block;
+    width: 300px;
+    height: 40px;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Styles for the search bar with id="spendingSearch" */
+.dataTables_wrapper .dataTables_filter input {
+    border: none !important;
+}
+.dataTables_filter {
+    width: 300px;
+    height: 40px;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #cccccc;
+    display: flex;           /* Use flex for easier centering */
+    align-items: center;     /* Vertically centers children */
+}
+
+/* Style for the input box */
+.dataTables_filter input[type="search"] {
+    border: none;            /* Removes the border */
+    outline: none;           /* Removes the focus border */
+    background: transparent; /* Makes the input background transparent */
+    width: 75%;             /* Takes the full width available */
+    margin-left: 10px;       /* Space between the label and the input */
+}
+
+/* Optional: Style for the label for additional clarity */
+.dataTables_filter label {
+    margin: 0;               /* Removes any default margin */
+}
+
+
+/* Styles for the label containing the checkbox */
+label[for="spendingGeneric"] {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    height: 40px;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #cccccc;
+    /*color: #cccccc;*/
+}
+
+/* Styles for the checkbox with id="spendingGeneric" */
+#spendingGeneric {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/*Adding width and wrapping options for table*/
+.wrap-text {
+    word-wrap: break-word;  /* This will break the text onto the next line */
+    max-width: 150px;      /* This limits the maximum width of the cell. Adjust as needed */
+}
+
+/* Optional: Set a fixed width for the table to make sure it doesn't stretch too much */
+table {
+    width: 50%;
+    table-layout: fixed;  /* This makes sure the table respects the width of the columns */
+}
+
+/*Sorting arrow styling*/
+.sortable {
+    cursor: pointer;
+}
+
+.sortable:after {
+    content: " ⇵";
+    font-size: 0.8em;
+    color: #777;
+}
+
+.sort-asc:after {
+    content: " ⇧";
+    color: #000;
+}
+
+.sort-desc:after {
+    content: " ⇩";
+    color: #000;
 }

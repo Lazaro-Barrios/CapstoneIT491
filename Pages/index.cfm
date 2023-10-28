@@ -7,14 +7,9 @@
         <link rel="stylesheet" href="/CapstoneIT491/CSS/styles.css">
     </head>
     <body>
-        <cfoutput>
-        <header class="main-header">
-            <a href="https://rde.org/index.html" target="_blank">
-                <img src="/CapstoneIT491/images/lightLogo-removebg-preview.png" alt="Company Logo" class="company-logo">
-            </a>
-            <cfinclude template="/CapstoneIT491/html/navbar.cfm">
-        </header>
+            <cfinclude template="/CapstoneIT491/features/navbar.cfm">
+         
+        <script src="/CapstoneIT491/JavaScript/script.js"></script>
         <h1>Medical Visualizer</h1>
-    </cfoutput>
     </body>
 </html>
