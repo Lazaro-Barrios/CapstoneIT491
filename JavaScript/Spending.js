@@ -1,59 +1,97 @@
 $(document).ready(function() {
-    $("th.sortable").click(function(){
-        var table = $(this).parents("table").eq(0);
-        var rows = table.find("tr:gt(0)").toArray().sort(comparer($(this).index()));
-        this.asc = !this.asc;
-        if (!this.asc) { rows = rows.reverse(); }
-        for (var i = 0; i < rows.length; i++) { table.append(rows[i]); }
+    let dataTable;
 
-        // Remove any previous arrow classes and add the current sort direction
-        $("th.sortable").removeClass("sort-asc sort-desc");
-        if (this.asc) {
-            $(this).addClass("sort-asc");
+    function destroyAndResetTable() {
+        if ($.fn.DataTable.isDataTable('#dataTable')) {
+            dataTable.destroy();
+            $('#dataTable tbody').empty(); // Clear the table body
+        }
+    }
+
+    function initializeDefaultTable() {
+        destroyAndResetTable();
+        $('#dataTable thead').empty().append(`
+            <tr>
+                <th>Brand Name</th>
+                <th>Generic Name</th>
+                <th>Year</th>
+                <th>Total Spending</th>
+                <th>Total Dosage Units</th>
+                <th>Total Beneficiaries</th>
+                <th>Average Total Spending Per Dosage Unit Weighted</th>
+                <th>Average Spending Per Beneficiary</th>
+            </tr>
+        `);
+        dataTable = $('#dataTable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "http://localhost:8500/CapstoneIT491/SpendingAPI/getSpendingData-Default.cfm",
+                dataType: 'json',
+                method: 'POST',
+                data: function(d) {
+                    d.year = $('#SpendingYear').val();
+                    d.searchValue = d.search.value;
+                }
+            },
+            columns: [
+                { data: "Brnd_Name" },
+                { data: "Gnrc_Name" },
+                { data: "Year" },
+                { data: "TotalSpending" },
+                { data: "TotalDosageUnits" },
+                { data: "TotalBeneficiaries" },
+                { data: "AverageTotalSpendingPerDosageUnitWeighted" },
+                { data: "AverageSpendingPerBeneficiary" }
+            ]
+        });
+    }
+
+    function initializeGroupedTable() {
+        destroyAndResetTable();
+        $('#dataTable thead').empty().append(`
+            <tr>
+                <th>Generic Name</th>
+                <th>Year</th>
+                <th>Total Spending</th>
+                <th>Average Spending Per Beneficiary</th>
+            </tr>
+        `);
+        dataTable = $('#dataTable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "http://localhost:8500/CapstoneIT491/SpendingAPI/getSpendingData-Generic.cfm",
+                dataType: 'json',
+                method: 'POST',
+                data: function(d) {
+                    d.year = $('#SpendingYear').val();
+                    d.searchValue = d.search.value;
+                }
+            },
+            columns: [
+                { data: "Gnrc_Name" },
+                { data: "Year" },
+                { data: "TotalSpending" },
+                { data: "AverageSpendingPerBeneficiary" }
+            ]
+        });
+    }
+
+    // Initialize the default table
+    initializeDefaultTable();
+
+    // Event listener for the checkbox
+    $('#spendingGeneric').on('change', function() {
+        if ($(this).is(':checked')) {
+            initializeGroupedTable();
         } else {
-            $(this).addClass("sort-desc");
+            initializeDefaultTable();
         }
     });
 
-    function comparer(index) {
-        return function(a, b) {
-            var valA = getCellValue(a, index), valB = getCellValue(b, index);
-            return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB);
-        };
-    }
-
-    function getCellValue(row, index) { return $(row).children("td").eq(index).text(); }
-
-    // Listen for changes on the pageSize dropdown
-    $("#pageSize").change(function() {
-        // Reload the page with the new itemsPerPage value
-        location.search = $.param({ itemsPerPage: $(this).val() });
+    // Reload data on dropdown change
+    $('#SpendingYear').on('change', function() {
+        dataTable.ajax.reload();
     });
 });
-
-function checkForEnter(event) {
-    // Check if the key pressed is "Enter"
-    if (event.keyCode === 13) {
-        filterDataByYear();
-    }
-}
-
-function filterDataByYear() {
-    var yearSelected = document.getElementById('SpendingYear').value;
-    var drugSearch = document.getElementById('spendingSearch').value; // Get the drug search value
-
-    var queryParams = {}; // An object to hold query parameters
-
-    if (yearSelected) {
-        queryParams.selectedYear = yearSelected;
-    }
-
-    if (drugSearch) {
-        queryParams.drugSearch = drugSearch; // Add drugSearch to the query parameters if it has a value
-    }
-
-    // Convert the queryParams object to a query string
-    var queryString = Object.keys(queryParams).map(key => key + '=' + encodeURIComponent(queryParams[key])).join('&');
-
-    window.location.href = window.location.pathname + "?" + queryString;
-}
