@@ -44,19 +44,10 @@
 <!--- The Default Table Structure --->
     <table id="dataTable" class="display">
         <thead>
-        <tr>
-            <th>Brand Name</th>
-            <th>Generic Name</th>
-            <th>Year</th>
-            <th>Total Spending</th>
-            <th>Total Dosage Units</th>
-            <th>Total Beneficiaries</th>
-            <th>Average Total Spending Per Dosage Unit Weighted</th>
-            <th>Average Spending Per Beneficiary</th>
-        </tr>
         </thead>
         <tbody></tbody>
     </table>
+
 
 </div>
 

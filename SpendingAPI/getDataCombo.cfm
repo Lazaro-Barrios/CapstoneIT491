@@ -51,7 +51,7 @@
     ydn.AverageTotalSpendingPerDosageUnitWeighted,
     ydn.AverageSpendingPerBeneficiary,
     ROW_NUMBER() OVER (ORDER BY #orderByColumn# #orderByDirection#) AS RowNum
-FROM MedicarePartD.FinalYearlyData ydn
+    FROM MedicarePartD.FinalYearlyData ydn
     INNER JOIN MedicarePartD.DrugData dd ON ydn.YearlyData_ID = dd.Drug_ID
     WHERE 1=1
     <cfif IsDefined("form.year") AND len(trim(form.year)) GT 0>
