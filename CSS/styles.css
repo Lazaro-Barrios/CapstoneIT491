@@ -209,3 +209,11 @@ table {
     content: " ⇩";
     color: #000;
 }
+/*To make clickable cells more obvious to the user*/
+.table-clickable-cell {
+    cursor: pointer;
+}
+.table-clickable-cell:hover {
+    background-color: #f5f5f5;  /* Slight gray background on hover */
+    text-decoration: underline; /* Underline text on hover */
+}
