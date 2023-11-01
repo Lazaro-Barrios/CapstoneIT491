@@ -1,49 +1,7 @@
+let chartInstance = null;
+
 $(document).ready(function() {
     let dataTable;
-
-    function renderChart(brandName) {
-        // Sample static data, you might want to fetch real data for the brandName clicked
-        const data = {
-            labels: ['2017', '2018', '2019', '2020', '2021'],
-            datasets: [{
-                label: brandName,
-                data: [12, 19, 3, 5, 2], // replace with real data
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-            }]
-        };
-
-        // Configurations for the Chart.js chart
-        const config = {
-            type: 'line',
-            data: data,
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        };
-
-        // Destroy any previously created chart to avoid overlapping
-        if (window.myChart) {
-            window.myChart.destroy();
-        }
-
-        const ctx = document.getElementById('chartCanvas').getContext('2d');
-        window.myChart = new Chart(ctx, config);
-    }
-
-    function bindTableClickEvent() {
-        $('#dataTable tbody').on('click', 'td:first-child', function() {
-            const brandName = $(this).text();
-            renderChart(brandName);
-            $('#chartModal').modal('show');
-        });
-    }
 
     function destroyAndResetTable() {
         if ($.fn.DataTable.isDataTable('#dataTable')) {
@@ -79,11 +37,8 @@ $(document).ready(function() {
                 }
             },
             columns: [
-                {
-                    data: "Brnd_Name",
-                    className: "table-clickable-cell"
-                },
-                { data: "Gnrc_Name" },
+                { data: "Brnd_Name", className: "table-clickable-cell brand-name-cell" },
+                { data: "Gnrc_Name", className: "table-clickable-cell generic-name-cell" },
                 { data: "Year" },
                 { data: "TotalSpending" },
                 { data: "TotalDosageUnits" },
@@ -117,7 +72,7 @@ $(document).ready(function() {
                 }
             },
             columns: [
-                { data: "Gnrc_Name" },
+                { data: "Gnrc_Name", className: "table-clickable-cell generic-name-cell" },
                 { data: "Year" },
                 { data: "TotalSpending" },
                 { data: "AverageSpendingPerBeneficiary" }
@@ -127,7 +82,6 @@ $(document).ready(function() {
 
     // Initialize the default table
     initializeDefaultTable();
-    bindTableClickEvent();
 
     // Event listener for the checkbox
     $('#spendingGeneric').on('change', function() {
@@ -136,11 +90,95 @@ $(document).ready(function() {
         } else {
             initializeDefaultTable();
         }
-        bindTableClickEvent();
     });
 
     // Reload data on dropdown change
     $('#SpendingYear').on('change', function() {
         dataTable.ajax.reload();
     });
+
+    // Event for Brand Name and Generic Name click
+    $('#dataTable').on('click', 'td.table-clickable-cell', function() {
+        $('#chartModal').modal('show');
+        if ($(this).hasClass('brand-name-cell')) {
+            plotGraphBrand(generateDummyData());
+        } else if ($(this).hasClass('generic-name-cell')) {
+            plotGraphGeneric([generateDummyData(), generateDummyData(), generateDummyData()]);
+        }
+    });
+
+    function generateDummyData() {
+        const years = [2017, 2018, 2019, 2020, 2021];
+        return years.map(year => {
+            return {
+                year: year,
+                spending: Math.random() * 1000 // random spending value
+            };
+        });
+    }
+
+    function plotGraphBrand(data) {
+        if (chartInstance) {
+            chartInstance.destroy();
+        }
+        const years = [2017, 2018, 2019, 2020, 2021];
+        const avgSpending = years.map(year => {
+            const entry = data.find(row => row.year === year);
+            return entry ? entry.spending : 0;
+        });
+
+        const ctx = document.getElementById('chartCanvas').getContext('2d');
+        chartInstance = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: [{
+                    label: 'Average Spending Per Beneficiary (Brand)',
+                    data: avgSpending,
+                    borderColor: 'blue',
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    }
+
+    function plotGraphGeneric(dataArrays) {
+        if (chartInstance) {
+            chartInstance.destroy();
+        }
+        const years = [2017, 2018, 2019, 2020, 2021];
+        const colors = ['blue', 'green', 'red'];
+
+        const datasets = dataArrays.map((data, index) => {
+            return {
+                label: `Generic Name ${index + 1}`,
+                data: years.map(year => {
+                    const entry = data.find(row => row.year === year);
+                    return entry ? entry.spending : 0;
+                }),
+                borderColor: colors[index],
+                fill: false
+            };
+        });
+
+        const ctx = document.getElementById('chartCanvas').getContext('2d');
+        chartInstance = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: datasets
+            },
+            options: {
+                responsive: true
+            }
+        });
+    }
 });
+
+
+function plotGraphGeneric(data) {
+    // Plotting logic for Generic Name...
+}

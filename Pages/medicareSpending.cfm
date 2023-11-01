@@ -59,14 +59,16 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="chartModalLabel">Brand Details</h5>
+                    <h5 class="modal-title" id="chartModalLabel">[Chart Title]</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
+                    <!---<canvas id="chartCanvas"></canvas>--->
                 </div>
-                <div class="modal-body">
-                    <canvas id="chartCanvas"></canvas>
-                </div>
+                <!---Place canvas modal in here--->
+                    <div class="modal-body">
+                        <canvas id="chartCanvas" width="400" height="400"></canvas>
+                    </div>
             </div>
         </div>
     </div>
