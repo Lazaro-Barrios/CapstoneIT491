@@ -101,8 +101,10 @@ $(document).ready(function() {
     $('#dataTable').on('click', 'td.table-clickable-cell', function() {
         $('#chartModal').modal('show');
         if ($(this).hasClass('brand-name-cell')) {
+            $('#chartModalLabel').text("Average Spending Per Beneficiary");
             plotGraphBrand(generateDummyData());
         } else if ($(this).hasClass('generic-name-cell')) {
+            $('#chartModalLabel').text("Total Spending of Manufacturer's");
             plotGraphGeneric([generateDummyData(), generateDummyData(), generateDummyData()]);
         }
     });
@@ -140,6 +142,20 @@ $(document).ready(function() {
                 }]
             },
             options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Year'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Spending in USD'
+                        }
+                    }
+                },
                 responsive: true
             }
         });
@@ -154,7 +170,7 @@ $(document).ready(function() {
 
         const datasets = dataArrays.map((data, index) => {
             return {
-                label: `Generic Name ${index + 1}`,
+                label: `Manufacturer's Generic ${index + 1}`,
                 data: years.map(year => {
                     const entry = data.find(row => row.year === year);
                     return entry ? entry.spending : 0;
@@ -172,6 +188,20 @@ $(document).ready(function() {
                 datasets: datasets
             },
             options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Year'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Spending (in millions)'
+                        }
+                    }
+                },
                 responsive: true
             }
         });
