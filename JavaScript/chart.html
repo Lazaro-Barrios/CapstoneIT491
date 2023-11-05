@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multi-Bar Graph Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <label>Choose Your Demographic</label>
+    <select id="demographic">
+        <option value="age">Age</option>
+        <option value="race">Race</option>
+        <option value="sex">Sex</option>
+    </select>
+    <button id="enter">Enter</button>
+
+    <div id="program-container">
+        <canvas id="myChart"></canvas>
+        <canvas id="myChart2"></canvas>
+        <canvas id="myChart3"></canvas>
+        <canvas id="myChart4"></canvas>
+        <canvas id="myChart5"></canvas>
+        <canvas id="myChart6"></canvas>
+    </div>
+    <div>
+        <label>Years to Display (Program Payments):</label>
+        <div>
+            <input type="checkbox" id="year2013" checked>
+            <label for="year2013">2013</label>
+       
+            <input type="checkbox" id="year2014" checked>
+            <label for="year2014">2014</label>
+        
+            <input type="checkbox" id="year2015" checked>
+            <label for="year2015">2015</label>
+       
+            <input type="checkbox" id="year2016" checked>
+            <label for="year2016">2016</label>
+       
+            <input type="checkbox" id="year2017" checked>
+            <label for="year2017">2017</label>
+       
+            <input type="checkbox" id="year2018" checked>
+            <label for="year2018">2018</label>
+        
+            <input type="checkbox" id="year2019" checked>
+            <label for="year2019">2019</label>
+       
+            <input type="checkbox" id="year2020" checked>
+            <label for="year2020">2020</label>
+        
+            <input type="checkbox" id="year2021" checked>
+            <label for="year2021">2021</label>
+        </div>
+    </div>
+    <div>
+        <button id="filterButton">Filter</button>
+    </div>
+    <div id="medicare-container">
+        <canvas id="myChartMedicare"></canvas>
+        <canvas id="myChartMedicare2"></canvas>
+        <canvas id="myChartMedicare3"></canvas>
+        <canvas id="myChartMedicare4"></canvas>
+        <canvas id="myChartMedicare5"></canvas>
+        <canvas id="myChartMedicare6"></canvas>
+    </div>
+    <div>
+
+        <div>
+            <label>Years to Display (Medicare Enrollees):</label>
+            <div>
+                <input type="checkbox" id="yearMedicare2013" checked>
+                <label for="yearMedicare2013">2013</label>
+            
+                <input type="checkbox" id="yearMedicare2014" checked>
+                <label for="yearMedicare2014">2014</label>
+           
+                <input type="checkbox" id="yearMedicare2015" checked>
+                <label for="yearMedicare2015">2015</label>
+            
+                <input type="checkbox" id="yearMedicare2016" checked>
+                <label for="yearMedicare2016">2016</label>
+           
+                <input type="checkbox" id="yearMedicare2017" checked>
+                <label for="yearMedicare2017">2017</label>
+            
+                <input type="checkbox" id="yearMedicare2018" checked>
+                <label for="yearMedicare2018">2018</label>
+            
+                <input type="checkbox" id="yearMedicare2019" checked>
+                <label for="yearMedicare2019">2019</label>
+            
+                <input type="checkbox" id="yearMedicare2020" checked>
+                <label for="yearMedicare2020">2020</label>
+           
+                <input type="checkbox" id="yearMedicare2021" checked>
+                <label for="yearMedicare2021">2021</label>
+            </div>
+        </div>
+        <div>
+            <button id="filterButtonMedicare">Filter</button>
+        </div>
+    </div>
+
+    <script src="chart.js"></script>
+    <script src="medicareEnrollees.js"></script>
+    <script src="yearfilter.js"></script>
+
+</body>
+</html>
