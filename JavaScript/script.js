@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // References to DOM elements for the filters and button
     const yearFilter = document.querySelector('.year-filter');
     const careFilter = document.querySelector('.care-filter');
-    const fetchDataButton = document.getElementById('fetchDataButton');
+    //const fetchDataButton = document.getElementById('fetchDataButton');
 
     // Toggle the dropdown menu when the menu button is clicked
     menuBtn.addEventListener('click', () => {
@@ -25,5 +25,5 @@ document.addEventListener("DOMContentLoaded", function() {
     fetchYearsAndCareTypes(yearFilter, careFilter);
 
     // Fetch data based on selected filters when the button is clicked
-    fetchDataButton.addEventListener('click', () => fetchData(yearFilter, careFilter));
+    //fetchDataButton.addEventListener('click', () => fetchData(yearFilter, careFilter));
 });

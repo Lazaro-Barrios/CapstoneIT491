@@ -30,8 +30,10 @@
                 <option value="3">Inpatient Home Care</option>
                 <option value="4">General Inpatient Care</option>
             </select>
+            <!--
             <button id="fetchDataButton">Update Results</button>
             <button id="hideUnselectedRowsButton" class="btn btn-secondary">Hide Unselected Rows</button>
+            -->
         </div>
     <div class="widget-container">
         <div class="widget-header">
@@ -58,7 +60,7 @@
     </div>
     <br><br><br>
 
-    <a href="index.cfm" class="back-link">Back to Landing Page</a>
+    <!---<a href="index.cfm" class="back-link">Back to Landing Page</a>--->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>

@@ -7,21 +7,23 @@ function fetchYearsAndCareTypes(yearFilter, careFilter) {
         populateDropdown(yearFilter, data.years.DATA);
         populateDropdown(careFilter, data.careTypes.DATA, true);
 
-        // Initialize the Select2 components
+        // Initialize the Select2 components and add event listeners for dynamic updates
         $(yearFilter).select2({
             theme: "bootstrap-5",
             placeholder: "Select a Year",
-            minimumResultsForSearch: Infinity,
-            //width: "12%",
-        }).val(null).trigger('change').show; // Had to add this due to FOUC 'flash of unstyled content' bug and to display placeholder
+            minimumResultsForSearch: Infinity
+        }).on('change', () => {
+            fetchData(yearFilter, careFilter);
+        });
 
         $(careFilter).select2({
             theme: 'bootstrap-5',
             placeholder: "Select Level of Care",
             allowClear: true,
             minimumResultsForSearch: Infinity,
-            //width: "50%",
-            closeOnSelect: false,
+            closeOnSelect: false
+        }).on('select2:select select2:unselect', () => {
+            fetchData(yearFilter, careFilter);
         });
     });
 }

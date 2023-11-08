@@ -60,10 +60,14 @@ function renderTable(data) {
     const dataTable = $(dataTableElement).DataTable({
         responsive: true,
         autoWidth: false,
+        searching: false,
+        paging: false,
+        /*
         select: {
             style: 'multi',
             selector: 'td:first-child'
         }
+        */
     });
 
     // Event listener for row selection
@@ -81,9 +85,10 @@ function renderTable(data) {
             console.log('Selected Rows:', selectedRows);
         }
     });
-
+    /*
     // Event listener for hiding unselected rows
     document.getElementById('hideUnselectedRowsButton').addEventListener('click', function () {
         dataTable.rows({ selected: false }).nodes().to$().hide();  // Hide unselected rows
     });
+    */
 }
