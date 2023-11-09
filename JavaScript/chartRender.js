@@ -37,6 +37,20 @@ function renderMultiBarGraph(allYearsData) {
         },
         options: {
             maintainAspectRatio: false,
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            label += '$' + context.parsed.y.toLocaleString();
+                            return label;
+                        }
+                    }
+                }
+            },
             scales: {
                 y: {
                     beginAtZero: true,

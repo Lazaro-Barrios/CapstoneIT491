@@ -25,19 +25,22 @@ function fetchYearsAndCareTypes(yearFilter, careFilter) {
         }).on('select2:select select2:unselect', () => {
             fetchData(yearFilter, careFilter);
         });
+
+        // Set default values (2021 and all care types) and fetch data
+        $(yearFilter).val('2021').trigger('change');
+        const allCareTypes = data.careTypes.DATA.map(item => item[0]);
+        $(careFilter).val(allCareTypes).trigger('change');
     });
 }
 
 // Function to fetch data based on selected year and care type
 function fetchData(yearFilter, careFilter) {
     const selectedYear = yearFilter.value;
-    const selectedCares = Array.from(careFilter.selectedOptions).map(option => option.value);
+    let selectedCares = Array.from(careFilter.selectedOptions).map(option => option.value);
 
-    // Log the selected values for debugging purposes
-    console.log("Selected Year:", selectedYear);
-    console.log("Selected Cares:", selectedCares);
-    console.log("Dropdown Selection:", careFilter.selectedOptions); // Debug log for dropdown selection
-
+    if (selectedCares.length === 0) {
+        selectedCares = Array.from(careFilter.options).map(option => option.value);
+    }
     // Fetch data from the server based on the selected filters
     fetch('/CapstoneIT491/api/fetchData.cfm', {
         method: 'POST',
@@ -51,7 +54,6 @@ function fetchData(yearFilter, careFilter) {
     })
     .then(response => response.json())
     .then(data => {
-
         console.log("Initial Data:", JSON.parse(JSON.stringify(data))); // Debug log for initial data
 
         // Filter the columns based on the selected care types
