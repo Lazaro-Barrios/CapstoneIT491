@@ -8,7 +8,7 @@
 <cfparam name="form.order[0][column]" default="0">
 <cfparam name="form.order[0][dir]" default="asc">
 
-<cfset columns = ["Brnd_Name", "Gnrc_Name", "Year", "TotalSpending", "TotalDosageUnits", "TotalBeneficiaries", "AverageTotalSpendingPerDosageUnitWeighted", "AverageSpendingPerBeneficiary"]>
+<cfset columns = ["Brnd_Name", "Gnrc_Name", "Year", "TotalSpending", "TotalDosageUnits", "TotalBeneficiaries", "AverageSpendingPerBeneficiary"]>
 
 <cfif structKeyExists(form, "order[0][column]")>
     <cfset orderColumnIndex = form["order[0][column]"]>
@@ -18,10 +18,7 @@
     <cfset orderByDirection = "asc">
 </cfif>
 
-<cfset orderByColumn = columns[orderColumnIndex + 1]>
 
-
-<cfset columns = ["Brnd_Name", "Gnrc_Name", "Year", "TotalSpending", "TotalDosageUnits", "TotalBeneficiaries", "AverageTotalSpendingPerDosageUnitWeighted", "AverageSpendingPerBeneficiary"]>
 <cfset orderByColumn = columns[val(form["order[0][column]"]) + 1]>
 
 
@@ -48,7 +45,6 @@
     ydn.TotalSpending,
     ydn.TotalDosageUnits,
     ydn.TotalBeneficiaries,
-    ydn.AverageTotalSpendingPerDosageUnitWeighted,
     ydn.AverageSpendingPerBeneficiary,
     ROW_NUMBER() OVER (ORDER BY #orderByColumn# #orderByDirection#) AS RowNum
     FROM MedicarePartD.FinalYearlyData ydn
@@ -100,7 +96,6 @@ FETCH NEXT <cfqueryparam value="#form.length#" cfsqltype="cf_sql_integer"> ROWS 
         "TotalSpending": TotalSpending,
         "TotalDosageUnits": TotalDosageUnits,
         "TotalBeneficiaries": TotalBeneficiaries,
-        "AverageTotalSpendingPerDosageUnitWeighted": AverageTotalSpendingPerDosageUnitWeighted,
         "AverageSpendingPerBeneficiary": AverageSpendingPerBeneficiary
     })>
 </cfloop>

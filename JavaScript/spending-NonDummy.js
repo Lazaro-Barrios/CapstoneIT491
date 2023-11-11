@@ -18,7 +18,6 @@ $(document).ready(function() {
                 <th>Total Spending</th>
                 <th>Total Dosage Units</th>
                 <th>Total Beneficiaries</th>
-                <th>Average Total Spending Per Dosage Unit Weighted</th>
                 <th>Average Spending Per Beneficiary</th>
             </tr>
         `);
@@ -41,7 +40,6 @@ $(document).ready(function() {
                 { data: "TotalSpending" },
                 { data: "TotalDosageUnits" },
                 { data: "TotalBeneficiaries" },
-                { data: "AverageTotalSpendingPerDosageUnitWeighted" },
                 { data: "AverageSpendingPerBeneficiary" }
             ]
         });
