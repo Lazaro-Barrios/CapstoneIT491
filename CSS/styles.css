@@ -217,3 +217,21 @@ table {
     background-color: #f5f5f5;  /* Slight gray background on hover */
     text-decoration: underline; /* Underline text on hover */
 }
+/*Changes to the DataTables input forms*/
+#dataTable_filter,#dataTable_length {
+    background-color: #CCC;
+    padding: .2%;
+    border: #CCC solid;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#dataTable_filter > label,
+#dataTable_length > label {
+    margin-bottom: 0;
+}
+#dataTable_filter > label > input[type=search] {
+    border: 1px solid #CCC;
+    outline: none;
+}

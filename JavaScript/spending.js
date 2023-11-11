@@ -28,7 +28,7 @@ $(document).ready(function() {
             processing: true,
             serverSide: true,
             ajax: {
-                url: "http://localhost:8500/CapstoneIT491/SpendingAPI/getSpendingData-Default.cfm",
+                url: "../SpendingAPI/getSpendingData-Default.cfm",
                 dataType: 'json',
                 method: 'POST',
                 data: function(d) {
@@ -63,7 +63,7 @@ $(document).ready(function() {
             processing: true,
             serverSide: true,
             ajax: {
-                url: "http://localhost:8500/CapstoneIT491/SpendingAPI/getSpendingData-Generic.cfm",
+                url: "../SpendingAPI/getSpendingData-Generic.cfm",
                 dataType: 'json',
                 method: 'POST',
                 data: function(d) {

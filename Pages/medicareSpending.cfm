@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/CapstoneIT491/CSS/styles.css">
     <!---<script src="../JavaScript/script.js"></script>--->
 
+    <!---I don't remember what this one is for?--->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- Bootstrap CSS and JS -->
@@ -27,10 +28,13 @@
 
 </head>
 <body style="background-color: dimgrey">
-<cfinclude template="/CapstoneIT491/features/navbar.cfm">
+<cfinclude template="../features/navbar.cfm">
 
-<h1>MedicareSpending</h1>
-
+<h1 style="
+    text-align: center;
+    font-size: 3rem;
+">Medicare Spending</h1>
+<br>
 <div id="tableSettings">
     <select id="SpendingYear" name="year">
         <option value="" disabled selected>Select Year</option>
