@@ -1,6 +1,6 @@
 let multiBarChart;
 
-// Function for a multi-bar chart visualizing program payments across different years using Chart.js and the provided data.
+// Function for a multi-bar chart visualizing program payments across different years using Chart.js
 function renderMultiBarGraph(allYearsData) {
     const ctx = document.getElementById('multiBarChart').getContext('2d');
 
@@ -9,8 +9,6 @@ function renderMultiBarGraph(allYearsData) {
     }
 
     const years = allYearsData.DATA.map(row => row[0]);
-    const datasets = [];
-    
     const colors = [
         { bg: 'rgb(0, 123, 255)', border: 'rgb(0, 123, 255)' }, // Blue
         { bg: 'rgb(220, 53, 69)', border: 'rgb(220, 53, 69)' }, // Red
@@ -18,16 +16,13 @@ function renderMultiBarGraph(allYearsData) {
         { bg: 'rgb(255, 193, 7)', border: 'rgb(255, 193, 7)' }  // Yellow
     ];
     
-    allYearsData.COLUMNS.slice(1).forEach((column, columnIndex) => {
-        const dataForColumn = allYearsData.DATA.map(row => row[columnIndex + 1]);
-        datasets.push({
-            label: column,
-            data: dataForColumn,
-            backgroundColor: colors[columnIndex].bg,
-            borderColor: colors[columnIndex].border,
-            borderWidth: 1
-        });
-    });
+    const datasets = allYearsData.COLUMNS.slice(1).map((column, columnIndex) => ({
+        label: column,
+        data: allYearsData.DATA.map(row => row[columnIndex + 1]),
+        backgroundColor: colors[columnIndex].bg,
+        borderColor: colors[columnIndex].border,
+        borderWidth: 1
+    }));
 
     multiBarChart = new Chart(ctx, {
         type: 'bar',
@@ -55,20 +50,16 @@ function renderMultiBarGraph(allYearsData) {
                 y: {
                     beginAtZero: true,
                     ticks: {
+                        callback: function(value) {
+                            const valueInBillions = value / 1000000000;
+                            return value >= 1000000000 
+                                ? '$' + valueInBillions + 'B' 
+                                : '$' + valueInBillions.toFixed(2) + 'B';
+                        },
+                        autoSkip: false,
                         min: 0,
-                        max: 25000000000, // 25 billion
-                        stepSize: 200000000, // 20 million
-                        callback: function(value, index, values) {
-                            if (value >= 1000000000) { // if value is greater than or equal to one billion
-                                return '$' + value / 1000000000 + ' Billion';
-                            } 
-                            else if (value >= 1000000) { // if value is greater than or equal to one million
-                                return '$' + value / 1000000 + ' Million';
-                            } 
-                            else {
-                                return '$' + value;
-                            }
-                        }
+                        max: 25,
+                        values: [0, 5, 10, 15, 20, 25]
                     },
                     title: {
                         display: true,
