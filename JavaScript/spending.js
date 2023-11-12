@@ -110,28 +110,30 @@ $(document).ready(function() {
 
     // Event for Brand Name and Generic Name click
     $('#dataTable').on('click', 'td.table-clickable-cell', function() {
-        var drugId = $(this).find('span').data('drug-id'); // Get the unique drug ID
-
-        // Validate that drugId is a number since it can no longer be 'undefined' after your ColdFusion fix
-        if (isNaN(drugId) || drugId <= 0) {
-            console.error("Invalid or no drug ID found for clicked cell.");
-            return; // Exit the function if drugId is not a number or less than or equal to zero
-        }
-
-        if (typeof drugId === 'undefined' || drugId === false) {
-            console.error("Invalid or no drug ID found for clicked cell.");
-            return; // Exit the function if drugId is not defined or false
-        }
-
+        // Show the modal first
         $('#chartModal').modal('show');
+
         if ($(this).hasClass('brand-name-cell')) {
-            $('#chartModalLabel').text("Average Spending Per Beneficiary");
-            fetchBrandSpendingData(drugId); // fetch data and then plot
+            // Handle the brand name click
+            var drugId = $(this).find('span').data('drug-id');
+            if (typeof drugId !== 'undefined' && drugId) {
+                $('#chartModalLabel').text("Average Spending Per Beneficiary");
+                fetchBrandSpendingData(drugId); // fetch data and then plot
+            } else {
+                console.error("Invalid or no drug ID found for clicked cell.");
+            }
         } else if ($(this).hasClass('generic-name-cell')) {
-            $('#chartModalLabel').text("Total Spending of Manufacturer's");
-            plotGraphGeneric([generateDummyData(), generateDummyData(), generateDummyData()]);
+            // Handle the generic name click
+            var genericName = $(this).text().trim(); // Get the generic name from the cell text
+            if (genericName) {
+                $('#chartModalLabel').text("Total Spending of Manufacturers");
+                plotGraphGeneric(genericName); // Fetch and plot data for the generic name
+            } else {
+                console.error("Invalid or no generic name found for clicked cell.");
+            }
         }
     });
+
 
     function fetchBrandSpendingData(drugId) {
         $.ajax({
@@ -159,16 +161,6 @@ $(document).ready(function() {
             error: function(xhr, status, error) {
                 console.error("Error fetching data: ", error);
             }
-        });
-    }
-
-    function generateDummyData() {
-        const years = [2017, 2018, 2019, 2020, 2021];
-        return years.map(year => {
-            return {
-                year: year,
-                spending: Math.random() * 1000 // random spending value
-            };
         });
     }
 
@@ -218,50 +210,81 @@ $(document).ready(function() {
         });
     }
 
-
-    function plotGraphGeneric(dataArrays) {
-        if (chartInstance) {
-            chartInstance.destroy();
-        }
+    function generateDummyData() {
         const years = [2017, 2018, 2019, 2020, 2021];
-        const colors = ['blue', 'green', 'red'];
-
-        const datasets = dataArrays.map((data, index) => {
+        return years.map(year => {
             return {
-                label: `Manufacturer's Generic ${index + 1}`,
-                data: years.map(year => {
-                    const entry = data.find(row => row.year === year);
-                    return entry ? entry.spending : 0;
-                }),
-                borderColor: colors[index],
-                fill: false
+                year: year,
+                spending: Math.random() * 1000 // random spending value
             };
         });
+    }
 
-        const ctx = document.getElementById('chartCanvas').getContext('2d');
-        chartInstance = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: years,
-                datasets: datasets
-            },
-            options: {
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Year'
-                        }
+    function plotGraphGeneric(genericName) {
+        $.ajax({
+            url: "../SpendingAPI/GenericName.cfm",
+            type: 'GET',
+            dataType: 'json',
+            data: { genericName: genericName },
+            success: function(response) {
+                // Assuming response is an array of objects with 'Year', 'BrandName', and 'TotalSpending'
+                const brands = [...new Set(response.map(item => item.BrandName))]; // Get unique brand names
+                const datasets = brands.map(brand => {
+                    return {
+                        label: brand,
+                        data: response.filter(item => item.BrandName === brand).map(item => ({
+                            x: item.Year,
+                            y: item.TotalSpending
+                        })),
+                        borderColor: getRandomColor(), // A function to generate a random color
+                        fill: false
+                    };
+                });
+
+                if (chartInstance) {
+                    chartInstance.destroy();
+                }
+
+                const ctx = document.getElementById('chartCanvas').getContext('2d');
+                chartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        datasets: datasets
                     },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Spending (in millions)'
-                        }
+                    options: {
+                        scales: {
+                            x: {
+                                type: 'linear',
+                                position: 'bottom',
+                                title: {
+                                    display: true,
+                                    text: 'Year'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Total Spending'
+                                }
+                            }
+                        },
+                        responsive: true
                     }
-                },
-                responsive: true
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error("Error fetching data: ", error);
             }
         });
     }
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
 });
