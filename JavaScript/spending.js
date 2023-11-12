@@ -33,10 +33,23 @@ $(document).ready(function() {
                 data: function(d) {
                     d.year = $('#SpendingYear').val();
                     d.searchValue = d.search.value;
+                    if (!d.order || d.order.length === 0) {
+                        d.order = [{
+                            column: 0, // default column index
+                            dir: 'asc' // default direction
+                        }];
+                    }
                 }
             },
             columns: [
-                { data: "Brnd_Name", className: "table-clickable-cell brand-name-cell" },
+                {
+                    data: "Brnd_Name",
+                    className: "table-clickable-cell brand-name-cell",
+                    render: function(data, type, row) {
+                        // Assuming 'Drug_ID' is the unique identifier from your dataset
+                        return '<span data-drug-id="' + row.Drug_ID + '">' + data + '</span>';
+                    }
+                },
                 { data: "Gnrc_Name", className: "table-clickable-cell generic-name-cell" },
                 { data: "Year" },
                 { data: "TotalSpending" },
@@ -97,15 +110,57 @@ $(document).ready(function() {
 
     // Event for Brand Name and Generic Name click
     $('#dataTable').on('click', 'td.table-clickable-cell', function() {
+        var drugId = $(this).find('span').data('drug-id'); // Get the unique drug ID
+
+        // Validate that drugId is a number since it can no longer be 'undefined' after your ColdFusion fix
+        if (isNaN(drugId) || drugId <= 0) {
+            console.error("Invalid or no drug ID found for clicked cell.");
+            return; // Exit the function if drugId is not a number or less than or equal to zero
+        }
+
+        if (typeof drugId === 'undefined' || drugId === false) {
+            console.error("Invalid or no drug ID found for clicked cell.");
+            return; // Exit the function if drugId is not defined or false
+        }
+
         $('#chartModal').modal('show');
         if ($(this).hasClass('brand-name-cell')) {
             $('#chartModalLabel').text("Average Spending Per Beneficiary");
-            plotGraphBrand(generateDummyData());
+            fetchBrandSpendingData(drugId); // fetch data and then plot
         } else if ($(this).hasClass('generic-name-cell')) {
             $('#chartModalLabel').text("Total Spending of Manufacturer's");
             plotGraphGeneric([generateDummyData(), generateDummyData(), generateDummyData()]);
         }
     });
+
+    function fetchBrandSpendingData(drugId) {
+        $.ajax({
+            url: "../SpendingAPI/BrandName.cfm",
+            type: 'GET',
+            dataType: 'text', // Get the response as text first to clean it
+            data: { drugId: drugId },
+            success: function(textResponse) {
+                // Assuming the valid JSON starts with '[' and ends with ']', extract it
+                var jsonStartPos = textResponse.indexOf('[');
+                var jsonEndPos = textResponse.lastIndexOf(']') + 1;
+                var jsonResponse = textResponse.substring(jsonStartPos, jsonEndPos);
+
+                // Now parse the JSON response
+                var data;
+                try {
+                    data = JSON.parse(jsonResponse);
+                } catch (e) {
+                    console.error("Parsing error:", e);
+                    return;
+                }
+                // Proceed to plot the graph with the cleaned data
+                plotGraphBrand(data);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error fetching data: ", error);
+            }
+        });
+    }
 
     function generateDummyData() {
         const years = [2017, 2018, 2019, 2020, 2021];
@@ -118,23 +173,26 @@ $(document).ready(function() {
     }
 
     function plotGraphBrand(data) {
+        if (!Array.isArray(data) || !data.length) {
+            console.error("Data is not an array or is empty");
+            return;
+        }
         if (chartInstance) {
             chartInstance.destroy();
         }
-        const years = [2017, 2018, 2019, 2020, 2021];
-        const avgSpending = years.map(year => {
-            const entry = data.find(row => row.year === year);
-            return entry ? entry.spending : 0;
-        });
+
+        // The structure of your data suggests that 'YEAR' and 'SPENDING' are uppercase
+        const labels = data.map(item => item.YEAR.toString());
+        const spendingData = data.map(item => item.SPENDING);
 
         const ctx = document.getElementById('chartCanvas').getContext('2d');
         chartInstance = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: years,
+                labels: labels,
                 datasets: [{
                     label: 'Average Spending Per Beneficiary (Brand)',
-                    data: avgSpending,
+                    data: spendingData, // Use the spendingData array here
                     borderColor: 'blue',
                     fill: false
                 }]
@@ -151,13 +209,15 @@ $(document).ready(function() {
                         title: {
                             display: true,
                             text: 'Spending in USD'
-                        }
+                        },
+                        beginAtZero: true // This ensures that the scale starts at 0
                     }
                 },
                 responsive: true
             }
         });
     }
+
 
     function plotGraphGeneric(dataArrays) {
         if (chartInstance) {
@@ -205,8 +265,3 @@ $(document).ready(function() {
         });
     }
 });
-
-
-function plotGraphGeneric(data) {
-    // Plotting logic for Generic Name...
-}

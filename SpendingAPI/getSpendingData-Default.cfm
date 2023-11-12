@@ -39,14 +39,15 @@
 <cfquery name="getData" datasource="MedicareData">
     WITH FilteredData AS (
     SELECT
-    dd.Brnd_Name,
-    dd.Gnrc_Name,
-    ydn.Year,
-    ydn.TotalSpending,
-    ydn.TotalDosageUnits,
-    ydn.TotalBeneficiaries,
-    ydn.AverageSpendingPerBeneficiary,
-    ROW_NUMBER() OVER (ORDER BY #orderByColumn# #orderByDirection#) AS RowNum
+        dd.Drug_ID,
+        dd.Brnd_Name,
+        dd.Gnrc_Name,
+        ydn.Year,
+        ydn.TotalSpending,
+        ydn.TotalDosageUnits,
+        ydn.TotalBeneficiaries,
+        ydn.AverageSpendingPerBeneficiary,
+        ROW_NUMBER() OVER (ORDER BY #orderByColumn# #orderByDirection#) AS RowNum
     FROM MedicarePartD.FinalYearlyData ydn
     INNER JOIN MedicarePartD.DrugData dd ON ydn.YearlyData_ID = dd.Drug_ID
     WHERE 1=1
@@ -90,6 +91,7 @@ FETCH NEXT <cfqueryparam value="#form.length#" cfsqltype="cf_sql_integer"> ROWS 
 <!--- Loop over the query results and add to the data array --->
 <cfloop query="getData">
     <cfset arrayAppend(result.data, {
+        "Drug_ID": Drug_ID,
         "Brnd_Name": Brnd_Name,
         "Gnrc_Name": Gnrc_Name,
         "Year": Year,

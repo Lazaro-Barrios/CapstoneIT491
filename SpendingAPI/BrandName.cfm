@@ -1,52 +1,34 @@
 <!--- BrandName.cfm --->
-<cfsetting enablecfoutputonly="yes" showdebugoutput="no">
-<cfcontent type="application/json; charset=utf-8">
-<cftry>
-<!--- Get drugID from the request --->
-    <cfparam name="form.drugID" default="0">
-    <cfparam name="url.drugID" default="0">
+<!--- For loading the data needs for the Average Spending Per Beneficiary --->
+<cfparam name="URL.drugId" default="0" type="numeric">
 
+<!--- Verify that drugId is a number and not zero --->
+<cfif NOT IsNumeric(URL.drugId) OR URL.drugId EQ 0>
+<!--- Handle error appropriately --->
+    <cfset errorMsg = "Invalid Drug ID provided. Please provide a valid Drug ID.">
+    <cfoutput>#serializeJSON({ "error": errorMsg })#</cfoutput>
+    <cfabort>
+</cfif>
 
-<!--- Set up the query to fetch data --->
-    <cfquery name="getDrugData" datasource="MedicareData">
-        SELECT dd.Drug_ID,
-        fy.Year,
-        fy.AverageSpendingPerBeneficiary
-        FROM MedicarePartD.DrugData dd
-        LEFT JOIN MedicarePartD.FinalYearlyData fy ON dd.Drug_ID = fy.YearlyData_ID
-        WHERE dd.Drug_ID = <cfqueryparam cfsqltype="cf_sql_integer" value="#form.drugID#">
-        AND fy.Year BETWEEN 2017 AND 2021
-        ORDER BY fy.Year ASC
-    </cfquery>
+<cfquery name="getBrandSpending" datasource="MedicareData">
+    SELECT
+        yd.Year,
+        SUM(yd.TotalSpending) AS TotalSpending,
+        SUM(yd.AverageSpendingPerBeneficiary) AS AverageSpendingPerBeneficiary
+    FROM
+        MedicarePartD.DrugData dd
+    INNER JOIN
+        MedicarePartD.FinalYearlyData yd ON dd.Drug_ID = yd.YearlyData_ID
+    WHERE
+        dd.Drug_ID = <cfqueryparam value="#URL.drugId#" cfsqltype="cf_sql_integer">
+    GROUP BY
+        yd.Year
+</cfquery>
 
-<!--- Convert query to JSON and return --->
-    <cfset result = {}>
-    <cfset result["data"] = []>
+<cfset spendingData = []> <!--- Initialize as an array --->
+<cfloop query="getBrandSpending">
+    <cfset spending = AverageSpendingPerBeneficiary > 0 ? (TotalSpending / AverageSpendingPerBeneficiary) : 0>
+    <cfset arrayAppend(spendingData, {year: Year, spending: spending})> <!--- Append the structure to the array --->
+</cfloop>
 
-    <cfloop query="getDrugData">
-        <cfset row = {
-            "Year" = getDrugData.Year,
-            "AverageSpendingPerBeneficiary" = getDrugData.AverageSpendingPerBeneficiary
-        }>
-        <cfset arrayAppend(result["data"], row)>
-    </cfloop>
-    <!---<cfset result = []>--->
-    <!---<cfloop query="getDrugData">--->
-        <!---<cfset row = {}>--->
-        <!---<cfset row["year"] = getDrugData.Year>--->
-        <!---<cfset row["spending"] = getDrugData.AverageSpendingPerBeneficiary>--->
-        <!---<cfset arrayAppend(result, row)>--->
-    <!---</cfloop>--->
-
-
-    <cfoutput>#serializeJson(result)#</cfoutput>
-
-    <cfcatch type="any">
-        <cfset error = {
-            "status" = "error",
-            "message" = "Error fetching data: " & cfcatch.message
-        }>
-        <cfoutput>#serializeJson(error)#</cfoutput>
-    </cfcatch>
-</cftry>
-</cfsetting>
+<cfoutput>#serializeJSON(spendingData)#</cfoutput>
