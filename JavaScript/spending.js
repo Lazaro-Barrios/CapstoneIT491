@@ -111,9 +111,8 @@ $(document).ready(function() {
     // Event for Brand Name and Generic Name click
     $('#dataTable').on('click', 'td.table-clickable-cell', function() {
         // Show the modal first
-        $('#chartModal').modal('show');
-
         if ($(this).hasClass('brand-name-cell')) {
+            $('#chartModal').modal('show');
             // Handle the brand name click
             var drugId = $(this).find('span').data('drug-id');
             if (typeof drugId !== 'undefined' && drugId) {
@@ -122,16 +121,17 @@ $(document).ready(function() {
             } else {
                 console.error("Invalid or no drug ID found for clicked cell.");
             }
-        } else if ($(this).hasClass('generic-name-cell')) {
-            // Handle the generic name click
-            var genericName = $(this).text().trim(); // Get the generic name from the cell text
-            if (genericName) {
-                $('#chartModalLabel').text("Total Spending of Manufacturers");
-                plotGraphGeneric(genericName); // Fetch and plot data for the generic name
-            } else {
-                console.error("Invalid or no generic name found for clicked cell.");
-            }
         }
+        // else if ($(this).hasClass('generic-name-cell')) {
+        //     // Handle the generic name click
+        //     var genericName = $(this).text().trim(); // Get the generic name from the cell text
+        //     if (genericName) {
+        //         $('#chartModalLabel').text("\"Generic Name Here\"");
+        //         // Previous spot to load Generic function, am now loading it from its own function
+        //     } else {
+        //         console.error("Invalid or no generic name found for clicked cell.");
+        //     }
+        // }
     });
 
 
@@ -210,67 +210,18 @@ $(document).ready(function() {
         });
     }
 
-    function generateDummyData() {
-        const years = [2017, 2018, 2019, 2020, 2021];
-        return years.map(year => {
-            return {
-                year: year,
-                spending: Math.random() * 1000 // random spending value
-            };
-        });
-    }
-
-    function plotGraphGeneric(genericName) {
+    function fetchGenericSpendingData(genericName) {
         $.ajax({
             url: "../SpendingAPI/GenericName.cfm",
             type: 'GET',
             dataType: 'json',
             data: { genericName: genericName },
             success: function(response) {
-                // Assuming response is an array of objects with 'Year', 'BrandName', and 'TotalSpending'
-                const brands = [...new Set(response.map(item => item.BrandName))]; // Get unique brand names
-                const datasets = brands.map(brand => {
-                    return {
-                        label: brand,
-                        data: response.filter(item => item.BrandName === brand).map(item => ({
-                            x: item.Year,
-                            y: item.TotalSpending
-                        })),
-                        borderColor: getRandomColor(), // A function to generate a random color
-                        fill: false
-                    };
-                });
-
-                if (chartInstance) {
-                    chartInstance.destroy();
+                if (response && response.DATA && response.DATA.length > 0) {
+                    populateModalTable(response);
+                } else {
+                    console.error("No data found for the selected generic name.");
                 }
-
-                const ctx = document.getElementById('chartCanvas').getContext('2d');
-                chartInstance = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        datasets: datasets
-                    },
-                    options: {
-                        scales: {
-                            x: {
-                                type: 'linear',
-                                position: 'bottom',
-                                title: {
-                                    display: true,
-                                    text: 'Year'
-                                }
-                            },
-                            y: {
-                                title: {
-                                    display: true,
-                                    text: 'Total Spending'
-                                }
-                            }
-                        },
-                        responsive: true
-                    }
-                });
             },
             error: function(xhr, status, error) {
                 console.error("Error fetching data: ", error);
@@ -278,13 +229,41 @@ $(document).ready(function() {
         });
     }
 
-    function getRandomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
+    function populateModalTable(data) {
+        console.log("Populating modal table with data:", data);
+        // Assuming you have a table with tbody id 'modalTableBody' in your modal
+        var tableBody = $('#modalTableBody');
+        tableBody.empty(); // Clear any existing rows
+        console.log("Cleared existing table rows.");
+
+        // Iterate through the DATA array and append rows to the table body
+        data.DATA.forEach(function(row) {
+            console.log("Appending row:", row);
+            var tableRow = '<tr>' +
+                '<td>' + row[0] + '</td>' + // Brand Name
+                '<td>' + row[1] + '</td>' + // Manufacturer Name
+                '<td>' + row[2].toLocaleString() + '</td>' + // Total Spending 2017
+                '<td>' + row[3].toLocaleString() + '</td>' + // Total Spending 2018
+                '<td>' + row[4].toLocaleString() + '</td>' + // Total Spending 2019
+                '<td>' + row[5].toLocaleString() + '</td>' + // Total Spending 2020
+                '<td>' + row[6].toLocaleString() + '</td>' + // Total Spending 2021
+                '</tr>';
+            tableBody.append(tableRow);
+        });
     }
+
+// Add this part inside the $(document).ready(function() {...});
+    $('#dataTable').on('click', 'td.generic-name-cell', function() {
+        var genericName = $(this).text().trim();
+        if (genericName) {
+            $('#spendingModalLabel').text(genericName + "Spending Details by Brand");
+            fetchGenericSpendingData(genericName); // Fetch data and populate the modal table
+            // Show the modal
+            $('#spendingModal').modal('show');
+        } else {
+            console.error("Invalid or no generic name found for clicked cell.");
+        }
+    });
+
 
 });

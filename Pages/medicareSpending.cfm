@@ -27,12 +27,13 @@
     <script src="../JavaScript/spending.js"></script>
 
 </head>
-<body style="background-color: dimgrey">
+<body style="background-color: #dadada">
 <cfinclude template="../features/navbar.cfm">
 
 <h1 style="
     text-align: center;
     font-size: 3rem;
+    padding-top: 5px;
 ">Medicare Spending</h1>
 <br>
 <div id="tableSettings">
@@ -58,6 +59,43 @@
         </thead>
         <tbody></tbody>
     </table>
+
+    <!-- New Bootstrap Modal for Spending Data Table Display -->
+    <div class="modal fade" id="spendingModal" tabindex="-1" role="dialog" aria-labelledby="spendingModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document"> <!-- Added modal-lg for larger modal -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="spendingModalLabel">Spending Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Table for displaying the spending data -->
+                    <table id="modalDataTable" class="table">
+                        <thead>
+                        <tr>
+                            <th>Brand Name</th>
+                            <th>Manufacturer Name</th>
+                            <th>Total Spending 2017</th>
+                            <th>Total Spending 2018</th>
+                            <th>Total Spending 2019</th>
+                            <th>Total Spending 2020</th>
+                            <th>Total Spending 2021</th>
+                        </tr>
+                        </thead>
+                        <tbody id="modalTableBody">
+                        <!-- Data rows will be appended here by the populateModalTable function -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap Modal for Chart Display -->
     <div class="modal fade" id="chartModal" tabindex="-1" role="dialog" aria-labelledby="chartModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -69,7 +107,6 @@
                     </button>
                     <!---<canvas id="chartCanvas"></canvas>--->
                 </div>
-                <!---Place canvas modal in here--->
                     <div class="modal-body">
                         <canvas id="chartCanvas" width="400" height="400"></canvas>
                     </div>
