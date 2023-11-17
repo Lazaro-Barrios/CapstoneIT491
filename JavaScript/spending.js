@@ -17,10 +17,10 @@ $(document).ready(function() {
                 <th>Brand Name</th>
                 <th>Generic Name</th>
                 <th>Year</th>
-                <th>Total Spending</th>
-                <th>Total Dosage Units</th>
+                <th>Total Spending (USD)</th>
+                <th>Total Dosage Units (drug unit)</th>
                 <th>Total Beneficiaries</th>
-                <th>Average Spending Per Beneficiary</th>
+                <th>Average Spending Per Beneficiary (USD)</th>
             </tr>
         `);
         dataTable = $('#dataTable').DataTable({
