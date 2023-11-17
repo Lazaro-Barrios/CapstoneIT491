@@ -27,7 +27,7 @@ $(document).ready(function() {
             processing: true,
             serverSide: true,
             ajax: {
-                url: "../SpendingAPI/getSpendingData-Default.cfm",
+                url: "../API/SpendingAPI/getSpendingData-Default.cfm",
                 dataType: 'json',
                 method: 'POST',
                 data: function(d) {
@@ -93,7 +93,7 @@ $(document).ready(function() {
             processing: true,
             serverSide: true,
             ajax: {
-                url: "../SpendingAPI/getSpendingData-Generic.cfm",
+                url: "../API/SpendingAPI/getSpendingData-Generic.cfm",
                 dataType: 'json',
                 method: 'POST',
                 data: function(d) {
@@ -166,7 +166,7 @@ $(document).ready(function() {
 
     function fetchBrandSpendingData(drugId) {
         $.ajax({
-            url: "../SpendingAPI/BrandName.cfm",
+            url: "../API/SpendingAPI/BrandName.cfm",
             type: 'GET',
             dataType: 'text', // Get the response as text first to clean it
             data: { drugId: drugId },
@@ -240,7 +240,7 @@ $(document).ready(function() {
 
     function fetchGenericSpendingData(genericName) {
         $.ajax({
-            url: "../SpendingAPI/GenericName.cfm",
+            url: "../API/SpendingAPI/GenericName.cfm",
             type: 'GET',
             dataType: 'json',
             data: { genericName: genericName },
