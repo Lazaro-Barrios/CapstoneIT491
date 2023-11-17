@@ -1,14 +1,29 @@
-const menuBtn = document.querySelector('.menu-btn');
-const dropdown = document.querySelector('.dropdown-content');
-const closeMenu = document.getElementById('closeMenu');
+// Wait for the DOM content to load before executing the script
+document.addEventListener("DOMContentLoaded", function() {
+    // References to DOM elements for the dropdown menu
+    const menuBtn = document.querySelector('.menu-btn');
+    const dropdown = document.querySelector('.dropdown-content');
+    const closeMenu = document.getElementById('closeMenu');
+    
+    // References to DOM elements for the filters and button
+    const yearFilter = document.querySelector('.year-filter');
+    const careFilter = document.querySelector('.care-filter');
+    //const fetchDataButton = document.getElementById('fetchDataButton');
 
-menuBtn.addEventListener('click', (event) => {
-    if (event.target !== closeMenu) {
+    // Toggle the dropdown menu when the menu button is clicked
+    menuBtn.addEventListener('click', () => {
         dropdown.classList.toggle('show');
-    }
-});
+    });
 
-closeMenu.addEventListener('click', (event) => {
-    dropdown.classList.remove('show');
-    event.stopPropagation(); // Prevent the event from bubbling up to the .menu-btn
+    // Close the dropdown menu when the close button is clicked
+    closeMenu.addEventListener('click', (event) => {
+        dropdown.classList.remove('show');
+        event.stopPropagation(); // Prevent event from bubbling up to menuBtn
+    });
+
+    // Fetch distinct years and care types when the page loads
+    fetchYearsAndCareTypes(yearFilter, careFilter);
+
+    // Fetch data based on selected filters when the button is clicked
+    //fetchDataButton.addEventListener('click', () => fetchData(yearFilter, careFilter));
 });
