@@ -1,3 +1,4 @@
+<!--- For loading the data needed for the Total Spending modal table --->
 <cfsetting enablecfoutputonly="yes">
 <cftry>
 

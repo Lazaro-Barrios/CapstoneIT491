@@ -1,4 +1,3 @@
-<!--- BrandName.cfm --->
 <!--- For loading the data needed for the Average Spending Per Beneficiary for "Brand Name" chart --->
 <cfparam name="URL.drugId" default="0" type="numeric">
 

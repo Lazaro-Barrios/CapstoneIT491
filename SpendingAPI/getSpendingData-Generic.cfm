@@ -1,3 +1,4 @@
+<!-- Gets data for the generic only table -->
 <!--- Set content type to JSON --->
 <cfcontent type="application/json">
 

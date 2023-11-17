@@ -6,10 +6,10 @@
     <link rel="icon" type="image/x-icon" href="../images/lightLogo-removebg-preview.ico">
     <title>Medicare Spending</title>
 
-    <link rel="stylesheet" href="/CapstoneIT491/CSS/styles.css">
+    <link rel="stylesheet" href="/CapstoneIT491/CSS/spendingStyle.css">
     <!---<script src="../JavaScript/script.js"></script>--->
 
-    <!---I don't remember what this one is for?--->
+    <!-- I don't remember what this one is for? It doesn't seem to actually do anything -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- Bootstrap CSS and JS -->
@@ -34,7 +34,7 @@
     text-align: center;
     font-size: 3rem;
     padding-top: 5px;
-">Medicare Spending</h1>
+">Medicare Part D Spending by Drug</h1>
 <br>
 <div id="tableSettings">
     <select id="SpendingYear" name="year">
