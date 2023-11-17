@@ -178,7 +178,7 @@ a {
 .hide-dropdown {
     display: none !important; // Added to fix FOUC
 }
-
+/*
 .select2-container--bootstrap-5 .select2-selection {
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
 }
@@ -190,7 +190,7 @@ a {
 .select2-container--bootstrap-5 .select2-selection__choice {
     font-size: 13px !important;
 }
-
+*/
 .widget-container, .widget-container2 {
     border: 1px solid #ddd;
     padding: 20px;
@@ -231,7 +231,7 @@ body .widget-container, body .widget-container2 {
         font-size: 16px;
     }
 }
-
+/*
 .year-filter {
     width: 150px;
 }
@@ -239,7 +239,7 @@ body .widget-container, body .widget-container2 {
 .care-filter {
     width: 720px;
 }
-
+*/
 #dataTable {
     border: 1px solid #ddd;
     border-collapse: collapse;

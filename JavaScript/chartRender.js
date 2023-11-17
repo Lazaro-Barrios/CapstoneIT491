@@ -63,7 +63,7 @@ function renderMultiBarGraph(allYearsData) {
                     },
                     title: {
                         display: true,
-                        text: 'Total Program Payments',
+                        text: 'Total Program Payments (Billions)',
                         color: '#000',
                         font: {
                             size: 20

@@ -9,19 +9,19 @@ function fetchYearsAndCareTypes(yearFilter, careFilter) {
 
         // Initialize the Select2 components and add event listeners for dynamic updates
         $(yearFilter).select2({
-            theme: "bootstrap-5",
             placeholder: "Select a Year",
-            minimumResultsForSearch: Infinity
+            width: "8%",
+            minimumResultsForSearch: Infinity,
         }).on('change', () => {
             fetchData(yearFilter, careFilter);
         });
 
         $(careFilter).select2({
-            theme: 'bootstrap-5',
             placeholder: "Select Level of Care",
             allowClear: true,
+            cursor: "pointer",
             minimumResultsForSearch: Infinity,
-            closeOnSelect: false
+            closeOnSelect: true
         }).on('select2:select select2:unselect', () => {
             fetchData(yearFilter, careFilter);
         });
