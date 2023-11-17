@@ -51,10 +51,30 @@ $(document).ready(function() {
                 },
                 { data: "Gnrc_Name", className: "table-clickable-cell generic-name-cell" },
                 { data: "Year" },
-                { data: "TotalSpending" },
-                { data: "TotalDosageUnits" },
-                { data: "TotalBeneficiaries" },
-                { data: "AverageSpendingPerBeneficiary" }
+                {
+                    data: "TotalSpending",
+                    render: function(data) {
+                        return parseInt(data).toLocaleString();
+                    }
+                },
+                {
+                    data: "TotalDosageUnits",
+                    render: function(data) {
+                        return parseInt(data).toLocaleString();
+                    }
+                },
+                {
+                    data: "TotalBeneficiaries",
+                    render: function(data) {
+                        return parseInt(data).toLocaleString();
+                    }
+                },
+                {
+                    data: "AverageSpendingPerBeneficiary",
+                    render: function(data) {
+                        return parseFloat(data).toLocaleString();
+                    }
+                }
             ]
         });
     }
@@ -84,8 +104,18 @@ $(document).ready(function() {
             columns: [
                 { data: "Gnrc_Name", className: "table-clickable-cell generic-name-cell" },
                 { data: "Year" },
-                { data: "TotalSpending" },
-                { data: "AverageSpendingPerBeneficiary" }
+                {
+                    data: "TotalSpending",
+                    render: function(data) {
+                        return parseInt(data).toLocaleString();
+                    }
+                },
+                {
+                    data: "AverageSpendingPerBeneficiary",
+                    render: function(data) {
+                        return parseFloat(data).toLocaleString();
+                    }
+                }
             ]
         });
     }
