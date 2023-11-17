@@ -249,3 +249,39 @@ table {
     left: 50%;
     position: absolute;
 }
+
+.question-image-wrapper {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    margin: 5% 0 0 0;
+}
+
+.questionImage {
+    display: block;
+    width: 25px;
+    height: 25px;
+    transition: opacity 2s ease-out;
+    opacity: 1;
+}
+
+.questionImage-hover {
+    display: none;
+    width: 25px;
+    height: 25px;
+    transition: opacity 2s ease-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.question-image-wrapper:hover .questionImage {
+    opacity: 0;
+}
+
+.question-image-wrapper:hover .questionImage-hover {
+    display: block;
+    opacity: 1;
+}

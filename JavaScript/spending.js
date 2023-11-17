@@ -305,4 +305,30 @@ $(document).ready(function() {
         }
     });
 
+    var questionMarkIcon = document.getElementById('questionMarkIcon');
+
+    questionMarkIcon.addEventListener('mouseover', function() {
+        this.style.opacity = '0'; // Fades out the current image
+
+        setTimeout(() => {
+            this.src = '../images/question-inverted.png'; // Changes the image source
+            this.style.opacity = '1'; // Fades in the new image
+        }, 250); // The timeout duration should match the CSS transition time
+    });
+
+    questionMarkIcon.addEventListener('mouseout', function() {
+        this.style.opacity = '0'; // Fades out the hover image
+
+        setTimeout(() => {
+            this.src = '../images/question.png'; // Changes the image source back
+            this.style.opacity = '1'; // Fades in the original image
+        }, 250); // The timeout duration should match the CSS transition time
+    });
+
+
 });
+function openQuestionModal() {
+    console.log('The modal should be open');
+    $('#questionModal').modal('show'); // Replace 'newModalID' with your new modal's ID
+}
+
