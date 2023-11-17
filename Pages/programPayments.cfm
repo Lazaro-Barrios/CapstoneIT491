@@ -14,22 +14,30 @@
 <body>
     <cfinclude template="/CapstoneIT491/features/navbar.cfm">
         <div class="filters-container">
-            <select class="year-filter" style="display: none;">
-                <option disabled selected value="">Select a Year</option>            
-                <option value="2015">2015</option>
-                <option value="2016">2016</option>
-                <option value="2017">2017</option>
-                <option value="2018">2018</option>
-                <option value="2019">2019</option>
-                <option value="2020">2020</option>
-                <option value="2021">2021</option>
-            </select>
-            <select class="care-filter hide-dropdown" multiple>
-                <option value="1">Routine Home Care</option>
-                <option value="2">Continuous Home Care</option>
-                <option value="3">Inpatient Home Care</option>
-                <option value="4">General Inpatient Care</option>
-            </select>
+            <div class="filter-widget">
+                <div class="filter-group">
+                <label for="year-filter">Select Year:</label>
+                    <select class="year-filter" style="display: none;">
+                        <option disabled selected value="">Select a Year</option>            
+                        <option value="2015">2015</option>
+                        <option value="2016">2016</option>
+                        <option value="2017">2017</option>
+                        <option value="2018">2018</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="care-filter">Select Level of Care:</label>
+                    <select class="care-filter hide-dropdown" multiple>
+                        <option value="1">Routine Home Care</option>
+                        <option value="2">Continuous Home Care</option>
+                        <option value="3">Inpatient Home Care</option>
+                        <option value="4">General Inpatient Care</option>
+                    </select>
+                </div>
+            </div>
             <!--
             <button id="fetchDataButton">Update Results</button>
             <button id="hideUnselectedRowsButton" class="btn btn-secondary">Hide Unselected Rows</button>
@@ -66,9 +74,9 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/CapstoneIT491/JavaScript/script.js"></script>
-    <script src="/CapstoneIT491/JavaScript/utils.js"></script>
-    <script src="/CapstoneIT491/JavaScript/dataFetch.js"></script>
-    <script src="/CapstoneIT491/JavaScript/tableRender.js"></script>
-    <script src="/CapstoneIT491/JavaScript/chartRender.js"></script>
+    <script src="/CapstoneIT491/JavaScript/programPayments/utils.js"></script>
+    <script src="/CapstoneIT491/JavaScript/programPayments/dataFetch.js"></script>
+    <script src="/CapstoneIT491/JavaScript/programPayments/tableRender.js"></script>
+    <script src="/CapstoneIT491/JavaScript/programPayments/chartRender.js"></script>
 </body>
 </html>

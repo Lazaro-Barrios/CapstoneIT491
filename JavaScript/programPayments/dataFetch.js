@@ -1,6 +1,6 @@
 // Function to fetch distinct years and care types from the server
 function fetchYearsAndCareTypes(yearFilter, careFilter) {
-    fetch('/CapstoneIT491/api/fetchFilters.cfm')
+    fetch('/CapstoneIT491/api/programPayments/fetchFilters.cfm')
     .then(response => response.json())
     .then(data => {
         // Populate the year and care type dropdowns with the fetched data
@@ -10,18 +10,18 @@ function fetchYearsAndCareTypes(yearFilter, careFilter) {
         // Initialize the Select2 components and add event listeners for dynamic updates
         $(yearFilter).select2({
             placeholder: "Select a Year",
-            width: "8%",
             minimumResultsForSearch: Infinity,
+            closeOnSelect: true,
+            width: 'auto' // Adjusts width to element width
         }).on('change', () => {
             fetchData(yearFilter, careFilter);
         });
 
         $(careFilter).select2({
+            theme: "default",
             placeholder: "Select Level of Care",
             allowClear: true,
-            cursor: "pointer",
             minimumResultsForSearch: Infinity,
-            closeOnSelect: true
         }).on('select2:select select2:unselect', () => {
             fetchData(yearFilter, careFilter);
         });
@@ -33,6 +33,8 @@ function fetchYearsAndCareTypes(yearFilter, careFilter) {
     });
 }
 
+
+
 // Function to fetch data based on selected year and care type
 function fetchData(yearFilter, careFilter) {
     const selectedYear = yearFilter.value;
@@ -42,7 +44,7 @@ function fetchData(yearFilter, careFilter) {
         selectedCares = Array.from(careFilter.options).map(option => option.value);
     }
     // Fetch data from the server based on the selected filters
-    fetch('/CapstoneIT491/api/fetchData.cfm', {
+    fetch('/CapstoneIT491/api/programPayments/fetchData.cfm', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -88,7 +90,7 @@ function fetchData(yearFilter, careFilter) {
         document.querySelector('.widget-container2').style.display = 'block';
 
         // Fetch data for all years
-        fetch('/CapstoneIT491/api/fetchAllYearsData.cfm')
+        fetch('/CapstoneIT491/api/programPayments/fetchAllYearsData.cfm')
         .then(response => response.json())
         .then(allYearsData => {
             renderMultiBarGraph(allYearsData);
