@@ -46,7 +46,6 @@ $(document).ready(function() {
                     data: "Brnd_Name",
                     className: "table-clickable-cell brand-name-cell",
                     render: function(data, type, row) {
-                        // Assuming 'Drug_ID' is the unique identifier from your dataset
                         return '<span data-drug-id="' + row.Drug_ID + '">' + data + '</span>';
                     }
                 },
@@ -142,12 +141,12 @@ $(document).ready(function() {
             dataType: 'text', // Get the response as text first to clean it
             data: { drugId: drugId },
             success: function(textResponse) {
-                // Assuming the valid JSON starts with '[' and ends with ']', extract it
+                // Extract the valid JSON it
                 var jsonStartPos = textResponse.indexOf('[');
                 var jsonEndPos = textResponse.lastIndexOf(']') + 1;
                 var jsonResponse = textResponse.substring(jsonStartPos, jsonEndPos);
 
-                // Now parse the JSON response
+                // Parse the JSON response
                 var data;
                 try {
                     data = JSON.parse(jsonResponse);
@@ -173,7 +172,6 @@ $(document).ready(function() {
             chartInstance.destroy();
         }
 
-        // The structure of your data suggests that 'YEAR' and 'SPENDING' are uppercase
         const labels = data.map(item => item.YEAR.toString());
         const spendingData = data.map(item => item.SPENDING);
 
@@ -230,15 +228,12 @@ $(document).ready(function() {
     }
 
     function populateModalTable(data) {
-        console.log("Populating modal table with data:", data);
-        // Assuming you have a table with tbody id 'modalTableBody' in your modal
+        var table = $('#modalDataTable');
         var tableBody = $('#modalTableBody');
         tableBody.empty(); // Clear any existing rows
-        console.log("Cleared existing table rows.");
 
-        // Iterate through the DATA array and append rows to the table body
+        // Populate the table with new data
         data.DATA.forEach(function(row) {
-            console.log("Appending row:", row);
             var tableRow = '<tr>' +
                 '<td>' + row[0] + '</td>' + // Brand Name
                 '<td>' + row[1] + '</td>' + // Manufacturer Name
@@ -250,20 +245,34 @@ $(document).ready(function() {
                 '</tr>';
             tableBody.append(tableRow);
         });
-    }
 
-// Add this part inside the $(document).ready(function() {...});
+        // Destroy existing DataTable instance if already initialized
+        if ($.fn.DataTable.isDataTable(table)) {
+            table.DataTable().clear().destroy();
+        }
+
+        // Initialize DataTables
+        table.DataTable({
+            responsive: true,
+            paging: true,
+        });
+    }
+    $('#spendingModal').on('hidden.bs.modal', function () {
+        var table = $('#modalDataTable');
+        if ($.fn.DataTable.isDataTable(table)) {
+            table.DataTable().clear().destroy();
+        }
+    });
+
     $('#dataTable').on('click', 'td.generic-name-cell', function() {
         var genericName = $(this).text().trim();
         if (genericName) {
-            $('#spendingModalLabel').text(genericName + "Spending Details by Brand");
+            $('#spendingModalLabel').text(genericName + " Spending Details by Brand");
             fetchGenericSpendingData(genericName); // Fetch data and populate the modal table
-            // Show the modal
-            $('#spendingModal').modal('show');
+            $('#spendingModal').modal('show'); // Show the modal
         } else {
             console.error("Invalid or no generic name found for clicked cell.");
         }
     });
-
 
 });
