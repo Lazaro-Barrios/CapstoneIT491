@@ -27,15 +27,15 @@
     <script src="../JavaScript/spending.js"></script>
 
 </head>
-<body style="background-color: #dadada">
+<body style="background-color: #dfe2e5">
 <cfinclude template="../features/navbar.cfm">
 
 
 <div style="text-align: center;">
     <h1 style="
-        display: inline-block; /* Inline-block will allow you to position the question mark relative to the h1 */
+        display: inline-block;
         font-size: 3rem;
-        position: relative; /* Relative positioning for h1 to place the question mark relative to it */
+        position: relative;
         padding-top: 5px;
     ">
         Medicare Part D Spending by Drug
@@ -65,7 +65,7 @@
                     <li>Toggle "Group by Generic Name" to have the table show a consolidated view of all drugs by brand name with consolidated data, such as total spending among all brands.</li>
                     <li>Click on a Brand Name to see a line chart of the Average Spending Per Beneficiary for that specific drug.</li>
                     <li>Click on a Generic Name to see a table of all the different drug brand and manufacturer names along with their total spending by year.</li>
-                    <li>Other useful features include a search bar that searches by both Generic and Brand name, the ability to sort each column by ascending/descending view, and changing how many drugs are shown on each table page.</li>
+                    <li>Other useful features include a search bar that searches by both Generic and Brand name, the ability to sort each column by ascending/descending view, and change how many drugs are shown on each table page.</li>
                 </ul>
             </div>
         </div>
@@ -98,7 +98,7 @@
         <tbody></tbody>
     </table>
 
-    <!-- New Bootstrap Modal for Spending Data Table Display -->
+    <!-- Bootstrap Modal for Spending Data Table Display -->
     <div class="modal fade" id="spendingModal" tabindex="-1" role="dialog" aria-labelledby="spendingModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document"> <!-- Added modal-lg for larger modal -->
             <div class="modal-content">
