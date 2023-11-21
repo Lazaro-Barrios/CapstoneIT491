@@ -16,3 +16,19 @@ function populateDropdown(dropdown, data, isCareType = false) {
     });
     dropdown.innerHTML += optionsHTML;
 }
+
+// Function to toggle the display of modals
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Close the modal if the user clicks outside of it
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('custom-modal');
+            for (let i = 0; i < modals.length; i++) {
+                if (event.target === modals[i]) {
+                    modals[i].style.display = 'none';
+                }
+            }
+        }

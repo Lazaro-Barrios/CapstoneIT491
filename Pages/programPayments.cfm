@@ -38,15 +38,13 @@
                     </select>
                 </div>
             </div>
-            <!--
-            <button id="fetchDataButton">Update Results</button>
-            <button id="hideUnselectedRowsButton" class="btn btn-secondary">Hide Unselected Rows</button>
-            -->
-        </div>
+    </div>
     <div class="widget-container">
         <div class="widget-header">
-            <h2>Program Payments Table</h2>
-        </div>   
+            <h2>Program Payments Table
+                <i class="fas fa-question-circle" onclick="toggleModal('modalTable')"></i>
+            </h2>
+        </div>
         <table id="dataTable" class="display" style="width:100%">
             <thead>
             </thead>
@@ -60,17 +58,30 @@
     </div>
     <div class="widget-container2">
         <div class="widget-header">
-            <h2>Program Payments Multi-Bar Graph</h2>
+            <h2>Program Payments Multi-Bar Graph
+                <i class="fas fa-question-circle" onclick="toggleModal('modalGraph')"></i>
+            </h2>
         </div>
         <div class="chart-container">
             <canvas id="multiBarChart"></canvas>
         </div>
     </div>
-    <br><br><br>
+    <div id="modalTable" class="custom-modal">
+        <div class="custom-modal-content">
+            <span class="custom-modal-close" onclick="toggleModal('modalTable')">&times;</span>
+            <p>Details about the Program Payments Table.</p>
+        </div>
+    </div>
+    <div id="modalGraph" class="custom-modal">
+        <div class="custom-modal-content">
+            <span class="custom-modal-close" onclick="toggleModal('modalGraph')">&times;</span>
+            <p>Details about the Program Payments Multi-Bar Graph.</p>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js" type="text/javascript" charset="utf8"></script>
     <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js" type="text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/CapstoneIT491/JavaScript/script.js"></script>

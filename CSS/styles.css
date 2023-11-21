@@ -242,6 +242,45 @@ body .widget-container, body .widget-container2 {
     margin-bottom: 10px;
 }
 
+.custom-modal {
+    display: none;
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+ }
+
+.custom-modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 70%;
+    cursor: pointer;
+}
+
+.custom-modal-close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.custom-modal-close:hover,
+.custom-modal-close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.fas.fa-question-circle {
+    cursor: pointer;
+}
+
 /*
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
     background-color: #4d749c !important;
