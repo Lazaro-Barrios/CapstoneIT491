@@ -211,17 +211,36 @@ table {
     color: #000;
 }
 /*To make clickable cells more obvious to the user*/
-.table-clickable-cell {
+td.brand-name-cell.table-clickable-cell {
     cursor: pointer;
 }
-.table-clickable-cell:hover {
+#dataTable td.table-clickable-cell.brand-name-cell.sorting_1:hover {
     background-color: #d7d7d7;
     text-decoration: underline;
 }
-.sorting_1:hover {
-    background-color: #d7d7d7 !important;
+td.brand-name-cell.table-clickable-cell:hover {
+    background-color: #d7d7d7;
     text-decoration: underline;
 }
+td.generic-name-cell.table-clickable-cell {
+    cursor: pointer;
+}
+td.generic-name-cell.table-clickable-cell:hover {
+    background-color: #d7d7d7;
+    text-decoration: underline;
+}
+#dataTable td.table-clickable-cell.generic-name-cell.sorting_1:hover {
+    background-color: #d7d7d7;
+    text-decoration: underline;
+}
+td {
+    cursor: default;
+}
+/*.sorting_1:hover {*/
+/*    background-color: #d7d7d7 !important;*/
+/*    text-decoration: underline;*/
+/*}*/
+
 /*Changes to the DataTables input forms*/
 #dataTable_filter,#dataTable_length {
     background-color: #CCC;
@@ -275,6 +294,7 @@ table {
     position: absolute;
     top: 0;
     left: 0;
+    cursor: help;
 }
 
 .question-image-wrapper:hover .questionImage {
