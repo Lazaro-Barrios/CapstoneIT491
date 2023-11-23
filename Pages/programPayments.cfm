@@ -98,7 +98,7 @@
                 <h2>Quick Guide for Program Payments Multi-Bar Graph.</h2>
                 <p>This graph presents a visual representation of total Medicare program payment across different years, offering insights into spending trends.</p>
                 <hr>
-                <h3>Interacting with the Grpah</h3>
+                <h3>Interacting with the Graph</h3>
                 <ul>
                     <li>You can interact with the graph to customize the view. Click on the level of care in the graph's legend to include or exclude it from the display.</li><br>
                     <li>You can hover over a bar to get an exact amount of that level of care.</li>

@@ -43,6 +43,20 @@ function fetchData(yearFilter, careFilter) {
     if (selectedCares.length === 0) {
         selectedCares = Array.from(careFilter.options).map(option => option.value);
     }
+
+    const careTypeMapping = {
+        "1": "Continuous Home Care",
+        "2": "General Inpatient Care",
+        "3": "Inpatient Respite Care",
+        "4": "Routine Home Care"
+    };
+    
+    let filteredColumns = ["siteOfServiceType"];
+    selectedCares.forEach(careId => {
+        if (careTypeMapping[careId]) {
+            filteredColumns.push(careTypeMapping[careId]);
+        }
+    });
     // Fetch data from the server based on the selected filters
     fetch('/CapstoneIT491/api/programPayments/fetchData.cfm', {
         method: 'POST',
@@ -58,28 +72,17 @@ function fetchData(yearFilter, careFilter) {
     .then(data => {
         console.log("Initial Data:", JSON.parse(JSON.stringify(data))); // Debug log for initial data
 
-        // Filter the columns based on the selected care types
-        const filteredColumns = ["SITEOFSERVICETYPE"];
-        const careTypeMapping = {
-            "1": "CONTINUOUS HOME CARE",
-            "2": "GENERAL INPATIENT CARE",
-            "3": "INPATIENT RESPITE CARE",
-            "4": "ROUTINE HOME CARE"
-        };
-        selectedCares.forEach(care => {
-            if (careTypeMapping[care]) {
-                filteredColumns.push(careTypeMapping[care]);
-            }
-        });
+        const originalColumnsUpper = data.COLUMNS.map(column => column.toUpperCase());
 
-        const originalColumns = data.COLUMNS; // Store the original columns
-        data.COLUMNS = filteredColumns;
+        const filteredColumnsUpper = filteredColumns.map(column => column.toUpperCase());
         data.DATA = data.DATA.map(row => {
-            return filteredColumns.map(column => {
-                const columnIndex = originalColumns.indexOf(column);
+            return filteredColumns.map((column, index) => {
+                const columnIndex = originalColumnsUpper.indexOf(filteredColumnsUpper[index]);
                 return row[columnIndex];
             });
         });
+
+        data.COLUMNS = filteredColumns;
 
         console.log("Filtered Data:", data); // Debug log for filtered data
 
@@ -95,5 +98,7 @@ function fetchData(yearFilter, careFilter) {
         .then(allYearsData => {
             renderMultiBarGraph(allYearsData);
         });
+    }).catch(error => {
+        console.error('Fetch Error:', error);
     });
 }
