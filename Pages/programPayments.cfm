@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/CapstoneIT491/images/lightLogo-removebg-preview.png" type="image/x-icon">
     <title>Program Payments</title>
     <link rel="stylesheet" href="/CapstoneIT491/CSS/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">

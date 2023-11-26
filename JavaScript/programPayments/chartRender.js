@@ -53,8 +53,8 @@ function renderMultiBarGraph(allYearsData) {
                         callback: function(value) {
                             const valueInBillions = value / 1000000000;
                             return value >= 1000000000 
-                                ? '$' + valueInBillions + 'B' 
-                                : '$' + valueInBillions.toFixed(2) + 'B';
+                                ? '$' + valueInBillions + 'Billion' 
+                                : '$' + valueInBillions.toFixed(2) + 'Billion';
                         },
                         autoSkip: false,
                         min: 0,

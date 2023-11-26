@@ -11,7 +11,7 @@ function renderTable(data) {
     // Create table headers
     let tableHTML = '<thead><tr>';
     data.COLUMNS.forEach(column => {
-        if (column === "SITEOFSERVICETYPE") {
+        if (column.toLowerCase() === "siteofservicetype") {
             tableHTML += `<th>Site of Service</th>`;
         } 
         else {
@@ -57,38 +57,10 @@ function renderTable(data) {
     dataTableElement.innerHTML = tableHTML;
 
     // Initialize DataTables on the generated table
-    const dataTable = $(dataTableElement).DataTable({
+    $(dataTableElement).DataTable({
         responsive: true,
         autoWidth: false,
         searching: false,
         paging: false,
-        /*
-        select: {
-            style: 'multi',
-            selector: 'td:first-child'
-        }
-        */
     });
-
-    // Event listener for row selection
-    dataTable.on('select', function (e, dt, type, indexes) {
-        if (type === 'row') {
-            const selectedRows = dataTable.rows({ selected: true }).data().toArray();
-            console.log('Selected Rows:', selectedRows);
-        }
-    });
-
-    // Event listener for row deselection
-    dataTable.on('deselect', function (e, dt, type, indexes) {
-        if (type === 'row') {
-            const selectedRows = dataTable.rows({ selected: true }).data().toArray();
-            console.log('Selected Rows:', selectedRows);
-        }
-    });
-    /*
-    // Event listener for hiding unselected rows
-    document.getElementById('hideUnselectedRowsButton').addEventListener('click', function () {
-        dataTable.rows({ selected: false }).nodes().to$().hide();  // Hide unselected rows
-    });
-    */
 }
