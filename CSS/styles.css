@@ -65,7 +65,7 @@ a {
 }
 
 .menu-links a.active {
-    color: white;
+    color: #fff;
     border-bottom: 2px solid white;
 }
 
@@ -248,7 +248,7 @@ body .widget-container, body .widget-container2 {
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.4);
- }
+}
 
 .custom-modal-content {
     background-color: #fefefe;
@@ -281,13 +281,6 @@ body .widget-container, body .widget-container2 {
 .fas.fa-question-circle:hover {
     color: #4d749c;
 }
-
-/*
-.select2-container--default .select2-selection--multiple .select2-selection__choice {
-    background-color: #4d749c !important;
-    color: white;
-}
-*/
 
 @keyframes fadeIn {
   from {
@@ -327,7 +320,7 @@ body .widget-container, body .widget-container2 {
 .landing-logo {
   width: 100px;
   height: auto;
-  margin-left: -50px;
+  margin-left: -60px;
 }
 
 .landing-title-container h1 {
@@ -368,4 +361,31 @@ body .widget-container, body .widget-container2 {
 .landing-navigation-links a:hover::before,
 .landing-navigation-links a:focus::before {
     width: 100%;
+}
+
+@media (max-width: 768px) {
+    .landing-content {
+        height: auto;
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    .landing-logo {
+        width: 60px;
+        margin-left: -15px;
+    }
+
+    .landing-title-container h1 {
+        font-size: 2em;
+    }
+
+    .landing-navigation-links {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .landing-navigation-links a {
+        font-size: 0.8em;
+        padding: 10px; 
+    }
 }
