@@ -10,9 +10,102 @@
 
 <body>        
     <cfinclude template="/CapstoneIT491/features/navbar.cfm">
+
     
     <script src="/CapstoneIT491/JavaScript/script.js"></script>
+    <script src="/CapstoneIT491/JavaScript/programpayments.js"></script>
+    <script src="/CapstoneIT491/JavaScript/medicareEnrollees.js"></script>
+    <script src="/CapstoneIT491/JavaScript/yearfilter.js"></script>
     <h1>Demographics</h1>
+ <label>Choose Your Demographic</label>
+    <cfselect name="demographic" id="demographic">
+        <option value="age">Age</option>
+        <option value="race">Race</option>
+        <option value="sex">Sex</option>
+    </cfselect>
+    <button id="enter">Enter</button>
+
+    <div id="program-container">
+        <canvas id="myChart"></canvas>
+        
+    </div>
+    <div>
+        <label>Years to Display (Program Payments):</label>
+        <div>
+            <cfinput type="checkbox" name="year2013" id="year2013" checked="checked">
+            <label for="year2013">2013</label>
+
+            <cfinput type="checkbox" name="year2014" id="year2014" checked="checked">
+            <label for="year2014">2014</label>
+
+            <cfinput type="checkbox" name="year2015" id="year2015" checked="checked">
+            <label for="year2015">2015</label>
+
+            <cfinput type="checkbox" name="year2016" id="year2016" checked="checked">
+            <label for="year2016">2016</label>
+
+            <cfinput type="checkbox" name="year2017" id="year2017" checked="checked">
+            <label for="year2017">2017</label>
+
+            <cfinput type="checkbox" name="year2018" id="year2018" checked="checked">
+            <label for="year2018">2018</label>
+
+            <cfinput type="checkbox" name="year2019" id="year2019" checked="checked">
+            <label for="year2019">2019</label>
+
+            <cfinput type="checkbox" name="year2020" id="year2020" checked="checked">
+            <label for="year2020">2020</label>
+
+            <cfinput type="checkbox" name="year2021" id="year2021" checked="checked">
+            <label for="year2021">2021</label>
+        </div>
+    </div>
+    <div>
+        <button id="filterButton">Filter</button>
+    </div>
+    <div id="medicare-container">
+        <canvas id="myChartMedicare"></canvas>
+        
+    </div>
+    <div>
+        <div>
+            <label>Years to Display (Medicare Enrollees):</label>
+            <div>
+                <cfinput type="checkbox" name="yearMedicare2013" id="yearMedicare2013" checked="checked">
+                <label for="yearMedicare2013">2013</label>
+
+                <cfinput type="checkbox" name="yearMedicare2014" id="yearMedicare2014" checked="checked">
+                <label for="yearMedicare2014">2014</label>
+
+                <cfinput type="checkbox" name="yearMedicare2015" id="yearMedicare2015" checked="checked">
+                <label for="yearMedicare2015">2015</label>
+
+                <cfinput type="checkbox" name="yearMedicare2016" id="yearMedicare2016" checked="checked">
+                <label for="yearMedicare2016">2016</label>
+
+                <cfinput type="checkbox" name="yearMedicare2017" id="yearMedicare2017" checked="checked">
+                <label for="yearMedicare2017">2017</label>
+
+                <cfinput type="checkbox" name="yearMedicare2018" id="yearMedicare2018" checked="checked">
+                <label for="yearMedicare2018">2018</label>
+
+                <cfinput type="checkbox" name="yearMedicare2019" id="yearMedicare2019" checked="checked">
+                <label for="yearMedicare2019">2019</label>
+
+                <cfinput type="checkbox" name="yearMedicare2020" id="yearMedicare2020" checked="checked">
+                <label for="yearMedicare2020">2020</label>
+
+                <cfinput type="checkbox" name="yearMedicare2021" id="yearMedicare2021" checked="checked">
+                <label for="yearMedicare2021">2021</label>
+            </div>
+        </div>
+        <div>
+            <button id="filterButtonMedicare">Filter</button>
+        </div>
+    </div>
+
+   
+
     
     
     <a href="index.cfm" class="back-link">Back to Landing Page</a>
