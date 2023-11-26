@@ -6,7 +6,7 @@ function filterChartData(chart, chartData, selectedYears) {
         dataset.data = filteredData;
     });
 
-    chart.data.labels = selectedYears;
+    chart.data.labels = years.filter(year => selectedYears.includes(year));
 
     chart.update();
 }
