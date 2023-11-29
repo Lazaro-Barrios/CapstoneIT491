@@ -1,40 +1,48 @@
-// Function to filter data based on selected years for a given chart
-function filterChartData(chart, chartData, selectedYears) {
-    const filteredData = chartData.filter((data, index) => selectedYears.includes(years[index]));
+document.addEventListener('DOMContentLoaded', function () {
+    // Function to filter data based on selected years for a given chart
+    function filterChartData(chart, chartData, selectedYears) {
+        const filteredData = chartData.map(dataset => {
+            return {
+                label: dataset.label,
+                data: dataset.data.filter((data, index) => selectedYears.includes(years[index])),
+                backgroundColor: dataset.backgroundColor,
+                borderColor: dataset.borderColor,
+                borderWidth: dataset.borderWidth
+            };
+        });
 
-    chart.data.datasets.forEach(dataset => {
-        dataset.data = filteredData;
+        chart.data.datasets = filteredData;
+        chart.data.labels = years.filter(year => selectedYears.includes(year));
+
+        chart.update();
+    }
+
+    // Year filtering system for all charts
+    document.getElementById('filterButton').addEventListener('click', function () {
+        const selectedYears = years.filter(year => document.getElementById('year' + year).checked);
+        const chartIds = document.querySelectorAll("[id^='myChart']");
+
+        chartIds.forEach(chartElement => {
+            const chart = Chart.getChart(chartElement);
+            if (chart) {
+                filterChartData(chart, programPaymentsData, selectedYears);
+            }
+        });
     });
 
-    chart.data.labels = years.filter(year => selectedYears.includes(year));
+    // Year filtering system for all Medicare Enrollees charts
+    document.getElementById('filterButtonMedicare').addEventListener('click', function () {
+        const selectedYearsMedicare = yearsMedicare.filter(year => document.getElementById('yearMedicare' + year).checked);
+        const chartIdsMedicare = document.querySelectorAll("[id^='myChartMedicare']");
 
-    chart.update();
-}
-
-// Year filtering system for all charts
-document.getElementById('filterButton').addEventListener('click', function () {
-    const selectedYears = years.filter(year => document.getElementById('year' + year).checked);
-    const chartIds = document.querySelectorAll("[id^='myChart']");
-    
-    chartIds.forEach(chartElement => {
-        const chart = Chart.getChart(chartElement);
-        if (chart) {
-            filterChartData(chart, dataset, selectedYears);
-        }
+        chartIdsMedicare.forEach(chartElement => {
+            const chart = Chart.getChart(chartElement);
+            if (chart) {
+                filterChartData(chart, medicareData, selectedYearsMedicare);
+            }
+        });
     });
 });
 
-// Year filtering system for all Medicare Enrollees charts
-document.getElementById('filterButtonMedicare').addEventListener('click', function () {
-    const selectedYearsMedicare = yearsMedicare.filter(year => document.getElementById('yearMedicare' + year).checked);
-    const chartIdsMedicare = document.querySelectorAll("[id^='myChartMedicare']");
-
-    chartIdsMedicare.forEach(chartElement => {
-        const chart = Chart.getChart(chartElement);
-        if (chart) {
-            filterChartData(chart, medicareData, selectedYearsMedicare);
-        }
-    });
-});
 
 
