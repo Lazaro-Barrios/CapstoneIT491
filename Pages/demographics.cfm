@@ -16,8 +16,7 @@
 <script src="/CapstoneIT491/JavaScript/medicareenrollees.js"></script>
 <script src="/CapstoneIT491/JavaScript/yearfilter.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
+
 
 
     <h1>Demographics</h1>
@@ -106,7 +105,7 @@
           
         </div>
           <div>
-        <button id="filterButton">Filter</button>
+        <button id="filterButtonMedicare">Filter</button>
     </div>
     </div>
 
