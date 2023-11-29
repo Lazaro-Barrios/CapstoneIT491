@@ -1,6 +1,14 @@
-// JavaScript code for generating the grouped bar chart
+const dataset = [
+    6954321890, 2876543210, 1598746320, 2456789010, 1234567890,
+    3789012345, 9876543210, 5432109876, 1209876543, 8765432109,
+    2345678901, 5432109876, 9876543210, 6543210987, 1098765432,
+    8765432109, 5432109876, 9012345678, 6789012345, 3210987654,
+    5678901234, 8901234567, 4321098765, 7654321098, 2109876543,
+    8765432109, 5432109876, 9012345678, 6789012345, 3210987654
+];
+const years = Array.from({ length: 9 }, (_, i) => (2013 + i).toString());
 document.addEventListener('DOMContentLoaded', function () {
-    const years = Array.from({ length: 9 }, (_, i) => (2013 + i).toString());
+    
     let ctx;
     let myChart;
 
@@ -45,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
         chartDestroy();
         if (selectedValue === 'race') {
             // Create the race-related grouped bar chart
+           
             ctx = document.getElementById('myChart').getContext('2d');
             myChart = new Chart(ctx, {
                 type: 'bar',
@@ -53,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     datasets: years.map((year, yearIndex) => {
                         return {
                             label: year,
-                            data: Array.from({ length: 7 }, () => getRandomProgramPayments()),
+                            data: dataset,
                             backgroundColor: getColorForYear(yearIndex),
                             borderColor: 'rgba(75, 192, 192, 1)',
                             borderWidth: 1
@@ -61,9 +70,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     }),
                 },
                 options: getChartOptions('Race')
+                
             });
         } else if (selectedValue === 'age') {
             // Create the age-related grouped bar chart
+            
             ctx = document.getElementById('myChart').getContext('2d');
             myChart = new Chart(ctx, {
                 type: 'bar',
@@ -72,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     datasets: years.map((year, yearIndex) => {
                         return {
                             label: year,
-                            data: ageDataset,
+                            data: dataset,
                             backgroundColor: getColorForYear(yearIndex),
                             borderColor: 'rgba(75, 192, 192, 1)',
                             borderWidth: 1
@@ -83,6 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         } else if (selectedValue === 'sex') {
             // Create the sex-related grouped bar chart
+           
             ctx = document.getElementById('myChart').getContext('2d');
             myChart = new Chart(ctx, {
                 type: 'bar',
@@ -91,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     datasets: years.map((year, yearIndex) => {
                         return {
                             label: year,
-                            data: Array.from({ length: 2 }, () => getRandomProgramPayments()),
+                            data: dataset,
                             backgroundColor: getColorForYear(yearIndex),
                             borderColor: 'rgba(75, 192, 192, 1)',
                             borderWidth: 1
@@ -102,6 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     });
+    
 
     // Function to get common chart options
     function getChartOptions(xAxisTitle) {
@@ -129,3 +142,4 @@ document.addEventListener('DOMContentLoaded', function () {
         };
     }
 });
+
