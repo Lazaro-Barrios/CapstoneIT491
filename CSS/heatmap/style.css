@@ -1,0 +1,53 @@
+
+
+
+/* Legend styles start */
+
+
+
+
+/* Legend styles ends */
+
+
+/* table styles begins */
+
+
+
+
+/*tables styles ends*/
+
+
+
+/* Option begins */
+
+
+
+/* options ends */
+
+
+/* flex part */
+
+
+/* end of flex */
+
+
+/* end title */
+
+
+
+
+/* cards */
+
+
+
+ /* For Tablet View */
+@media screen and (max-width: 768px) {
+    
+    #card-info{
+        padding: 15px 20px 20px 20px !important;
+    height: 310px;
+        overflow: hidden;
+    }
+}
+
+/* cards */
