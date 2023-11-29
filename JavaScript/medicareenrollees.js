@@ -1,7 +1,7 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const yearsMedicare = Array.from({ length: 9 }, (_, i) => (2013 + i).toString());
-    let ctxMedicare;
-    let myChartMedicare;
+// JavaScript code for generating the Medicare Enrollees chart
+const yearsMedicare = Array.from({ length: 9 }, (_, i) => (2013 + i).toString());
+let ctxMedicare;
+let myChartMedicare;
 
     // Function to generate random numbers for Medicare Enrollees chart
     function getRandomMedicareEnrollees() {
@@ -136,7 +136,6 @@ document.addEventListener('DOMContentLoaded', function () {
         };
     }
 });
-
 
 
 

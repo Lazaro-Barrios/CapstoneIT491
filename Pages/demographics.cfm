@@ -12,6 +12,7 @@
     <cfinclude template="/CapstoneIT491/features/navbar.cfm">
 
    
+
  <script src="/CapstoneIT491/JavaScript/programpayments.js"></script>
 <script src="/CapstoneIT491/JavaScript/medicareEnrollees.js"></script>
 <script src="/CapstoneIT491/JavaScript/yearfilter.js"></script>
