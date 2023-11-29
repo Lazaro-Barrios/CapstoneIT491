@@ -1,5 +1,6 @@
 // JavaScript code for generating the Medicare Enrollees chart
 const yearsMedicare = Array.from({ length: 9 }, (_, i) => (2013 + i).toString());
+let datasetMedicare;
 let ctxMedicare;
 let myChartMedicare;
 
@@ -41,6 +42,7 @@ let myChartMedicare;
 
         if (selectedValue === 'race') {
             // Create the race-related Medicare Enrollees chart
+            datasetMedicare=Array.from({ length: 7 }, () => getRandomMedicareEnrollees());
             ctxMedicare = document.getElementById('myChartMedicare').getContext('2d');
             myChartMedicare = new Chart(ctxMedicare, {
                 type: 'bar',
@@ -49,7 +51,7 @@ let myChartMedicare;
                     datasets: yearsMedicare.map((year, yearIndex) => {
                         return {
                             label: year,
-                            data: Array.from({ length: 7 }, () => getRandomMedicareEnrollees()),
+                            data: datasetMedicare,
                             backgroundColor: getColorForYearMedicare(yearIndex),
                             borderColor: 'rgba(75, 192, 192, 1)',
                             borderWidth: 1
@@ -60,6 +62,7 @@ let myChartMedicare;
             });
         } else if (selectedValue === 'age') {
             // Create the age-related Medicare Enrollees chart
+            datasetMedicare= Array.from({ length: 6 }, () => getRandomMedicareEnrollees());
             ctxMedicare = document.getElementById('myChartMedicare').getContext('2d');
             myChartMedicare = new Chart(ctxMedicare, {
                 type: 'bar',
@@ -68,7 +71,7 @@ let myChartMedicare;
                     datasets: yearsMedicare.map((year, yearIndex) => {
                         return {
                             label: year,
-                            data: Array.from({ length: 6 }, () => getRandomMedicareEnrollees()),
+                            data: datasetMedicare,
                             backgroundColor: getColorForYearMedicare(yearIndex),
                             borderColor: 'rgba(75, 192, 192, 1)',
                             borderWidth: 1
@@ -78,34 +81,25 @@ let myChartMedicare;
                 options: getChartOptions('Age Range', 'Medicare Enrollees')
             });
         } else if (selectedValue === 'sex') {
-            // AJAX request to get data from the ColdFusion file
-            const xhr = new XMLHttpRequest();
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    const sexMedicareData = JSON.parse(xhr.responseText);
-                    ctxMedicare = document.getElementById('myChartMedicare').getContext('2d');
-                    myChartMedicare = new Chart(ctxMedicare, {
-                        type: 'bar',
-                        data: {
-                            labels: ['Males', 'Females'],
-                            datasets: yearsMedicare.map((year, yearIndex) => {
-                                return {
-                                    label: year,
-                                    data: sexMedicareData.DATA.map(row => row[yearIndex + 1]),
-                                    backgroundColor: getColorForYearMedicare(yearIndex),
-                                    borderColor: 'rgba(75, 192, 192, 1)',
-                                    borderWidth: 1
-                                };
-                            }),
-                        },
-                        options: getChartOptions('Sex', 'Medicare Enrollees')
-                    });
-                }
-            };
-
-            xhr.open('GET', 'demographicsapi/medicareenrolleesexdata.cfm', true);
-            xhr.send();
+            // Create the sex-related grouped bar chart
+            datasetMedicare=Array.from({ length: 2 }, () => getRandomMedicareEnrollees());
+            ctxMedicare = document.getElementById('myChartMedicare').getContext('2d');
+            myChartMedicare = new Chart(ctxMedicare, {
+                type: 'bar',
+                data: {
+                    labels: ['Males', 'Females'],
+                    datasets: yearsMedicare.map((year, yearIndex) => {
+                        return {
+                            label: year,
+                            data: datasetMedicare,
+                            backgroundColor: getColorForYearMedicare(yearIndex),
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        };
+                    }),
+                },
+                options: getChartOptions('Sex')
+            });
         }
     });
 
