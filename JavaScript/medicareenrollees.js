@@ -25,9 +25,6 @@ function getColorForYearMedicare(yearIndex) {
     return colors[yearIndex];
 }
 
-// Generate a separate dataset for age-related chart
-const ageMedicareData = Array.from({ length: 6 }, () => getRandomMedicareEnrollees());
-
 // Function to destroy the existing Medicare Enrollees chart
 function medicareChartDestroy() {
     if (myChartMedicare) {
@@ -93,7 +90,7 @@ document.getElementById('enter').addEventListener('click', function () {
                 datasets: yearsMedicare.map((year, yearIndex) => {
                     return {
                         label: year,
-                        data: ageMedicareData,
+                        data: Array.from({ length: 6 }, () => getRandomMedicareEnrollees()),
                         backgroundColor: getColorForYearMedicare(yearIndex),
                         borderColor: 'rgba(75, 192, 192, 1)',
                         borderWidth: 1
@@ -125,46 +122,56 @@ document.getElementById('enter').addEventListener('click', function () {
             }
         });
     } else if (selectedValue === 'sex') {
-        // Create the sex-related Medicare Enrollees chart
-        ctxMedicare = document.getElementById('myChartMedicare').getContext('2d');
-        myChartMedicare = new Chart(ctxMedicare, {
-            type: 'bar',
-            data: {
-                labels: ['Males', 'Females'],
-                datasets: yearsMedicare.map((year, yearIndex) => {
-                    return {
-                        label: year,
-                        data: Array.from({ length: 2 }, () => getRandomMedicareEnrollees()),
-                        backgroundColor: getColorForYearMedicare(yearIndex),
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    };
-                }),
-            },
-            options: {
-                scales: {
-                    x: {
-                        stacked: false,
-                        title: {
-                            display: true,
-                            text: 'Sex'
-                        }
+        // AJAX request to get data from the ColdFusion file
+        const xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                const sexMedicareData = JSON.parse(xhr.responseText);
+                ctxMedicare = document.getElementById('myChartMedicare').getContext('2d');
+                myChartMedicare = new Chart(ctxMedicare, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Males', 'Females'],
+                        datasets: yearsMedicare.map((year, yearIndex) => {
+                            return {
+                                label: year,
+                                data: sexMedicareData.DATA.map(row => row[yearIndex + 1]),
+                                backgroundColor: getColorForYearMedicare(yearIndex),
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1
+                            };
+                        }),
                     },
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Medicare Enrollees'
+                    options: {
+                        scales: {
+                            x: {
+                                stacked: false,
+                                title: {
+                                    display: true,
+                                    text: 'Sex'
+                                }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Medicare Enrollees'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                            }
                         }
                     }
-                },
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                    }
-                }
+                });
             }
-        });
+        };
+
+        xhr.open('GET', 'demographicsapi/medicareenrolleesexdata.cfm', true);
+        xhr.send();
     }
 });
 
