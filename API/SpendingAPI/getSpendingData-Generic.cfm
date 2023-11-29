@@ -6,27 +6,27 @@
 <cfparam name="form.year" default="">
 <cfparam name="form.start" default="0">
 <cfparam name="form.length" default="10">
-<cfparam name="form.order[0][column]" default="0">
-<cfparam name="form.order[0][dir]" default="asc">
+
+<!-- Initialize form.order if not set -->
+<cfif NOT StructKeyExists(form, "order") OR NOT IsArray(form.order)>
+    <cfset form.order = [{}]><!--- Initialize as an array with an empty struct --->
+</cfif>
+
+<!-- Ensure the first element of form.order is a struct -->
+<cfif ArrayLen(form.order) < 1 OR NOT IsStruct(form.order[1])>
+    <cfset form.order[1] = {}>
+</cfif>
+
+<!-- Setting default values for form.order elements -->
+<cfparam name="form.order[1].column" default="0">
+<cfparam name="form.order[1].dir" default="asc">
 
 <!--- Update columns array to only include the new columns --->
 <cfset columns = ["Gnrc_Name", "Year", "TotalSpending", "AverageSpendingPerBeneficiary"]>
-<cfif structKeyExists(form, "order[0][column]")>
-    <cfset orderColumnIndex = form["order[0][column]"]>
-    <cfset orderByDirection = form["order[0][dir]"]>
-<cfelse>
-    <cfset orderColumnIndex = 0>
-    <cfset orderByDirection = "asc">
-</cfif>
-<cfset orderByColumn = columns[orderColumnIndex + 1]>
 
-<!--- Check for the existence of searchValue --->
-<cfif structKeyExists(form, "searchValue")>
-    <cfset searchValue = form.searchValue>
-<cfelse>
-    <cfset searchValue = "">
-</cfif>
-
+<cfset orderColumnIndex = Val(form.order[1].column)>
+<cfset orderByDirection = form.order[1].dir>
+<cfset orderByColumn = columns[orderColumnIndex + 1]><cftry>
 <!--- Get the total number of records in the database --->
 <!--- NOTE: This may need adjustment based on new query specifics --->
 <cfquery name="totalCount" datasource="MedicareData">
@@ -101,4 +101,11 @@ FETCH NEXT <cfqueryparam value="#form.length#" cfsqltype="cf_sql_integer"> ROWS 
 </cfloop>
 
 <!--- Output the result as JSON --->
+<cfcontent type="application/json">
 <cfoutput>#serializeJSON(result)#</cfoutput>
+
+<cfcatch type="any">
+    <cfcontent type="application/json">
+    <cfoutput>{"error": "#cfcatch.message#"} </cfoutput>
+</cfcatch>
+</cftry>
