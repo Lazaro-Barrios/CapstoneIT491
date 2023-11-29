@@ -1,5 +1,5 @@
 // JavaScript code for generating the Medicare Enrollees chart
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function (){
     const yearsMedicare = Array.from({ length: 9 }, (_, i) => (2013 + i).toString());
     let ctxMedicare;
     let myChartMedicare;
@@ -139,4 +139,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
+});
