@@ -198,16 +198,6 @@ body .widget-container, body .widget-container2 {
     font-size: 20px;
 }
 
-@media (max-width: 768px) {
-    .widget-container {
-        padding: 10px;
-    }
-
-    .widget-header h2 {
-        font-size: 16px;
-    }
-}
-
 #dataTable {
     border: 1px solid #ddd;
     border-collapse: collapse;
@@ -364,6 +354,10 @@ body .widget-container, body .widget-container2 {
 }
 
 @media (max-width: 768px) {
+    .logo-text {
+        display: none;
+    }
+    
     .landing-content {
         height: auto;
         min-height: 100vh;
