@@ -9,6 +9,12 @@
 <cfparam name="url.password" default="jj4991">
 <cfparam name="url.servername" default="rdecapstone.culxbjvivqqs.us-east-2.rds.amazonaws.com,1433">
 
+<!--- Set headers to prevent caching of the response --->
+<cfheader name="Cache-Control" value="no-cache">
+<cfheader name="Pragma" value="no-cache">
+<cfheader name="Expires" value="-1">
+
+
 <!--- Construct the database connection string --->
 <cfset connectionString = "username=#url.username#;password=#url.password#;server=#url.servername#;database=MedicareData">
 

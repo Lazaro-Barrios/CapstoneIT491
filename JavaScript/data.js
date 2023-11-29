@@ -4,7 +4,7 @@ const MedicareSexData = [];
 // Function to fetch data from the ColdFusion page
 async function fetchData() {
     try {
-        const response = await fetch('medicareenrolleessexdata.cfm');
+        const response = await fetch('/demographicsapi/medicareenrolleessexdata.cfm');
         const data = await response.json();
         return data;
     } catch (error) {
