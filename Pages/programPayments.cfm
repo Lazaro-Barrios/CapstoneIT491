@@ -116,9 +116,9 @@
     <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/CapstoneIT491/JavaScript/programPayments/dataFetch.js"></script>
     <script src="/CapstoneIT491/JavaScript/script.js"></script>
     <script src="/CapstoneIT491/JavaScript/programPayments/utils.js"></script>
-    <script src="/CapstoneIT491/JavaScript/programPayments/dataFetch.js"></script>
     <script src="/CapstoneIT491/JavaScript/programPayments/tableRender.js"></script>
     <script src="/CapstoneIT491/JavaScript/programPayments/chartRender.js"></script>
 </body>

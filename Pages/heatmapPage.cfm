@@ -173,7 +173,7 @@
 
             </div>
         </div>
-        <script src="/CapstoneIT491/javaScript/script.js"></script> 
+        <script src="/CapstoneIT491/JavaScript/script.js"></script> 
         <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
         <script type="text/javascript" src="/CapstoneIT491/JavaScript/heatmap/uStates.js"></script>
         <script type="module" src="/CapstoneIT491/JavaScript/heatmap/index.js"></script>
