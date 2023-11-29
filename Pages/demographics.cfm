@@ -15,8 +15,9 @@
 
  <script src="/CapstoneIT491/JavaScript/programpayments.js"></script>
 <script src="/CapstoneIT491/JavaScript/medicareenrollees.js"></script>
-<script src="/JavaScript/data.js"></script>
+<script src="/CapstoneIT491/JavaScript/data.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.min.js"></script>
 
 
 
