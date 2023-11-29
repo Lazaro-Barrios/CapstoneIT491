@@ -362,6 +362,7 @@ body .widget-container, body .widget-container2 {
         height: auto;
         min-height: 100vh;
         padding: 20px;
+        font-family: "Ubuntu", sans-serif;
     }
 
     .landing-logo {
@@ -380,6 +381,7 @@ body .widget-container, body .widget-container2 {
 
     .landing-navigation-links a {
         font-size: 0.8em;
-        padding: 10px; 
+        padding: 10px;
+        font-family: "Ubuntu", sans-serif; 
     }
 }
