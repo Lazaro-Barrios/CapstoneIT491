@@ -1,0 +1,66 @@
+
+.card-info #card-info{
+	width:250px;
+	height:fit-content!important;
+	padding: 35px 35px 35px 35px ;
+    background-color: #ffffff;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0px 6px 61px 6px rgb(0 0 0 / 10%);
+	transition: transform ease 300ms;
+	overflow: hidden;
+  margin-top: 50px;
+}
+.card-info #card-info:hover{
+	    box-shadow: 0px 25px 68px 6px rgba(33, 159, 255, 0.433);
+	/* background:#ff0754; */
+  background: #4d749c;
+	transform: translate(0, -10px);
+}
+
+
+
+.card-info #my-icon {
+	color:#ff0754;
+	font-size:56px;
+	line-height: 56px;
+}
+
+.card-info #icon-2{
+   
+    display: none
+}
+.card-info #card-info:hover #icon-2{
+    display: block;
+}
+.card-info #card-info:hover #my-icon{
+     display: none;
+content: "\f117";
+	
+}
+
+.card-info #card-info:hover #main-title, #sub-title{
+    color: white;
+}
+.card-info #card-info:hover #sub-title{
+    color: white;
+}
+.card-info#main-title{
+	margin: 20px 0px;
+	font-family: "Nunito", Sans-serif;
+    font-weight: bold;
+    line-height: 10px;
+    font-weight: 700;
+    font-style: normal;
+    color: #333;
+    font-size: 20px;
+
+}
+.card-info #sub-title{
+	font-family: "Open Sans";
+    line-height: 26px;
+    font-style: normal;
+    color: #4b4b4b;
+    font-size: 16px;
+    height: 160px!important;
+    ;
+}

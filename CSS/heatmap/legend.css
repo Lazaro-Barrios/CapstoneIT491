@@ -1,0 +1,64 @@
+.component-legend #gradient-bar {
+	height: 200px;
+	width: 10px;
+	border-radius: 5px;
+	background: linear-gradient(#FF0000,#C0FECB,#80FBA0,#3CD76E,
+    #007E32);
+	display:flex;
+}
+.component-legend #gradient-bar2 {
+	height: 200px;
+	width: 10px;
+	border-radius: 5px;
+	background: linear-gradient(#004400,#008800,#08c208,#18f918,#80ff80);
+	display:flex;
+    flex-direction: row;
+}
+
+.legend-container{
+   position: relative;
+}
+.component-legend .card {
+	width: 100px;
+	/* color: white; */
+    color: green;
+	margin-left: 80px;
+ 
+}
+.legend2{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.component-legend #legend {
+	position: relative;
+}
+
+.component-legend .indicator, .indicator2 {
+	position: absolute;
+	top: 0;
+	left: 30px;
+}
+
+.component-legend .indicator::before, .indicatorsame::before {
+	content: "";
+	position: absolute;
+	bottom: 0.6em;
+	left: -20px;
+	right: 0px;
+	width: 1em;
+	border-top: 1.5px solid white;
+}
+.component-legend .scale {
+	position: relative;
+
+}
+
+.component-legend .card-body {
+	/* background-color: #2a4169; */
+  /* background-color: #4d749c; */
+}
+
+.card-info{
+    display: none;
+}

@@ -1,0 +1,158 @@
+.wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.legend-map-container{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.map-container{
+    flex: 4 1 40rem;
+    
+}
+.component-legend{
+    order: 1;
+}
+
+.table-container{
+    margin-top: 10rem;
+    display: flex;
+    text-align: center;
+    gap:10px
+}
+
+.table-container tr, th,thead{
+    text-align: center;
+}
+
+
+
+.green{
+	color:green
+}
+.red{
+	color:red;
+}
+/*.legend-map-container{
+    display: flex;
+    gap: 60px;
+     justify-content: center; 
+}
+
+.table-container{
+    display: flex;
+    gap:20px;
+    flex-wrap:nowrap;
+    justify-content: center;
+}
+
+
+
+
+.table-container .spent-most-container,.spent-least-container{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.component-legend{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+
+.wrapper{
+  display: flex;
+  flex-wrap: wrap;
+}
+*/
+
+.title_container{
+    /* background-color: #4d749c; */
+
+}
+.div-style{
+    background: #4d749c;
+    width: 10%;
+    margin: auto;
+    height: 3%;
+    margin-bottom: 1rem;
+}
+.main-title-container{
+     color: #4d749c;
+     margin-top: 1rem;
+
+
+}
+.div-style h5{
+    visibility: hidden;
+    
+}
+
+@media screen and (min-width: 100px) and (max-width: 300px) {
+  /* Your styles for this range */
+}
+
+/* Styles for width between 400 and 700 pixels */
+@media screen and (min-width: 400px) and (max-width: 600px) {
+  /* Your styles for this range */
+}
+
+/* Styles for width 900 pixels and above */
+
+  /* Your styles for this range */
+@media screen and (min-width: 700) {
+    body{
+        /* overflow: hidden; */
+    }
+    
+    /* #card-info{
+        padding: 15px 20px 20px 20px !important;
+    height: 310px;
+        overflow: hidden;
+    } */
+    .legend-map-container{
+        display: flex;
+        flex-direction: column;
+        /* background-color: red; */
+        justify-content: center;
+        /* flex-wrap: wrap; */
+    }
+    .component-legend{
+        display: flex;
+        flex-direction: row;
+        /* background-color: blue; */
+        flex: 1 1 10rem;
+        /* flex-wrap: wrap; */
+    }
+    .legend-container{
+        flex: 1 1 10rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+    }
+    .card-info{
+        /* background-color: blueviolet; */
+        flex:1 1 15rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+}
+@media screen and (max-width: 678){
+    body{
+        background-color: pink;
+    };
+}
