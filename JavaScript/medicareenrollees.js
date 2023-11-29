@@ -1,14 +1,6 @@
-const yearsMedicare = Array.from({ length: 9 }, (_, i) => (2013 + i).toString());
-    const MedicareData=[
-        6954321890, 2876543210, 1598746320, 2456789010, 1234567890,
-        3789012345, 9876543210, 5432109876, 1209876543, 8765432109,
-        2345678901, 5432109876, 9876543210, 6543210987, 1098765432,
-        8765432109, 5432109876, 9012345678, 6789012345, 3210987654,
-        5678901234, 8901234567, 4321098765, 7654321098, 2109876543,
-        8765432109, 5432109876, 9012345678, 6789012345, 3210987654
-    ];;
+// JavaScript code for generating the Medicare Enrollees chart
 document.addEventListener('DOMContentLoaded', function () {
-    
+    const yearsMedicare = Array.from({ length: 9 }, (_, i) => (2013 + i).toString());
     let ctxMedicare;
     let myChartMedicare;
 
@@ -50,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (selectedValue === 'race') {
             // Create the race-related Medicare Enrollees chart
-            
             ctxMedicare = document.getElementById('myChartMedicare').getContext('2d');
             myChartMedicare = new Chart(ctxMedicare, {
                 type: 'bar',
@@ -59,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     datasets: yearsMedicare.map((year, yearIndex) => {
                         return {
                             label: year,
-                            data: MedicareData,
+                            data: Array.from({ length: 7 }, () => getRandomMedicareEnrollees()),
                             backgroundColor: getColorForYearMedicare(yearIndex),
                             borderColor: 'rgba(75, 192, 192, 1)',
                             borderWidth: 1
@@ -70,7 +61,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         } else if (selectedValue === 'age') {
             // Create the age-related Medicare Enrollees chart
-            
             ctxMedicare = document.getElementById('myChartMedicare').getContext('2d');
             myChartMedicare = new Chart(ctxMedicare, {
                 type: 'bar',
@@ -79,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     datasets: yearsMedicare.map((year, yearIndex) => {
                         return {
                             label: year,
-                            data: MedicareData,
+                            data: Array.from({ length: 6 }, () => getRandomMedicareEnrollees()),
                             backgroundColor: getColorForYearMedicare(yearIndex),
                             borderColor: 'rgba(75, 192, 192, 1)',
                             borderWidth: 1
@@ -89,26 +79,35 @@ document.addEventListener('DOMContentLoaded', function () {
                 options: getChartOptions('Age Range', 'Medicare Enrollees')
             });
         } else if (selectedValue === 'sex') {
-            // Create the sex-related grouped bar chart
-           
-            ctxMedicare = document.getElementById('myChartMedicare').getContext('2d');
-            myChartMedicare = new Chart(ctxMedicare, {
-                type: 'bar',
-                data: {
-                    labels: ['Males', 'Females'],
-                    datasets: yearsMedicare.map((year, yearIndex) => {
-                        return {
-                            label: year,
-                            data: MedicareData,
-                            backgroundColor: getColorForYearMedicare(yearIndex),
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            borderWidth: 1
-                        };
-                    }),
-                },
-                options: getChartOptions('Sex')
-            });
-        } 
+            // AJAX request to get data from the ColdFusion file
+            const xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const sexMedicareData = JSON.parse(xhr.responseText);
+                    ctxMedicare = document.getElementById('myChartMedicare').getContext('2d');
+                    myChartMedicare = new Chart(ctxMedicare, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Males', 'Females'],
+                            datasets: yearsMedicare.map((year, yearIndex) => {
+                                return {
+                                    label: year,
+                                    data: sexMedicareData.DATA.map(row => row[yearIndex + 1]),
+                                    backgroundColor: getColorForYearMedicare(yearIndex),
+                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                    borderWidth: 1
+                                };
+                            }),
+                        },
+                        options: getChartOptions('Sex', 'Medicare Enrollees')
+                    });
+                }
+            };
+
+            xhr.open('GET', 'demographicsapi/medicareenrolleesexdata.cfm', true);
+            xhr.send();
+        }
     });
 
     // Function to get common chart options
@@ -137,4 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         };
     }
-});
+
+
+
+

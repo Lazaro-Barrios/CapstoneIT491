@@ -8,7 +8,7 @@ const dataset = [
 ];
 const years = Array.from({ length: 9 }, (_, i) => (2013 + i).toString());
 document.addEventListener('DOMContentLoaded', function () {
-    
+    const years = Array.from({ length: 9 }, (_, i) => (2013 + i).toString());
     let ctx;
     let myChart;
 
@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         chartDestroy();
         if (selectedValue === 'race') {
+            dataset=Array.from({ length: 7 }, () => getRandomProgramPayments());
             // Create the race-related grouped bar chart
            
             ctx = document.getElementById('myChart').getContext('2d');
@@ -74,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         } else if (selectedValue === 'age') {
             // Create the age-related grouped bar chart
-            
             ctx = document.getElementById('myChart').getContext('2d');
             myChart = new Chart(ctx, {
                 type: 'bar',
@@ -94,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         } else if (selectedValue === 'sex') {
             // Create the sex-related grouped bar chart
-           
             ctx = document.getElementById('myChart').getContext('2d');
             myChart = new Chart(ctx, {
                 type: 'bar',
