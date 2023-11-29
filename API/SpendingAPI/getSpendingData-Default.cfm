@@ -1,13 +1,13 @@
 <!-- Gets data for the default table -->
-<<!--- Set content type to JSON --->
+<!--- Set content type to JSON --->
 <cfcontent type="application/json">
 
 <!--- Parameters and Initial Setup --->
 <cfparam name="form.year" default="">
 <cfparam name="form.start" default="0">
 <cfparam name="form.length" default="10">
-<cfparam name="form.order[0][column]" default="0">
-<cfparam name="form.order[0][dir]" default="asc">
+<cfparam name="form.order[1]['column']" default="0">
+<cfparam name="form.order[1]['dir']" default="asc">
 
 <cfset columns = ["Brnd_Name", "Gnrc_Name", "Year", "TotalSpending", "TotalDosageUnits", "TotalBeneficiaries", "AverageSpendingPerBeneficiary"]>
 
