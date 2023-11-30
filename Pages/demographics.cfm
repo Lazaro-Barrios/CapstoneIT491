@@ -31,7 +31,7 @@
     <button id="enter">Enter</button>
 
     <div id="program-container">
-        <canvas id="myChart"></canvas>
+        <canvas id="myChartProgram"></canvas>
     </div>
 
     
