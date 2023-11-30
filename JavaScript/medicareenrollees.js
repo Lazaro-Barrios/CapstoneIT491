@@ -1,13 +1,8 @@
 const yearsMedicare = ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021'];
-const MedicareData = [
-    6954321890, 2876543210, 1598746320, 2456789010, 1234567890,
-    3789012345, 9876543210, 5432109876, 1209876543, 8765432109,
-    2345678901, 5432109876, 9876543210, 6543210987, 1098765432,
-    8765432109, 5432109876, 9012345678, 6789012345, 3210987654,
-    5678901234, 8901234567, 4321098765, 7654321098, 2109876543,
-    8765432109, 5432109876, 9012345678, 6789012345, 3210987654
-];
 
+
+
+//graph initialization
 document.addEventListener('DOMContentLoaded', function () {
 
     let ctxMedicare;
@@ -51,56 +46,73 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (selectedValue === 'race') {
             // Create the race-related Medicare Enrollees chart
-
             ctxMedicare = document.getElementById('myChartMedicare').getContext('2d');
             myChartMedicare = new Chart(ctxMedicare, {
                 type: 'bar',
                 data: {
-                    labels: ['White', 'Black', 'Asian', 'Hispanic', 'American-Indian', 'Other', 'Unknown'],
+                    labels: ['White', 'Black', 'Asian', 'Hispanic', 'American Indian', 'Other', 'Unknown'],
                     datasets: yearsMedicare.map((year, yearIndex) => {
+                        const whiteValue = MedicareWhiteData[yearIndex];
+                        const blackValue = MedicareBlackData[yearIndex];
+                        const asianValue = MedicareAsianData[yearIndex];
+                        const hispanicValue = MedicareHispanicData[yearIndex];
+                        const americanIndianValue = MedicareAmericanIndianData[yearIndex];
+                        const otherValue = MedicareOtherData[yearIndex];
+                        const unknownValue = MedicareUnknownData[yearIndex];
+        
                         return {
                             label: year,
-                            data: MedicareData,
+                            data: [whiteValue, blackValue, asianValue, hispanicValue, americanIndianValue, otherValue, unknownValue],
                             backgroundColor: getColorForYearMedicare(yearIndex),
                             borderColor: 'rgba(75, 192, 192, 1)',
                             borderWidth: 1
                         };
                     }),
                 },
-                options: getChartOptions('Race', 'Medicare Enrollees')
+                options: getChartOptions('Race')
             });
-        } else if (selectedValue === 'age') {
+        }
+         else if (selectedValue === 'age') {
             // Create the age-related Medicare Enrollees chart
-
             ctxMedicare = document.getElementById('myChartMedicare').getContext('2d');
             myChartMedicare = new Chart(ctxMedicare, {
                 type: 'bar',
                 data: {
                     labels: ['Under 18', '18-24', '25-34', '35-44', '45-54', '55-64'],
                     datasets: yearsMedicare.map((year, yearIndex) => {
+                        const under18Value = MedicareUnder18Data[yearIndex];
+                        const from18to24Value = MedicareFrom18to24Data[yearIndex];
+                        const from25to34Value = MedicareFrom25to34Data[yearIndex];
+                        const from35to44Value = MedicareFrom35to44Data[yearIndex];
+                        const from45to54Value = MedicareFrom45to54Data[yearIndex];
+                        const from55to64Value = MedicareFrom55to64Data[yearIndex];
+        
                         return {
                             label: year,
-                            data: MedicareData,
+                            data: [under18Value, from18to24Value, from25to34Value, from35to44Value, from45to54Value, from55to64Value],
                             backgroundColor: getColorForYearMedicare(yearIndex),
                             borderColor: 'rgba(75, 192, 192, 1)',
                             borderWidth: 1
                         };
                     }),
                 },
-                options: getChartOptions('Age Range', 'Medicare Enrollees')
+                options: getChartOptions('Age')
             });
-        } else if (selectedValue === 'sex') {
+        }
+         else if (selectedValue === 'sex') {
             // Create the sex-related grouped bar chart
-
             ctxMedicare = document.getElementById('myChartMedicare').getContext('2d');
             myChartMedicare = new Chart(ctxMedicare, {
                 type: 'bar',
                 data: {
                     labels: ['Males', 'Females'],
                     datasets: yearsMedicare.map((year, yearIndex) => {
+                        const maleValue = MaleDataMedicare[yearIndex];
+                        const femaleValue = FemaleDataMedicare[yearIndex];
+        
                         return {
-                            label: year,
-                            data: MedicareData,
+                            label: yearsMedicare[yearIndex],  
+                            data: [maleValue, femaleValue],   
                             backgroundColor: getColorForYearMedicare(yearIndex),
                             borderColor: 'rgba(75, 192, 192, 1)',
                             borderWidth: 1
@@ -109,44 +121,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 options: getChartOptions('Sex')
             });
-        }
+        }   
+        
     });
 
-    // Event listener for filter button click
-    document.getElementById('filterButtonMedicare').addEventListener('click', function () {
-        medicareChartDestroy();
-        let newYears = [];
 
-        // Get the selected years from checkboxes
-        yearsMedicare.forEach((year) => {
-            const checkbox = document.getElementById('yearMedicare' + year);
-            if (checkbox.checked) {
-                newYears.push(year);
-            }
-        });
-
-        // Recreate the chart with selected years
-        ctxMedicare = document.getElementById('myChartMedicare').getContext('2d');
-        myChartMedicare = new Chart(ctxMedicare, {
-            type: 'bar',
-            data: {
-                labels: ['White', 'Black', 'Asian', 'Hispanic', 'American-Indian', 'Other', 'Unknown'],
-                datasets: newYears.map((year, yearIndex) => {
-                    return {
-                        label: year,
-                        data: MedicareData,
-                        backgroundColor: getColorForYearMedicare(yearIndex),
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    };
-                }),
-            },
-            options: getChartOptions('Race', 'Medicare Enrollees')
-        });
-    });
 
     // Function to get common chart options
-    function getChartOptions(xAxisTitle, yAxisTitle) {
+    function getChartOptions(xAxisTitle) {
         return {
             scales: {
                 x: {
@@ -160,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     beginAtZero: true,
                     title: {
                         display: true,
-                        text: yAxisTitle
+                        text: 'Medicare Enrollees'
                     }
                 }
             },

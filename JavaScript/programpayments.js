@@ -1,12 +1,6 @@
 // programpayments.js
-let dataset = [
-    6954321890, 2876543210, 1598746320, 2456789010, 1234567890,
-    3789012345, 9876543210, 5432109876, 1209876543, 8765432109,
-    2345678901, 5432109876, 9876543210, 6543210987, 1098765432,
-    8765432109, 5432109876, 9012345678, 6789012345, 3210987654,
-    5678901234, 8901234567, 4321098765, 7654321098, 2109876543,
-    8765432109, 5432109876, 9012345678, 6789012345, 3210987654
-];
+
+
 
 const years = ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021'];
 
@@ -55,17 +49,25 @@ document.addEventListener('DOMContentLoaded', function () {
         chartDestroy();
 
         if (selectedValue === 'race') {
-            // Create the race-related grouped bar chart
-            dataset = Array.from({ length: 7 }, () => getRandomProgramPayments());
+            // Create the race-related grouped bar chart for Program Payments
+        
             ctx = document.getElementById('myChart').getContext('2d');
             myChartProgramPayments = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['White', 'Black', 'Asian', 'Hispanic', 'American-Indian', 'Other', 'Unknown'],
+                    labels: ['White', 'Black', 'Asian', 'Hispanic', 'American Indian', 'Other', 'Unknown'],
                     datasets: years.map((year, yearIndex) => {
+                        const whiteValue = ProgramWhiteData[yearIndex];
+                        const blackValue = ProgramBlackData[yearIndex];
+                        const asianValue = ProgramAsianData[yearIndex];
+                        const hispanicValue = ProgramHispanicData[yearIndex];
+                        const americanIndianValue = ProgramAmericanIndianData[yearIndex];
+                        const otherValue = ProgramOtherData[yearIndex];
+                        const unknownValue = ProgramUnknownData[yearIndex];
+        
                         return {
-                            label: year,
-                            data: dataset,
+                            label: years[yearIndex],
+                            data: [whiteValue, blackValue, asianValue, hispanicValue, americanIndianValue, otherValue, unknownValue],
                             backgroundColor: getColorForYear(yearIndex),
                             borderColor: 'rgba(75, 192, 192, 1)',
                             borderWidth: 1
@@ -74,36 +76,48 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 options: getChartOptions('Race')
             });
-        } else if (selectedValue === 'age') {
-            // Create the age-related grouped bar chart
+        }
+        else if (selectedValue === 'age') {
+            // Create the age-related grouped bar chart for Program Payments
+        
             ctx = document.getElementById('myChart').getContext('2d');
             myChartProgramPayments = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ageRanges,
+                    labels: ['Under 18', '18-24', '25-34', '35-44', '45-54', '55-64'],
                     datasets: years.map((year, yearIndex) => {
+                        const under18Value = ProgramUnder18Data[yearIndex];
+                        const from18to24Value = ProgramFrom18to24Data[yearIndex];
+                        const from25to34Value = ProgramFrom25to34Data[yearIndex];
+                        const from35to44Value = ProgramFrom35to44Data[yearIndex];
+                        const from45to54Value = ProgramFrom45to54Data[yearIndex];
+                        const from55to64Value = ProgramFrom55to64Data[yearIndex];
+        
                         return {
-                            label: year,
-                            data: ageDataset,
+                            label: years[yearIndex],
+                            data: [under18Value, from18to24Value, from25to34Value, from35to44Value, from45to54Value, from55to64Value],
                             backgroundColor: getColorForYear(yearIndex),
                             borderColor: 'rgba(75, 192, 192, 1)',
                             borderWidth: 1
                         };
                     }),
                 },
-                options: getChartOptions('Age Range')
+                options: getChartOptions('Age')
             });
-        } else if (selectedValue === 'sex') {
+        }
+         else if (selectedValue === 'sex') {
             // Create the sex-related grouped bar chart
             ctx = document.getElementById('myChart').getContext('2d');
             myChartProgramPayments = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Male', 'Female'],
+                    labels: ['Males', 'Females'],
                     datasets: years.map((year, yearIndex) => {
+                        const maleValue = MaleDataProgram[yearIndex] 
+                        const femaleValue = FemaleDataProgram[yearIndex] 
                         return {
-                            label: year,
-                            data: dataset,
+                            label: years[yearIndex],
+                            data: [maleValue, femaleValue],
                             backgroundColor: getColorForYear(yearIndex),
                             borderColor: 'rgba(75, 192, 192, 1)',
                             borderWidth: 1
@@ -113,6 +127,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 options: getChartOptions('Sex')
             });
         }
+        
+        
     });
 
     // Function to get common chart options
@@ -127,6 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 y: {
                     beginAtZero: true,
+                    
                     title: {
                         display: true,
                         text: 'Program Payments'
@@ -141,59 +158,6 @@ document.addEventListener('DOMContentLoaded', function () {
         };
     }
 
-    document.getElementById('filterButton').addEventListener('click', function () {
-        // Destroy the existing chart
-        chartDestroy();
-    
-        // Create an array to store the selected years
-        let newYears = [];
-    
-        // Determine the selected value
-        const selectedValue = document.getElementById('demographic').value;
-        let xAxis = [];
-    
-        // Loop through the years array
-        years.forEach(year => {
-            // Construct the corresponding checkbox ID
-            let checkboxId = 'year' + year;
-    
-            // Check if the checkbox is checked
-            let checkbox = document.getElementById(checkboxId);
-            if (checkbox && checkbox.checked) {
-                // If checked, add the year to the newYears array
-                newYears.push(year);
-            }
-        });
-    
-        // Set xAxis based on the selected value
-        if (selectedValue === 'sex') {
-            xAxis = ['Male', 'Female'];
-        } else if (selectedValue === 'age') {
-            xAxis = ['Under 18', '18-24', '25-34', '35-44', '45-54', '55-64'];
-        } else if (selectedValue === 'race') {
-            xAxis = ['White', 'Black', 'Asian', 'Hispanic', 'American-Indian', 'Other', 'Unknown'];
-        }
-    
-        // Recreate the chart with selected years and consistent x-axis
-        ctx = document.getElementById('myChart').getContext('2d');
-        myChartProgramPayments = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: xAxis,
-                datasets: newYears.map((year, yearIndex) => {
-                    return {
-                        label: year,
-                        data: dataset,
-                        backgroundColor: getColorForYear(yearIndex),
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    };
-                }),
-            },
-            options: getChartOptions('Program Payments')
-        });
-    });
-    
     
     
     

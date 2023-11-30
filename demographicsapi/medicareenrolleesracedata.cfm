@@ -9,9 +9,7 @@
 <cfheader name="Pragma" value="no-cache">
 <cfheader name="Expires" value="-1">
 
-
-
-<!--- Query the database to fetch distinct care types from the levelOfCare table --->
+<!--- Query the database to fetch race data from the Race_medicareEnrolle table --->
 <cfquery name="MedicareWhite" datasource="MedicareData">
     SELECT White FROM Race_medicareEnrolle ORDER BY Year
 </cfquery>
@@ -34,16 +32,64 @@
     SELECT Unknown FROM Race_medicareEnrolle ORDER BY Year
 </cfquery>
 
-<!--- Convert the query results to JSON format and output them --->
+<!--- Initialize arrays to store the results --->
+<cfset medicareWhiteArray = []>
+<cfset medicareBlackArray = []>
+<cfset medicareAsianArray = []>
+<cfset medicareHispanicArray = []>
+<cfset medicareAmericanIndianArray = []>
+<cfset medicareOtherArray = []>
+<cfset medicareUnknownArray = []>
+
+<!--- Set the delimiter for splitting values --->
+<cfset delimiter = ','>
+
+<!--- Split the White column into multiple parts using a delimiter (e.g., comma) --->
+<cfset medicareWhiteList = valueList(MedicareWhite.White)>
+<cfloop list="#medicareWhiteList#" index="medicareWhitePart" delimiters="#delimiter#">
+    <cfset medicareWhiteArray.append(listToArray(medicareWhitePart, delimiter))>
+</cfloop>
+
+<!--- Repeat the process for other race groups --->
+<cfset medicareBlackList = valueList(MedicareBlack.Black)>
+<cfloop list="#medicareBlackList#" index="medicareBlackPart" delimiters="#delimiter#">
+    <cfset medicareBlackArray.append(listToArray(medicareBlackPart, delimiter))>
+</cfloop>
+
+<cfset medicareAsianList = valueList(MedicareAsian.Asian)>
+<cfloop list="#medicareAsianList#" index="medicareAsianPart" delimiters="#delimiter#">
+    <cfset medicareAsianArray.append(listToArray(medicareAsianPart, delimiter))>
+</cfloop>
+
+<cfset medicareHispanicList = valueList(MedicareHispanic.Hispanic)>
+<cfloop list="#medicareHispanicList#" index="medicareHispanicPart" delimiters="#delimiter#">
+    <cfset medicareHispanicArray.append(listToArray(medicareHispanicPart, delimiter))>
+</cfloop>
+
+<cfset medicareAmericanIndianList = valueList(MedicareAmerican_Indian.American_Indian)>
+<cfloop list="#medicareAmericanIndianList#" index="medicareAmericanIndianPart" delimiters="#delimiter#">
+    <cfset medicareAmericanIndianArray.append(listToArray(medicareAmericanIndianPart, delimiter))>
+</cfloop>
+
+<cfset medicareOtherList = valueList(MedicareOther.Other)>
+<cfloop list="#medicareOtherList#" index="medicareOtherPart" delimiters="#delimiter#">
+    <cfset medicareOtherArray.append(listToArray(medicareOtherPart, delimiter))>
+</cfloop>
+
+<cfset medicareUnknownList = valueList(MedicareUnknown.Unknown)>
+<cfloop list="#medicareUnknownList#" index="medicareUnknownPart" delimiters="#delimiter#">
+    <cfset medicareUnknownArray.append(listToArray(medicareUnknownPart, delimiter))>
+</cfloop>
+
+<!--- Convert the arrays to JSON format and output them --->
 <cfoutput>
 {
- 
-    "Medicare White": #serializeJSON(MedicareWhite)#
-    "Medicare Black": #serializeJSON(MedicareBlack)#
-    "Medicare Asian": #serializeJSON(MedicareAsian)#
-    "Medicare Hispanic": #serializeJSON(MedicareHispanic)#
-    "Medicare American_Indian": #serializeJSON(MedicareAmerican_Indian)#
-    "Medicare Other": #serializeJSON(MedicareOther)#
-    "Medicare Unknown": #serializeJSON(MedicareUnknown)#
+    "Medicare White": #serializeJSON(medicareWhiteArray)#,
+    "Medicare Black": #serializeJSON(medicareBlackArray)#,
+    "Medicare Asian": #serializeJSON(medicareAsianArray)#,
+    "Medicare Hispanic": #serializeJSON(medicareHispanicArray)#,
+    "Medicare American_Indian": #serializeJSON(medicareAmericanIndianArray)#,
+    "Medicare Other": #serializeJSON(medicareOtherArray)#,
+    "Medicare Unknown": #serializeJSON(medicareUnknownArray)#
 }
 </cfoutput>
