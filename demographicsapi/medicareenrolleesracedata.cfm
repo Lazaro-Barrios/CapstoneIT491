@@ -44,13 +44,13 @@
 <!--- Set the delimiter for splitting values --->
 <cfset delimiter = ','>
 
-<!--- Split the White column into multiple parts using a delimiter (e.g., comma) --->
+<!--- Split  columns into multiple parts using a delimiter (e.g., comma) --->
 <cfset medicareWhiteList = valueList(MedicareWhite.White)>
 <cfloop list="#medicareWhiteList#" index="medicareWhitePart" delimiters="#delimiter#">
     <cfset medicareWhiteArray.append(listToArray(medicareWhitePart, delimiter))>
 </cfloop>
 
-<!--- Repeat the process for other race groups --->
+
 <cfset medicareBlackList = valueList(MedicareBlack.Black)>
 <cfloop list="#medicareBlackList#" index="medicareBlackPart" delimiters="#delimiter#">
     <cfset medicareBlackArray.append(listToArray(medicareBlackPart, delimiter))>
@@ -84,12 +84,12 @@
 <!--- Convert the arrays to JSON format and output them --->
 <cfoutput>
 {
-    "Medicare White": #serializeJSON(medicareWhiteArray)#,
-    "Medicare Black": #serializeJSON(medicareBlackArray)#,
-    "Medicare Asian": #serializeJSON(medicareAsianArray)#,
-    "Medicare Hispanic": #serializeJSON(medicareHispanicArray)#,
-    "Medicare American_Indian": #serializeJSON(medicareAmericanIndianArray)#,
-    "Medicare Other": #serializeJSON(medicareOtherArray)#,
-    "Medicare Unknown": #serializeJSON(medicareUnknownArray)#
+    "Medicare White Array": #serializeJSON(medicareWhiteArray)#,
+    "Medicare Black Array": #serializeJSON(medicareBlackArray)#,
+    "Medicare Asian Array": #serializeJSON(medicareAsianArray)#,
+    "Medicare Hispanic Array": #serializeJSON(medicareHispanicArray)#,
+    "Medicare American_Indian Array": #serializeJSON(medicareAmericanIndianArray)#,
+    "Medicare Other Array": #serializeJSON(medicareOtherArray)#,
+    "Medicare Unknown Array": #serializeJSON(medicareUnknownArray)#
 }
 </cfoutput>

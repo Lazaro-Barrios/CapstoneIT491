@@ -44,13 +44,13 @@
 <!--- Set the delimiter for splitting values --->
 <cfset delimiter = ','>
 
-<!--- Split the White column into multiple parts using a delimiter (e.g., comma) --->
+<!--- Split  columns into multiple parts using a delimiter (e.g., comma) --->
 <cfset programWhiteList = valueList(ProgramWhite.White)>
 <cfloop list="#programWhiteList#" index="programWhitePart" delimiters="#delimiter#">
     <cfset programWhiteArray.append(listToArray(programWhitePart, delimiter))>
 </cfloop>
 
-<!--- Repeat the process for other race groups --->
+
 <cfset programBlackList = valueList(ProgramBlack.Black)>
 <cfloop list="#programBlackList#" index="programBlackPart" delimiters="#delimiter#">
     <cfset programBlackArray.append(listToArray(programBlackPart, delimiter))>
