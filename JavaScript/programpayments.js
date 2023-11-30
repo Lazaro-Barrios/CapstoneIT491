@@ -5,7 +5,7 @@
 const years = ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021'];
 
 document.addEventListener('DOMContentLoaded', function () {
-    let ctxProgram;
+    let ctx;
     let myChartProgramPayments;
 
    
@@ -51,8 +51,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (selectedValue === 'race') {
             // Create the race-related grouped bar chart for Program Payments
         
-            ctxProgram = document.getElementById('myChartProgram').getContext('2d');
-            myChartProgramPayments = new Chart(ctxProgram, {
+            ctx = document.getElementById('myChart').getContext('2d');
+            myChartProgramPayments = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: ['White', 'Black', 'Asian', 'Hispanic', 'American Indian', 'Other', 'Unknown'],
@@ -80,8 +80,8 @@ document.addEventListener('DOMContentLoaded', function () {
         else if (selectedValue === 'age') {
             // Create the age-related grouped bar chart for Program Payments
         
-            ctxProgram = document.getElementById('myChartProgram').getContext('2d');
-            myChartProgramPayments = new Chart(ctxProgram, {
+            ctx = document.getElementById('myChart').getContext('2d');
+            myChartProgramPayments = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: ['Under 18', '18-24', '25-34', '35-44', '45-54', '55-64'],
@@ -107,8 +107,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
          else if (selectedValue === 'sex') {
             // Create the sex-related grouped bar chart
-            ctxProgram = document.getElementById('myChartProgram').getContext('2d');
-            myChartProgramPayments = new Chart(ctxProgram, {
+            ctx = document.getElementById('myChart').getContext('2d');
+            myChartProgramPayments = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: ['Males', 'Females'],
