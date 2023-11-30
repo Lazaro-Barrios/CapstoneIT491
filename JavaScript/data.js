@@ -184,8 +184,10 @@ ProgramAgefetchData(ProgramAgefileUrl)
         console.error(`Error fetching data from ${ProgramAgefileUrl}:`, error.message);
     });
 
-    // For Medicare Race
-function MedicareRacefetchData(MedicareRacefileUrl) {
+
+
+  // For Medicare Enrollees Race
+function MedicareEnrolleesRacefetchData(MedicareRacefileUrl) {
     return fetch(MedicareRacefileUrl)
         .then(response => {
             if (!response.ok) {
@@ -194,14 +196,18 @@ function MedicareRacefetchData(MedicareRacefileUrl) {
             return response.json();
         })
         .then(data => {
+        
+
             // Extract race data and flatten the arrays, converting values to integers
-            const MedicareWhiteData = data["Medicare White Array"].flat().map(Number);
-            const MedicareBlackData = data["Medicare Black Array"].flat().map(Number);
-            const MedicareAsianData = data["Medicare Asian Array"].flat().map(Number);
-            const MedicareHispanicData = data["Medicare Hispanic Array"].flat().map(Number);
-            const MedicareAmericanIndianData = data["Medicare American_Indian Array"].flat().map(Number);
-            const MedicareOtherData = data["Medicare Other Array"].flat().map(Number);
-            const MedicareUnknownData = data["Medicare Unknown Array"].flat().map(Number);
+            const flattenArray = arr => [].concat.apply([], arr.map(item => Array.isArray(item) ? flattenArray(item) : [item]));
+
+            const MedicareWhiteData = flattenArray(data["Medicare White Array"]).map(Number);
+            const MedicareBlackData = flattenArray(data["Medicare Black Array"]).map(Number);
+            const MedicareAsianData = flattenArray(data["Medicare Asian Array"]).map(Number);
+            const MedicareHispanicData = flattenArray(data["Medicare Hispanic Array"]).map(Number);
+            const MedicareAmericanIndianData = flattenArray(data["Medicare American_Indian Array"]).map(Number);
+            const MedicareOtherData = flattenArray(data["Medicare Other Array"]).map(Number);
+            const MedicareUnknownData = flattenArray(data["Medicare Unknown Array"]).map(Number);
 
             return {
                 MedicareWhiteData,
@@ -212,11 +218,15 @@ function MedicareRacefetchData(MedicareRacefileUrl) {
                 MedicareOtherData,
                 MedicareUnknownData
             };
+        })
+        .catch(error => {
+            console.error(`Error fetching data from ${MedicareRacefileUrl}:`, error.message);
+            throw error; // Re-throw the error for further handling
         });
 }
 
 // Fetch data
-MedicareRacefetchData(MedicareRacefileUrl)
+MedicareEnrolleesRacefetchData(MedicareRacefileUrl)
     .then(({ MedicareWhiteData, MedicareBlackData, MedicareAsianData, MedicareHispanicData, MedicareAmericanIndianData, MedicareOtherData, MedicareUnknownData }) => {
         console.log('Medicare White Data:', MedicareWhiteData);
         console.log('Medicare Black Data:', MedicareBlackData);
@@ -240,6 +250,7 @@ MedicareRacefetchData(MedicareRacefileUrl)
     });
 
 
+
     // For Program Race
 function ProgramRacefetchData(ProgramRacefileUrl) {
     return fetch(ProgramRacefileUrl)
@@ -251,14 +262,16 @@ function ProgramRacefetchData(ProgramRacefileUrl) {
         })
         .then(data => {
             // Extract race data and flatten the arrays, converting values to integers
-            const ProgramWhiteData = data["Program White Array"].flat().map(Number);
-            const ProgramBlackData = data["Program Black Array"].flat().map(Number);
-            const ProgramAsianData = data["Program Asian Array"].flat().map(Number);
-            const ProgramHispanicData = data["Program Hispanic Array"].flat().map(Number);
-            const ProgramAmericanIndianData = data["Program American_Indian Array"].flat().map(Number);
-            const ProgramOtherData = data["Program Other Array"].flat().map(Number);
-            const ProgramUnknownData = data["Program Unknown Array"].flat().map(Number);
-
+            const flattenArray = arr => [].concat.apply([], arr.map(item => Array.isArray(item) ? flattenArray(item) : [item]));
+            
+            const ProgramWhiteData = flattenArray(data["Program White Array"]).map(Number);
+            const ProgramBlackData = flattenArray(data["Program Black Array"]).map(Number);
+            const ProgramAsianData = flattenArray(data["Program Asian Array"]).map(Number);
+            const ProgramHispanicData = flattenArray(data["Program Hispanic Array"]).map(Number);
+            const ProgramAmericanIndianData = flattenArray(data["Program American_Indian Array"]).map(Number);
+            const ProgramOtherData = flattenArray(data["Program Other Array"]).map(Number);
+            const ProgramUnknownData = flattenArray(data["Program Unknown Array"]).map(Number);
+        
             return {
                 ProgramWhiteData,
                 ProgramBlackData,
@@ -269,6 +282,7 @@ function ProgramRacefetchData(ProgramRacefileUrl) {
                 ProgramUnknownData
             };
         });
+        
 }
 
 // Fetch data
