@@ -1,0 +1,167 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    font-family: "Ubuntu", sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+.navbar {
+    height: auto;
+    padding: 30px 40px;
+    background-color: #4d749c;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.menu-links {
+    display: flex;
+    gap: 24px;
+}
+
+.menu-links a {
+    font-weight: 500;
+    color: white;
+    position: relative;
+    padding: 8px 16px;
+}
+
+.menu-links a::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: white;
+    transition: width 0.3s;
+}
+
+.menu-links a:hover::before,
+.menu-links a:focus::before {
+    width: 100%;
+}
+
+.menu-btn {
+    display: none;
+    cursor: pointer;
+    color: white;
+}
+
+.menu-btn {
+    display: none;
+    cursor: pointer;
+    position: relative;
+}
+
+/* Active link styling */
+.menu-links a.active {
+    color: white; /* or any other color to indicate active page */
+    border-bottom: 2px solid white; /* underline for active link */
+}
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #4d749c;
+    min-width: 160px;
+    z-index: 1;
+    flex-direction: column;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    padding: 12px 16px;
+    display: block;
+    color: white;
+}
+
+.dropdown-content a:hover {
+    background-color: #3e5f7c;
+}
+
+.show {
+    display: flex;
+}
+
+@media (max-width: 53rem) {
+    .menu {
+        display: none;
+    }
+
+    .menu-btn {
+        display: flex;
+    }
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    background-color: #4d749c;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 50%;
+    color: white;
+}
+.close-btn:hover {
+    background-color: #3a5a7c;
+}
+
+#program-container, #medicare-container
+    {
+       
+        width: 90%;
+        height: 900px;
+        position:relative;
+        padding-top: 10px;
+        padding-bottom: 15px;
+        padding-left: 400px;
+    }
+    h1,h2{ 
+        padding-left: 500px;
+        color: #4d749c;
+        font-size: 30px;
+    }
+    h1{
+        font-size: 50px;
+        font-weight: bold;
+    }
+
+
+.back-link{padding-top:10px;}
+#medicare-container{
+    padding-top:10px;
+}
+
+@media (max-width: 53rem) {
+    .menu {
+        display: none;
+    }
+
+    .menu-btn {
+        display: flex;
+    }
+}
