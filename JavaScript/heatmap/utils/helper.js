@@ -36,7 +36,7 @@ export function tooltipHtml(n, d) {	/* function to create html content string in
 };
 export function tooltipHtml2(n, d) {	/* function to create html content string in tooltip div. */
 	return "<h4>" + n + "</h4><table>" +
-		"<tr><td>total</td><td>" + (d.paid) + "</td></tr>" +
+		"<tr><td>Total</td><td>" + (d.paid) + "</td></tr>" +
 		"</table>";
 };
 
@@ -56,7 +56,7 @@ export async function getTheTables(data,bottomFive,topFive,tableMost, tableLeast
                             <th>${getDollarFormat(state[1])}</th>
                         </tr>`
             })
-            most_table.unshift(`<thead><tr><th>Rank</th><th>State</th><th>Most Money Spent</th></tr></thead>`);
+            most_table.unshift(`<thead><tr><th>Rank</th><th>State</th><th>Total</th></tr></thead>`);
             tableMost.innerHTML = most_table.join(' ');
         
 
@@ -74,7 +74,7 @@ export async function getTheTables(data,bottomFive,topFive,tableMost, tableLeast
             least_table.unshift(`<thead><tr>
                             <th>Rank</th>
                             <th>State</th>
-                            <th>Least Money Spent</th>
+                            <th>Total</th>
                         </tr></thead>`)
             least_table.join(' ');
             tableLeast.innerHTML = least_table.join(' ')
@@ -192,7 +192,7 @@ export function getDollarFormat(num){
 
 
 export function getSameYearLegend(year1, year2, highest, lowest, highDiv,lowDiv){
-    if(year1 == year2){
+    if(year1 == year2 || !year2){
          
         highDiv.textContent = highest;
         lowDiv.textContent = lowest;

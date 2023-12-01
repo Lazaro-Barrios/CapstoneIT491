@@ -83,18 +83,20 @@ drawMap();
     
 
 function drawMap(){
+
+    if(year1.value == year2.value || !year2.value){
+        document.querySelector('.table-title1').textContent = 'Highest Spending States'
+        document.querySelector('.table-title2').textContent ='Least Spending States'
+    }
+    else{
+        document.querySelector('.table-title1').textContent='Highest Changes In Spending'
+        document.querySelector('.table-title2').textContent='Least Changes In Spending'
+    }
     
     showOrHideLegends(legend1,legend2,year1.value,year2.value);
-    // const yearInQuestion = tablesInfo[year1.value-2015];
-    // const amountLeastspent = yearInQuestion['bottom_states']['DATA'][0][1];
-    // const amountMostspent = yearInQuestion['top_states']['DATA'][0][1];
-    // const difference =  amountMostspent-amountLeastspent
-    // const partition = difference/20;
     
-    // console.log(amountMostspent,amountLeastspent,difference,partition*20);
     const sameYearStats = getSameYearStats(year1.value,year2.value,tablesInfo);
     getSameYearLegend(year1.value,year2.value,getDollarFormat(sameYearStats.most),getDollarFormat(sameYearStats.least),highestsameYearDiv, lowestSameYearDiv)
-    // console.log(sameYearStats);
     
     
     var sampleData = {};	/* Sample random data. */
