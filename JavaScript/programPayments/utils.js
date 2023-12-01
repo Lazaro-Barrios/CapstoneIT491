@@ -2,6 +2,10 @@ function toTitleCase(str) {
     return str.toLowerCase().replace(/\b(\w)/g, s => s.toUpperCase());
 }
 
+const yearFilter = document.querySelector('.year-filter');
+const careFilter = document.querySelector('.care-filter')
+fetchYearsAndCareTypes(yearFilter, careFilter);
+
 // Function to populate a dropdown with given data
 function populateDropdown(dropdown, data, isCareType = false) {
     let optionsHTML = '';

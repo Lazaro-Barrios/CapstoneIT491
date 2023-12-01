@@ -5,11 +5,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const dropdown = document.querySelector('.dropdown-content');
     const closeMenu = document.getElementById('closeMenu');
     
-    // References to DOM elements for the filters and button
-    const yearFilter = document.querySelector('.year-filter');
-    const careFilter = document.querySelector('.care-filter');
-    //const fetchDataButton = document.getElementById('fetchDataButton');
-
     // Toggle the dropdown menu when the menu button is clicked
     menuBtn.addEventListener('click', () => {
         dropdown.classList.toggle('show');
@@ -20,10 +15,4 @@ document.addEventListener("DOMContentLoaded", function() {
         dropdown.classList.remove('show');
         event.stopPropagation(); // Prevent event from bubbling up to menuBtn
     });
-
-    // Fetch distinct years and care types when the page loads
-    fetchYearsAndCareTypes(yearFilter, careFilter);
-
-    // Fetch data based on selected filters when the button is clicked
-    //fetchDataButton.addEventListener('click', () => fetchData(yearFilter, careFilter));
 });
