@@ -1,19 +1,11 @@
 const yearsMedicare = ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021'];
-
-
-
-//graph initialization
 document.addEventListener('DOMContentLoaded', function () {
-
     let ctxMedicare;
     let myChartMedicare;
+    const MedicareTitleElement = document.getElementById('MedicareTitle');
 
-    // Function to generate random numbers for Medicare Enrollees chart
-    function getRandomMedicareEnrollees() {
-        return Math.floor(Math.random() * (10000000000 - 500000000 + 1)) + 500000000;
-    }
 
-    // Function to get color for each year in Medicare Enrollees chart
+   // colors for years in graphs
     function getColorForYearMedicare(yearIndex) {
         const colors = [
             'rgba(75, 192, 192, 0.5)',
@@ -30,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return colors[yearIndex % colors.length];
     }
 
-    // Function to destroy the existing Medicare Enrollees chart
+    // Function to destroy the existing  chart
     function medicareChartDestroy() {
         if (myChartMedicare) {
             myChartMedicare.destroy();
@@ -40,8 +32,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Event listener for button click
     document.getElementById('enter').addEventListener('click', function () {
+        //Grab Demographic
         const selectedValue = document.getElementById('demographic').value;
 
+        
+        //Add Title
+        if (MedicareTitleElement) {
+    
+            if (!MedicareTitleElement.textContent.trim()) {
+                
+                MedicareTitleElement.textContent = 'Medicare Enrollees Graph';
+            } else {
+                console.log('Element already has content:', MedicareTitleElement.textContent);
+            }
+        } else {
+            console.error('Element with id "ProgramTitle" not found.');
+        }
+
+    //Destroy Existing Charts
         medicareChartDestroy();
 
         if (selectedValue === 'race') {

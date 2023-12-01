@@ -23,19 +23,20 @@
     <h1>Demographics</h1>
     
     <label for="demographic">Choose Your Demographic</label>
-    <select name="demographic" id="demographic">
+    <select name="demographic" id="demographic"  >
         <option value="age">Age</option>
         <option value="race">Race</option>
         <option value="sex">Sex</option>
     </select>
     <button id="enter">Enter</button>
 
+    <h2 id='ProgramTitle'></h2>
     <div id="program-container">
         <canvas id="myChart"></canvas>
     </div>
 
     
-
+<h2 id='MedicareTitle'></h2>
     <div id="medicare-container">
         <canvas id="myChartMedicare"></canvas>
     </div>

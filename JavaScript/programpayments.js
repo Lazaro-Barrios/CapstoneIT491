@@ -1,14 +1,10 @@
-// programpayments.js
-
-
-
 const years = ['2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021'];
-
 document.addEventListener('DOMContentLoaded', function () {
     let ctx;
     let myChartProgramPayments;
+    const programTitleElement = document.getElementById('ProgramTitle');
 
-   
+   // colors for years in graphs
     function getColorForYear(yearIndex) {
         const colors = [
             'rgba(75, 192, 192, 0.5)',
@@ -25,14 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return colors[yearIndex % colors.length];
     }
 
-    // Function to generate random numbers between 500 million and 6 billion
-    function getRandomProgramPayments() {
-        return Math.floor(Math.random() * (10000000000 - 500000000 + 1)) + 500000000;
-    }
-
-    // Generate a separate dataset for age-related chart
-    const ageRanges = ['Under 18', '18-24', '25-34', '35-44', '45-54', '55-64'];
-    let ageDataset = ageRanges.map(() => getRandomProgramPayments());
+ 
 
     // Function to destroy the existing chart
     function chartDestroy() {
@@ -44,8 +33,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Event listener for button click
     document.getElementById('enter').addEventListener('click', function () {
+        //Grab Demographic
         const selectedValue = document.getElementById('demographic').value;
 
+    //Add Title
+       if (programTitleElement) {
+    
+    if (!programTitleElement.textContent.trim()) {
+        
+        programTitleElement.textContent = 'Program Payments Graph';
+    } else {
+        console.log('Element already has content:', programTitleElement.textContent);
+    }
+} else {
+    console.error('Element with id "ProgramTitle" not found.');
+}
+
+// Destroy Existing Charts
         chartDestroy();
 
         if (selectedValue === 'race') {
@@ -146,7 +150,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     
                     title: {
                         display: true,
-                        text: 'Program Payments'
+                        text: 'Program Payments',
+                        
                     }
                 }
             },
