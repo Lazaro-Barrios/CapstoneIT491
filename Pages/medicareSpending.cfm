@@ -27,19 +27,19 @@
     <script src="../JavaScript/spending.js"></script>
 
 </head>
-<body style="background-color: #dadada">
+<body style="background-color: #dfe2e5">
 <cfinclude template="../features/navbar.cfm">
 
 
 <div style="text-align: center;">
     <h1 style="
-        display: inline-block; /* Inline-block will allow you to position the question mark relative to the h1 */
+        display: inline-block;
         font-size: 3rem;
-        position: relative; /* Relative positioning for h1 to place the question mark relative to it */
+        position: relative;
         padding-top: 5px;
     ">
         Medicare Part D Spending by Drug
-        <div class="question-image-wrapper" style="display: inline-block; width: 25px; height: 25px; position: absolute; top: 0; right: -30px;">
+        <div class="question-image-wrapper" style="display: inline-block; width: 25px; height: 25px; position: relative; top: 10px; right: 5px;">
             <img src="../images/question.png" class="questionImage" alt="normal" onclick="openQuestionModal()" style="width:25px; height:25px;"/>
             <img src="../images/question-inverted.png" class="questionImage-hover" alt="hover" onclick="openQuestionModal()" style="width:25px; height:25px;"/>
         </div>
@@ -65,8 +65,9 @@
                     <li>Toggle "Group by Generic Name" to have the table show a consolidated view of all drugs by brand name with consolidated data, such as total spending among all brands.</li>
                     <li>Click on a Brand Name to see a line chart of the Average Spending Per Beneficiary for that specific drug.</li>
                     <li>Click on a Generic Name to see a table of all the different drug brand and manufacturer names along with their total spending by year.</li>
-                    <li>Other useful features include a search bar that searches by both Generic and Brand name, the ability to sort each column by ascending/descending view, and changing how many drugs are shown on each table page.</li>
+                    <li>Other useful features include a search bar that searches by both Generic and Brand name, the ability to sort each column by ascending/descending view, and change how many drugs are shown on each table page.</li>
                 </ul>
+                <p>Data is sourced from the Centers for Medicare & Medicare Services <a href="https://data.cms.gov/summary-statistics-on-use-and-payments/medicare-medicaid-spending-by-drug/medicare-part-d-spending-by-drug" target="_blank">(data.cms.gov)</a></p>
             </div>
         </div>
     </div>
@@ -74,7 +75,7 @@
 
 
 <br>
-<div id="tableSettings">
+<div id="tableSettings" class="mainContent">
     <select id="SpendingYear" name="year">
         <option value="" disabled selected>Select Year</option>
         <option value="">All Years</option>
@@ -90,7 +91,7 @@
 
 </div>
 
-<div>
+<div class="mainContent">
 <!--- The Default Table Structure --->
     <table id="dataTable" class="display">
         <thead>
@@ -98,7 +99,7 @@
         <tbody></tbody>
     </table>
 
-    <!-- New Bootstrap Modal for Spending Data Table Display -->
+    <!-- Bootstrap Modal for Spending Data Table Display -->
     <div class="modal fade" id="spendingModal" tabindex="-1" role="dialog" aria-labelledby="spendingModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document"> <!-- Added modal-lg for larger modal -->
             <div class="modal-content">
@@ -108,7 +109,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body secondTable">
                     <!-- Table for displaying the spending data -->
                     <table id="modalDataTable" class="table">
                         <thead>
