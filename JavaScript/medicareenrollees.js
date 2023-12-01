@@ -140,25 +140,34 @@ document.addEventListener('DOMContentLoaded', function () {
         return {
             scales: {
                 x: {
-                    stacked: false,
                     title: {
                         display: true,
-                        text: xAxisTitle
+                        text: xAxisTitle,
+                        font: { size: 20 },
+                        padding: { top: 20, bottom: 20 }
                     }
                 },
                 y: {
                     beginAtZero: true,
                     title: {
                         display: true,
-                        text: 'Medicare Enrollees'
+                        text: 'Medicare Enrollees (Billions)',
+                        font: { size: 16 },
+                        padding: { top: 10, bottom: 10 }
+                    },
+                    ticks: {
+                        callback: function (value) {
+                            return value / 1000000000 + 'B';
+                        },
+                        stepSize: 250000000,
                     }
                 }
             },
             plugins: {
                 legend: {
                     position: 'bottom',
-                }
+                },
             }
         };
     }
-});
+})

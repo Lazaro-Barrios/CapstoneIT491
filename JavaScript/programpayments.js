@@ -142,28 +142,34 @@ document.addEventListener('DOMContentLoaded', function () {
                 x: {
                     title: {
                         display: true,
-                        text: xAxisTitle
+                        text: xAxisTitle,
+                        font: { size: 20 },
+                        padding: { top: 20, bottom: 20 }
                     }
                 },
                 y: {
                     beginAtZero: true,
-                    
                     title: {
                         display: true,
-                        text: 'Program Payments',
-                        
+                        text: 'Program Payments (Billions)',
+                        font: { size: 16 },
+                        padding: { top: 10, bottom: 10 }
+                    },
+                    ticks: {
+                        callback: function (value) {
+                            return value / 1000000000 + 'B';
+                        },
+                        stepSize: 250000000,
                     }
                 }
             },
             plugins: {
                 legend: {
                     position: 'bottom',
-                }
+                },
             }
         };
     }
-
-    
     
     
 }) 
