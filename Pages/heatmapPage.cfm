@@ -19,12 +19,12 @@
 <body>
     <cfinclude template="../features/navbar.cfm">
         <div class="wrapper">
-             <div class="main-title-container">
+             <div class="main-title-container container-background">
                 <h2>State Medicare Payment Per Enrollee</h2>
 
             </div>
-            <div class="div-style"><h5>h</h5></div>
-
+            
+             <div>Select Year</div>
             <div class="components_container">
 
                 <div class="select_component">
@@ -65,7 +65,8 @@
 
            
 
-            <div class="legend-map-container">
+            <div class="legend-map-container container-background">
+               
 
                 <div class="map-container">
                     <div id="tooltip"></div><!-- div to hold tooltip. -->
@@ -135,16 +136,16 @@
 
 
                     
-                    <div class="title_container">
+                    <div class="title_container container-background">
 
                         <div class="one green">
-                            <h3>Highest Changes (+)&#8593</h3>
+                            <h3><span class='table-title1'></span>&#8593;</h3>
                         </div>
 
                     </div>
-                    <div class="div-style"></div>
+                   
                     
-                    <div class="spent-most">
+                    <div class="spent-most container-background">
                         <table class="most-table content-table">
 
 
@@ -154,16 +155,16 @@
 
                 <div class='spent-least-container'>
 
-                    <div class="title_container">
+                    <div class="title_container container-background">
 
                         <div class="one red">
-                            <h3>Lowest Changes (-)&#8595;</h3>
+                            <h3><span class='table-title2'></span>&#8595;</h3>
                         </div>
 
                     </div>
-                    <div class="div-style"></div>
+                
 
-                    <div class='spent-least'>
+                    <div class='spent-least container-background'>
                         <table class="least-table content-table">
 
                         </table>
