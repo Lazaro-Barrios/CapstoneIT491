@@ -39,7 +39,7 @@
         padding-top: 5px;
     ">
         Medicare Part D Spending by Drug
-        <div class="question-image-wrapper" style="display: inline-block; width: 25px; height: 25px; position: absolute; top: 0; right: -30px;">
+        <div class="question-image-wrapper" style="display: inline-block; width: 25px; height: 25px; position: relative; top: 10px; right: 5px;">
             <img src="../images/question.png" class="questionImage" alt="normal" onclick="openQuestionModal()" style="width:25px; height:25px;"/>
             <img src="../images/question-inverted.png" class="questionImage-hover" alt="hover" onclick="openQuestionModal()" style="width:25px; height:25px;"/>
         </div>
@@ -67,6 +67,7 @@
                     <li>Click on a Generic Name to see a table of all the different drug brand and manufacturer names along with their total spending by year.</li>
                     <li>Other useful features include a search bar that searches by both Generic and Brand name, the ability to sort each column by ascending/descending view, and change how many drugs are shown on each table page.</li>
                 </ul>
+                <p>Data is sourced from the Centers for Medicare & Medicare Services <a href="https://data.cms.gov/summary-statistics-on-use-and-payments/medicare-medicaid-spending-by-drug/medicare-part-d-spending-by-drug" target="_blank">(data.cms.gov)</a></p>
             </div>
         </div>
     </div>
@@ -74,7 +75,7 @@
 
 
 <br>
-<div id="tableSettings">
+<div id="tableSettings" class="mainContent">
     <select id="SpendingYear" name="year">
         <option value="" disabled selected>Select Year</option>
         <option value="">All Years</option>
@@ -90,7 +91,7 @@
 
 </div>
 
-<div>
+<div class="mainContent">
 <!--- The Default Table Structure --->
     <table id="dataTable" class="display">
         <thead>
@@ -108,7 +109,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body secondTable">
                     <!-- Table for displaying the spending data -->
                     <table id="modalDataTable" class="table">
                         <thead>

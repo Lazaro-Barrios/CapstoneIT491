@@ -262,7 +262,8 @@ td {
 
 /* Centers the Generic Name modal */
 #spendingModal .modal-content {
-    width: 175%;
+    width: 90%;
+    margin-top: 2%;
     max-width: none;
     transform: translateX(-50%);
     left: 50%;
@@ -305,3 +306,113 @@ td {
     display: block;
     opacity: 1;
 }
+
+.mainContent {
+    width: auto;
+    padding:0 1% 0 1%;
+}
+
+@media only screen and (max-width: 848px) {
+    .mainContent {
+        width: auto;
+        padding: 0 0 0 0;
+    }
+    .dataTables_wrapper {
+        overflow-x: auto;
+    }
+    th.sorting {
+        font-size: 75%;
+    }
+}
+
+
+
+#spendingModal .modal-dialog {
+    max-width: 100%;
+    width: auto;
+    margin: 0;
+}
+
+#spendingModal .modal-body {
+    overflow-x: auto;
+}
+
+#modalDataTable {
+    width: 100%;
+    min-width: 600px;
+}
+
+.dataTables_wrapper {
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+    #spendingModal .modal-dialog {
+        margin: 0 10px;
+    }
+
+    #spendingModal .modal-body {
+        padding: 0;
+    }
+
+    #modalDataTable {
+        min-width: 800px; /* This should be adjusted to the total width of all columns combined */
+    }
+}
+
+
+
+
+@media only screen and (max-width: 600px) and (min-width: 375px) {
+    .mainContent {
+        width: auto;
+        padding: 0 0 0 0;
+    }
+    #dataTable {
+        width: 600px !important;
+    }
+    .dataTables_wrapper {
+        overflow-x: auto;
+        width: 100%;
+    }
+    #spendingModal .modal-content {
+        margin: 10% 0 10% 0;
+        max-width: 402px;
+        min-width: 380px;
+    }
+    td#modalTableBody, th#modalTableBody {
+        min-width: 150px;
+    }
+    #modalTableBody > tr > td,
+    #modalDataTable_wrapper > div.dataTables_scroll > div.dataTables_scrollHead > div > table > thead > tr > th{
+        width: 52px !important;
+    }
+    table.secondTable {
+        width: 800px;
+        margin: 0 auto;
+        overflow-x: auto;
+    }
+}
+
+@media only screen and (max-width: 433px) and (min-width: 396px) {
+    .question-image-wrapper {
+        top: 97px !important;
+        right: -180px !important;
+    }
+}
+
+@media only screen and (min-width: 1100px) {
+    select#SpendingYear {
+        position: absolute;
+        left: 200px;
+        top: 220px;
+        z-index: 1;
+    }
+    #tableSettings > label {
+        position: absolute;
+        left: 520px;
+        top: 220px;
+        z-index: 1;
+    }
+}
+
