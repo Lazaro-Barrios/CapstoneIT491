@@ -7,6 +7,7 @@
     <title>Medicare Spending</title>
 
     <link rel="stylesheet" href="/CapstoneIT491/CSS/spendingStyle.css">
+    <link rel="stylesheet" href="/CapstoneIT491/CSS/styles.css">
     <!---<script src="../JavaScript/script.js"></script>--->
 
     <!-- I don't remember what this one is for? It doesn't seem to actually do anything -->
